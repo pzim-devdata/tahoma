@@ -19,11 +19,11 @@ from pyoverkiz.const import SUPPORTED_SERVERS
 from pyoverkiz.client import OverkizClient
 from pyoverkiz.enums import OverkizCommand
 from pyoverkiz.models import Command
-from tahoma import __version__
+import __version__
 
 
 def main():
-    version ='tahoma - Version '+ str(__version__.__version__)+' - by @pzim-devdata'
+    version ='tahoma - portable Version '+ str(__version__.__version__)+' - by @pzim-devdata'
 
     icon_app = os.path.dirname(os.path.abspath(__file__))+'/icons/connected_house.png'
     icon_chauffe_eau=os.path.dirname(os.path.abspath(__file__))+'/icons/water heater.png'
@@ -63,7 +63,7 @@ def main():
     def info():
         print( "" )
         print( "      ***************************************************************      " )
-        print( "------*       "+version+"            *-------" )
+        print( "------*     "+version+"     *-------" )
         print( "      ***************************************************************        " )
         print( "              sudo python3 -m pip install tahoma-pzim -U" )
         print( "                   https://pypi.org/project/tahoma/" )
@@ -124,7 +124,7 @@ def main():
     for arg in sys.argv :
         if arg == '-g' or arg == '--getlist' :
             try :
-                from tahoma import get_devices_url
+                import get_devices_url
                 exit()
             except Exception as e: 
                 print(e)
