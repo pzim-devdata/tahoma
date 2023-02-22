@@ -14,6 +14,8 @@ IF YOU WANT TO INSTALL THE PACKAGE USING PyPi (pip version) go there : [HOW TO P
 
 # Download the folder and extract it :
 
+https://github.com/pzim-devdata/tahoma/archive/refs/heads/main.zip
+
 # Start the app :
 
 Run in your imported folder : `python3 tahoma.py`
