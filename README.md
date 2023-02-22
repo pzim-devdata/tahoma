@@ -10,8 +10,8 @@ It was created with Tahoma but can also works with Somfy Connectivity Kit, Conne
 [![GitHub license](https://img.shields.io/github/license/pzim-devdata/tahoma?style=plastic)](https://github.com/pzim-devdata/tahoma/blob/main/LICENSE)    ![](https://img.shields.io/badge/Works%20with-Python%203-red?style=plastic)    [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg?style=plastic)](https://www.python.org/)   [![GitHub issues](https://img.shields.io/github/issues/pzim-devdata/tahoma?style=plastic)](https://github.com/pzim-devdata/tahoma/issues)    ![GitHub repo size](https://img.shields.io/github/repo-size/pzim-devdata/tahoma?style=plastic)    ![GitHub All Releases](https://img.shields.io/github/downloads/pzim-devdata/tahoma/total?style=plastic)    ![GitHub release (latest by date)](https://img.shields.io/github/v/release/pzim-devdata/tahoma?style=plastic)    [![GitHub commits](https://img.shields.io/github/commits-since/pzim-devdata/tahoma/v2.0.0.svg?style=plastic)](https://GitHub.com/pzim-devata/tahoma/commit/)
 
 THIS IS THE PORTABLE VERSION FOR DIRECT DOWNLOADING. IT'S NOT AN INSTALLED PACKAGE. TO RUN THE APP JUST EXECUTE IN YOUR IMPORTED FOLDER `python3 tahoma.py`
-IF YOU WANT TO INSTALL THE PACKAGE USE PyPi (pip version) go there : [HOW TO PIP INSTALL ?](github.com/pzim-devdata/tahoma/blob/main/README.md?plain=1#L120)
-
+IF YOU WANT TO INSTALL THE PACKAGE USE PyPi (pip version) go there : [HOW TO PIP INSTALL ?](?plain=1#L120)
+https://github.com/pzim-devdata/tahoma/blob/main/README.md
 # Download the folder and extract it :
 
 # Start the app :
