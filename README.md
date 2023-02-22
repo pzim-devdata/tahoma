@@ -18,7 +18,11 @@ https://github.com/pzim-devdata/tahoma/archive/refs/heads/main.zip
 
 # Start the app :
 
-Run in your imported folder : `python3 tahoma.py`
+Run in your imported folder : 
+
+- `python3 - pip install -r requirements.txt` to install dependencies
+and
+- `python3 tahoma.py` for being sure than tahoma starts
 
 # Configure :
 
