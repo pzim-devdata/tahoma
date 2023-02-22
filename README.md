@@ -22,7 +22,7 @@ Run in your imported folder :
 
 - `python3 -m pip install -r requirements.txt` in order to install dependencies
 and
-- `python3 tahoma.py` for being sure than tahoma starts
+- `python3 tahoma.py` for being sure that tahoma starts
 
 # Configure :
 
