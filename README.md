@@ -6,6 +6,7 @@ It was created with Tahoma but can also works with Somfy Connectivity Kit, Conne
 
 ![Somfy](https://www.voletsdusud.com/wp-content/uploads/2018/04/logo-tahoma.jpg)
 
+[![Visits Badge](https://badges.pufler.dev/visits/puf17640/git-badges)](https://badges.pufler.dev/visits/pzim-devdata/tahoma)
 
 [![GitHub license](https://img.shields.io/github/license/pzim-devdata/tahoma?style=plastic)](https://github.com/pzim-devdata/tahoma/blob/main/LICENSE)    ![](https://img.shields.io/badge/Works%20with-Python%203-red?style=plastic)    ![GitHub issues](https://img.shields.io/github/issues/pzim-devdata/tahoma?style=plastic)    [](https://github.com/pzim-devdata/tahoma/issues)    ![GitHub repo size](https://img.shields.io/github/repo-size/pzim-devdata/tahoma?style=plastic)    ![PyPI Downloads](https://img.shields.io/pypi/dm/tahoma?style=plastic)    ![GitHub All Releases](https://img.shields.io/github/downloads/pzim-devdata/tahoma/latest/total?style=plastic)    ![GitHub release (latest by date)](https://img.shields.io/github/v/release/pzim-devdata/tahoma?style=plastic)    [![GitHub commits](https://img.shields.io/github/commits-since/pzim-devdata/tahoma/v2.2.0.svg?style=plastic)](https://GitHub.com/pzim-devata/tahoma/commit/)
 
