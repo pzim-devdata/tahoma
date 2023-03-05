@@ -83,7 +83,7 @@ or
 
 
 
-## Get the NAMES you have given to your personal devices in the Somfy's App :
+## Get the [NAMES] you have given to your personal devices in the Somfy's App :
 
 
 - `python3 tahoma.py --list-names` or `tahoma -ln`
