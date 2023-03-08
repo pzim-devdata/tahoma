@@ -155,7 +155,7 @@ def main():
 
     for arg in sys.argv :
         if arg == '-c' or arg == '--configure' :
-            print("Do you want to show desktop notifications ? (Y or N)")
+            print("Do you want to show desktop notifications ? (Only for Linux users) (Y/n)")
             notification = input()
             if notification.lower() == 'y'or notification.lower() == 'yes':
                 f = open(notification_consent, 'w')
@@ -183,7 +183,7 @@ def main():
             USERNAME = input()
             print( "Please provide somfy-connect's password for tahoma-pzim : \nIt will be stored here : \n"+passwd_file+"\nYou can leave it empty, but you will need to connect with the --password argument each time")
             PASSWORD = getpass()
-            print( "Do you want to store them in "+passwd_file+" ? (Y or N)\nIf Not, the file will be erased")
+            print( "Do you want to store them in "+passwd_file+" ? (Y/n)\nIf Not, the file will be erased")
             CONSENT = input()
             if CONSENT.lower() == 'y'or CONSENT.lower() == 'yes':
                 f = open(passwd_file, 'w')
