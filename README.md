@@ -51,7 +51,7 @@ All is explained in `python3 tahoma.py --help` and `python3 tahoma.py --info`
 # Usage : `python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
 
 
-For instance : `python3 tahoma.py open shutter kitchen` or `python3 tahoma.py  ouvrir volet cuisine`
+For instance : `python3 tahoma.py open shuter kitchen` or `python3 tahoma.py  ouvrir volet cuisine`
 
 You can also run many commands during the same process without restarting tahoma ;
 
