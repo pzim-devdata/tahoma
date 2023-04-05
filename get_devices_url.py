@@ -25,6 +25,7 @@ async def main() -> None:
     list_of_tahoma_alarms = os.path.dirname(os.path.abspath(__file__))+'/temp/alarms.txt'
     list_of_tahoma_spotalarms = os.path.dirname(os.path.abspath(__file__))+'/temp/spotalarms.txt'
     list_of_tahoma_plugs = os.path.dirname(os.path.abspath(__file__))+'/temp/plugs.txt'
+    list_of_tahoma_sunscreens = os.path.dirname(os.path.abspath(__file__))+'/temp/sunscreens.txt'
 
     server_choosen =  os.path.dirname(os.path.abspath(__file__))+'/temp/server_choosen.txt'
 
@@ -41,6 +42,7 @@ async def main() -> None:
     f5 = open(list_of_tahoma_alarms, 'w')
     f6 = open(list_of_tahoma_spotalarms, 'w')
     f7 = open(list_of_tahoma_plugs, 'w')
+    f8 = open(list_of_tahoma_sunscreens, 'w')
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-u", "--username")
@@ -92,6 +94,9 @@ async def main() -> None:
             elif "StatelessOnOff" in device.widget :
                 f7.write(device.label+","+device.id+","+device.widget+"\n")
                 print( "Device "+device.label+" controled by tahoma. Added to "+list_of_tahoma_plugs)
+            elif "PositionableScreen" in device.widget or "PositionableHorizontalAwning" in device.widget:
+                f8.write(device.label+","+device.id+","+device.widget+"\n")
+                print( "Device "+device.label+" controled by tahoma. Added to "+list_of_tahoma_sunscreens)
             else :
                 print( "Device '"+device.label+"' NOT controlled by tahoma yet")
     except Exception as e :
@@ -102,6 +107,9 @@ async def main() -> None:
     f4.close()
     f5.close()
     f6.close()
+    f7.close()
+    f8.close()
+    
     print( "\nIf you want to add a device you have found in this list but which is not controlled by tahoma yet, please provide info about this device from this file at \nhttps://github.com/pzim-devdata/tahoma/issues and I will update the plugin ;-).")
     print( "\nThe list of devices has been succesfully imported to the file : "+list_of_tahoma_devices+"\n" )
 
@@ -112,4 +120,6 @@ except NameError as e:
     print(e)
     print("\nYou didn't specified any USERNAME or PASSWORD.\nExecute tahoma --config or provide a temporary USERNAME and PASSWORD by executing tahoma -u <USERNAME> -p <PASSWORD> command")
     exit(1)
+
+
 

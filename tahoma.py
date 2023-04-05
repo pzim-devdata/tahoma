@@ -36,15 +36,16 @@ def main():
     list_of_tahoma_alarms = os.path.dirname(os.path.abspath(__file__))+'/temp/alarms.txt'
     list_of_tahoma_spotalarms = os.path.dirname(os.path.abspath(__file__))+'/temp/spotalarms.txt'
     list_of_tahoma_plugs = os.path.dirname(os.path.abspath(__file__))+'/temp/plugs.txt'
+    list_of_tahoma_sunscreens = os.path.dirname(os.path.abspath(__file__))+'/temp/sunscreens.txt'
 
     notification_consent = os.path.dirname(os.path.abspath(__file__))+'/temp/consent_notification.txt'
 
     server_choosen =  os.path.dirname(os.path.abspath(__file__))+'/temp/server_choosen.txt'
 
-    list_categories = ['shutter','spotalarm','plug','alarm','heater']
-    list_categories_french = ['volet','spotalarme','prise','alarme','chauffage']
-    list_actions = ['[open,close,stop,my]','[on,off]','[on,off]','[arm,disarm,partial,arm_night,arm_away]','[comfort,comfort-1,comfort-2,eco,off]']
-    list_actions_french = ['[ouvrir,fermer,stop,my]','[allumer,eteindre]','[allumer,eteindre]','[activer,desactiver,partiel,activer_nuit,activer_parti]','[confort,confort-1,confort-2,eco,eteindre]']
+    list_categories = ['shutter','spotalarm','plug','alarm','heater','sunscreen']
+    list_categories_french = ['volet','spotalarme','prise','alarme','chauffage','rideau']
+    list_actions = ['[open,close,stop,my]','[on,off]','[on,off]','[arm,disarm,partial,arm_night,arm_away]','[comfort,comfort-1,comfort-2,eco,off]','[open,close,stop,my]']
+    list_actions_french = ['[ouvrir,fermer,stop,my]','[allumer,eteindre]','[allumer,eteindre]','[activer,desactiver,partiel,activer_nuit,activer_parti]','[confort,confort-1,confort-2,eco,eteindre]','[ouvrir,fermer,stop,my]']
 
     try :
         f = open(notification_consent, 'r')
@@ -202,12 +203,12 @@ def main():
 
     for arg in sys.argv :
         if arg == '-h' or arg == '--help' :
-            print("tahoma -h, --help : "+version+"\n\nUsage:\n tahoma <ACTION> <CATEGORY> <NAME> \n\n You must provide at least three arguments\n For instance : tahoma open shutter kitchen or tahoma ouvrir volet cuisine\n\nHelp options :\n -h,   --help                      Show this help\n -hf,  --help-french               Show this help in french\n -i,   --info                      Show more info\n\nPlugin options :\n -v,   --version                   Show the version of the plugin\n -c,   --configure                 To configure the plugin and store login and password in a text file which is located here : "+passwd_file+" Use with sudo !\n -u,   --username                  If you don't want to store the login, you can provide the mail-address with this option\n -p,   --password                  If you don't want to store the password, you can provide it with this option\n -g,   --getlist                   Download the list of devices and store them here : "+list_of_tahoma_devices+" Use with sudo !\n -l,   --list                      Show the complet list of devices installed\n -la,  --list-actions              Show the list of possible ACTIONS by CATEGORIES\n -lc,  --list-categories           Show all supported CATEGORIES of devices\n -lnf, --list-names                Show all installed devices by there NAMES\n")
+            print("tahoma -h, --help : "+version+"\n\nUsage:\n tahoma <ACTION> <CATEGORY> <NAME> \n\n You must provide at least three arguments\n For instance : tahoma open shutter kitchen or tahoma ouvrir volet cuisine\n\nHelp options :\n -h,   --help                      Show this help\n -hf,  --help-french               Show this help in french\n -i,   --info                      Show more info\n\nPlugin options :\n -v,   --version                   Show the version of the plugin\n -c,   --configure                 To configure the plugin and store login and password in a text file which is located here : "+passwd_file+" Use with sudo !\n -u,   --username                  If you don't want to store the login, you can provide the mail-address with this option\n -p,   --password                  If you don't want to store the password, you can provide it with this option\n -g,   --getlist                   Download the list of devices and store them here : "+list_of_tahoma_devices+" Use with sudo !\n -l,   --list                      Show the complet list of devices installed\n -la,  --list-actions              Show the list of possible ACTIONS by CATEGORIES\n -lc,  --list-categories           Show all supported CATEGORIES of devices\n -lnf, --list-names                Show all installed devices by there NAMES\n")
             exit()
 
     for arg in sys.argv :
         if arg == '-hf' or arg == '--help-french' :
-            print("tahoma -h --help : "+version+"\n\nUsage:\n tahoma <ACTION> <CATEGORIE> <NOM> \n Vous devez fournir au moins trois arguments\n Par exemple : tahoma ouvrir volet cuisine ou tahoma open shutter kitchen \n\nOptions de l’aide :\n -h, --help                        Affiche les options de l’aide en anglais\n\nOptions de l’application :\n -v, --version                     Affiche la version de l’application\n -i, --info                        Afficher plus d'infos sur tahoma\n -c, --configure                   Renseigner l'identifiant et le mot de passe dans un fichier texte pour ne pas devoir les renseigner à chaque fois. Le fichier texte se situe dans : "+passwd_file+" Utiliser sudo !\n -u, --username                    Renseigner le nom d'utilisateur\n -p, --password                    Renseigner le mot de passe de Somfy-connect\n -g, --getlist                     Télécharge la liste des équipements et la stocke dans "+list_of_tahoma_devices+" Utiliser sudo !\n -l, --list                        Affiche la liste téléchargée des équipements\n -laf, --list-actions-french       Affiche la liste des ACTIONS possibles en français par CATEGORIES\n -lcf, --list-categories-french    Affiche toutes les CATEGORIES d'équipements pris en charge en français\n -lnf, --list-names-french         Affiche les NOMS des équipements installés par categories en français")
+            print("tahoma -h --help : "+version+"\n\nUsage:\n tahoma <ACTION> <CATEGORIE> <NOM> \n Vous devez fournir au moins trois arguments\n Par exemple : tahoma ouvrir volet cuisine ou tahoma open shutter kitchen \n\nOptions de l’aide :\n -h, --help                        Affiche les options de l’aide en anglais\n\nOptions de l’application :\n -v, --version                     Affiche la version de l’application\n -i, --info                        Afficher plus d'infos sur tahoma\n -c, --configure                   Renseigner l'identifiant et le mot de passe dans un fichier texte pour ne pas devoir les renseigner à chaque fois. Le fichier texte se situe dans : "+passwd_file+" Utiliser sudo !\n -u, --username                    Renseigner le nom d'utilisateur\n -p, --password                    Renseigner le mot de passe de Somfy-connect\n -g, --getlist                     Télécharge la liste des équipements et la stocke dans "+list_of_tahoma_devices+" Utiliser sudo !\n -l, --list                        Affiche la liste téléchargée des équipements\n -laf, --list-actions-french       Affiche la liste des ACTIONS possibles en français par CATEGORIES\n -lcf, --list-categories-french    Affiche toutes les CATEGORIES d'équipements pris en charge en français\n -lnf, --list-names-french         Affiche les NOMS des équipements installés par categories en français")
             exit()
 
     for arg in sys.argv :
@@ -344,6 +345,45 @@ def main():
         
         if remove_accent(category) == 'shutter' or remove_accent(category) == 'volet':
             f = open(list_of_tahoma_shutters, 'r')
+            content = f.read()
+            f.close()
+            try:
+                master_list = content.split("\n")
+                master_list.remove('')
+            except ValueError:
+                print("\nDid you downloaded the list of Tahoma's devices ?.\nExecute tahoma --getlist \nFor more info execute tahoma -h or tahoma --info")
+                exit()
+            for i in master_list :
+                bad_name.append(i.split(",")[0])
+                if remove_accent(i.split(",")[0]) in remove_accent(str(name)) or remove_accent(str(name)) in remove_accent(i.split(",")[0]) :
+                     url.append(i.split(",")[1])
+                     too_many_urls.append(i.split(",")[0])
+                     good_name.append(i.split(",")[0])
+            if len(url)== 0 :
+                print("There is no match. The <NAME> you gave is not exact. Did you mean : "+str(bad_name)+" ? Choose a UNIQUE part of word from this results as <NAME> argument\nIf you don't find your device in this results try tahoma --getlist\nSee tahoma --list-names for help.")
+                exit()
+            if len(url) > 1 :
+                print("There is more than one match. The <NAME> you gave is not exact. Choose a UNIQUE part of word from this results as <NAME> argument : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
+                exit()
+
+            if remove_accent(action).upper() == "OPEN" or remove_accent(action).upper() == "OUVRIR" :
+                fonction = Command(OverkizCommand.OPEN, [0])
+            elif remove_accent(action).upper() == 'CLOSE' or remove_accent(action).upper() == "FERMER" :
+                fonction = Command(OverkizCommand.CLOSE, [0])
+            elif remove_accent(action).upper() == 'STOP' :
+                fonction = Command(OverkizCommand.STOP, [0])
+            elif remove_accent(action).upper() == 'MY' :
+                fonction = Command(OverkizCommand.MY, [0])
+            else :
+                print( "\n'"+action+"'"+" is not a valide action.\n")
+                print("Please provide one of this argument as action : [open close stop my]")
+            str1 = " "
+            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+
+        ##########################SUNSCREEN
+        
+        if remove_accent(category) == 'sunscreen' or remove_accent(category) == 'rideau':
+            f = open(list_of_tahoma_sunscreens, 'r')
             content = f.read()
             f.close()
             try:
@@ -566,6 +606,3 @@ if __name__ == "__main__":
     except Exception as error:
         print(error)
         exit(1)
-
-
-
