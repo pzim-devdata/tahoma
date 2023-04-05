@@ -16,7 +16,7 @@ THIS IS THE PORTABLE VERSION FOR DIRECT DOWNLOADING. IT'S NOT AN INSTALLED PACKA
 
 # Download the folder and extract it :
 
-[Download :inbox_tray:](https://github.com/pzim-devdata/volumouse/releases/download/v0.0.1/volumouse.zip)
+[Download :inbox_tray:](https://github.com/pzim-devdata/tahoma/releases/download/v2.2.3/tahoma-2.2.3.zip)
 
 
 # Start the app :
