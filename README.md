@@ -52,11 +52,11 @@ All is explained in `python3 tahoma.py --help` and `python3 tahoma.py --info`
 # Usage : `python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
 
 
-For instance : `python3 tahoma.py open shuter kitchen` or `python3 tahoma.py  ouvrir volet cuisine`
+For instance : `python3 tahoma.py open shutter kitchen` or `python3 tahoma.py  ouvrir volet cuisine`
 
 You can also run many commands during the same process without restarting tahoma ;
 
-For instance : `python3 tahoma.py arm alarm garden open shuter kitchen close shuter room6 confort heater dining off plug office`
+For instance : `python3 tahoma.py arm alarm garden open shutter kitchen close shutter room6 confort heater dining off plug office`
 
 
 # But first you need to retrieve your PERSONALS commands :
@@ -172,7 +172,7 @@ For instance : `tahoma open shutter kitchen` or `tahoma  ouvrir volet cuisine`
 
 You can also run many commands during the same process without restarting tahoma ;
 
-For instance : `tahoma arm alarm garden open shuter kitchen close shuter room6 confort heater dining off plug office`
+For instance : `tahoma arm alarm garden open shutter kitchen close shutter room6 confort heater dining off plug office`
 
 
 # But first you need to retrieve your PERSONALS commands :
@@ -236,12 +236,12 @@ It will be restored on the next reboot.
 
 
 
-By doing this, instead of taping `python3 '/place/of/the/folder/tahoma/tahoma.py open shuter kitchen'`,
+By doing this, instead of taping `python3 '/place/of/the/folder/tahoma/tahoma.py open shutter kitchen'`,
 
- you will be able to directly tape in the terminal : `tahoma open shuter kitchen`.
+ you will be able to directly tape in the terminal : `tahoma open shutter kitchen`.
 
 
-Then execute tahoma just like this : `tahoma arm alarm garden open shuter kitchen close shuter room6 confort heater dining off plug office` and that's all !
+Then execute tahoma just like this : `tahoma arm alarm garden open shutter kitchen close shutter room6 confort heater dining off plug office` and that's all !
 
 
 
