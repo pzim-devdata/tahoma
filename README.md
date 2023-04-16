@@ -14,9 +14,9 @@ It was created with Tahoma but can also works with Somfy Connectivity Kit, Conne
 THIS IS THE PORTABLE VERSION FOR DIRECT DOWNLOADING. IT'S NOT AN INSTALLED PACKAGE. TO RUN THE APP JUST EXECUTE, IN YOUR IMPORTED FOLDER, `python3 tahoma.py`
 . IF YOU WANT TO INSTALL THE PACKAGE USING PyPI (pip version) go there : [How to install tahoma with pip ?](https://github.com/pzim-devdata/tahoma#install-the-main-package-) or go directly to the [PyPI Project Website](https://pypi.org/project/tahoma/#description) It's easier.
 
-# Download the folder and extract it :
+# Download the zip file and extract it :
 
-[Download :inbox_tray:](https://github.com/pzim-devdata/tahoma/releases/download/v2.2.3/tahoma-2.2.3.zip)
+[Download :inbox_tray:](https://github.com/pzim-devdata/tahoma/releases/latest)
 
 
 # Start the app :
