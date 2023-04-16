@@ -530,15 +530,15 @@ def main():
                 print("There is more than one match. The <NAME> you gave is not exact. Choose a UNIQUE part of word from this results as <NAME> argument : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
                 exit()
 
-            if remove_accent(action).lower() == "comfort" or remove_accent(action).upper() == "confort" :
+            if remove_accent(action).lower() == "comfort" or remove_accent(action).lower() == "confort" :
                 fonction = Command(OverkizCommand.SET_HEATING_LEVEL,['comfort'])
-            elif remove_accent(action).lower() == 'comfort-1' or remove_accent(action).upper() == "confort-1" :
+            elif remove_accent(action).lower() == 'comfort-1' or remove_accent(action).lower() == "confort-1" :
                 fonction = Command(OverkizCommand.SET_HEATING_LEVEL,['comfort-1'])
-            elif remove_accent(action).lower() == 'comfort-2' or remove_accent(action).upper() == "confort-2" :
+            elif remove_accent(action).lower() == 'comfort-2' or remove_accent(action).lower() == "confort-2" :
                 fonction = Command(OverkizCommand.SET_HEATING_LEVEL,['comfort-2'])
             elif remove_accent(action).lower() == 'eco' :
                 fonction = Command(OverkizCommand.SET_HEATING_LEVEL,['eco'])
-            elif remove_accent(action).lower() == 'off' or remove_accent(action).upper() == "eteindre" :
+            elif remove_accent(action).lower() == 'off' or remove_accent(action).lower() == "eteindre" :
                 fonction = Command(OverkizCommand.SET_HEATING_LEVEL,['off'])
             else :
                 print( "\n'"+action+"'"+" is not a valide action.\n")
