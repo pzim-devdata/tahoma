@@ -103,6 +103,8 @@ Enjoy !  For more info `python3 tahoma.py -h` or `python3 tahoma.py -i`
 
 To be able to run tahoma directly in the terminal, without going to the source package, you should add the tahoma's folder to the PATH :
 
+## On Linux :
+
 On Linux, it can be permanently done by executing : `sudo gedit ~/.bashrc` and adding, at the end of the document, this line :
 
 `export PATH=$PATH:/place/of/the/folder/tahoma`
@@ -114,6 +116,9 @@ If you want to temporarily test it before, you can just execute this command in 
 
 It will be restored on the next reboot.
 
+## On Windows :
+
+[How to create a PATH on Windows]!(https://www.computerhope.com/issues/ch000549.htm)
 
 
 By doing this, instead of taping `python3 '/place/of/the/folder/tahoma/tahoma.py open shuter kitchen'`,
