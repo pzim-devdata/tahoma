@@ -126,7 +126,6 @@ If you want to temporarily test it before, you can just execute this command in 
 It will be restored on the next reboot.
 
 ## On Windows :
-
 [How to create a PATH on Windows](https://www.computerhope.com/issues/ch000549.htm](https://www.computerhope.com/issues/ch000549.htm)
 
 
