@@ -127,7 +127,7 @@ It will be restored on the next reboot.
 
 ## On Windows :
 
-[How to create a PATH on Windows]!(https://www.computerhope.com/issues/ch000549.htm)
+![How to create a PATH on Windows](https://www.computerhope.com/issues/ch000549.htm)
 
 
 
