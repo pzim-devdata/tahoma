@@ -103,12 +103,12 @@ Enjoy !  For more info `python3 tahoma.py -h` or `python3 tahoma.py -i`
 
 To be able to run tahoma directly in the terminal, without going to the source package, you should add the tahoma's folder to the PATH :
 
-By doing this, instead of taping `python3 '/place/of/the/folder/tahoma/tahoma.py open shuter kitchen'`,
+By doing this, instead of taping `python3 '/place/of/the/folder/tahoma/tahoma.py open shutter kitchen'`,
 
- you will be able to directly tape in the terminal : `tahoma open shuter kitchen`.
+ you will be able to directly tape in the terminal : `tahoma open shutter kitchen`.
 
 
-Then execute tahoma just like this : `tahoma arm alarm garden open shuter kitchen close shuter room6 confort heater dining off plug office` and that's all !
+Then execute tahoma just like this : `tahoma arm alarm garden open shutter kitchen close shutter room6 confort heater dining off plug office` and that's all !
 
 You will also need to rename `tahoma.py` to `tahoma`
 
