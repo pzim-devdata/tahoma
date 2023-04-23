@@ -16,8 +16,7 @@ THIS IS THE PORTABLE VERSION FOR DIRECT DOWNLOADING. IT'S NOT AN INSTALLED PACKA
 
 IF YOU LIKE THIS PROGRAM, PLEASE GIVE ME A STAR :star:
 
-<!-- Place this tag where you want the button to render. -->
-<a class="github-button" href="https://github.com/pzim-devdata/tahoma" data-icon="octicon-star" data-size="large" aria-label="Star pzim-devdata/tahoma on GitHub">Star<script async defer src="https://buttons.github.io/buttons.js"></script></a>
+<iframe src="https://ghbtns.com/github-btn.html?user=pzim-devdata&repo=tahoma&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
 
 # Download the zip file and extract it :
 
