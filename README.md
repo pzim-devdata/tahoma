@@ -18,7 +18,7 @@ IF YOU LIKE THIS PROGRAM, PLEASE GIVE ME A STAR :star:
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!-- Place this tag where you want the button to render. -->
-<a class="github-button" href="https://github.com/pzim-devdata/tahoma" data-icon="octicon-star" data-size="large" aria-label="Star pzim-devdata/tahoma on GitHub">Star</a>
+<script async defer src="https://buttons.github.io/buttons.js"></script><a class="github-button" href="https://github.com/pzim-devdata/tahoma" data-icon="octicon-star" data-size="large" aria-label="Star pzim-devdata/tahoma on GitHub">Star</a>
 
 # Download the zip file and extract it :
 
