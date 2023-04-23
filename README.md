@@ -15,10 +15,9 @@ THIS IS THE PORTABLE VERSION FOR DIRECT DOWNLOADING. IT'S NOT AN INSTALLED PACKA
 . IF YOU WANT TO INSTALL THE PACKAGE USING PyPI (pip version) go there : [How to install tahoma with pip ?](https://github.com/pzim-devdata/tahoma#install-the-main-package-) or go directly to the [PyPI Project Website](https://pypi.org/project/tahoma/#description) It's easier.
 
 IF YOU LIKE THIS PROGRAM, PLEASE GIVE ME A STAR :star:
-<!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
+
 <!-- Place this tag where you want the button to render. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script><a class="github-button" href="https://github.com/pzim-devdata/tahoma" data-icon="octicon-star" data-size="large" aria-label="Star pzim-devdata/tahoma on GitHub">Star</a>
+<a class="github-button" href="https://github.com/pzim-devdata/tahoma" data-icon="octicon-star" data-size="large" aria-label="Star pzim-devdata/tahoma on GitHub">Star<script async defer src="https://buttons.github.io/buttons.js"></script></a>
 
 # Download the zip file and extract it :
 
