@@ -44,8 +44,8 @@ def main():
 
     list_categories = ['shutter','spotalarm','plug','alarm','heater','sunscreen']
     list_categories_french = ['volet','spotalarme','prise','alarme','chauffage','rideau']
-    list_actions = ['[open,close,stop,my]','[on,off]','[on,off]','[arm,disarm,partial,arm_night,arm_away]','[comfort,comfort-1,comfort-2,eco,off]','[open,close,stop,my]']
-    list_actions_french = ['[ouvrir,fermer,stop,my]','[allumer,eteindre]','[allumer,eteindre]','[activer,desactiver,partiel,activer_nuit,activer_parti]','[confort,confort-1,confort-2,eco,eteindre]','[ouvrir,fermer,stop,my]']
+    list_actions = ['[open,close,stop,my,NUMBER]','[on,off]','[on,off]','[arm,disarm,partial,arm_night,arm_away]','[comfort,comfort-1,comfort-2,eco,off]','[open,close,stop,my,NUMBER]']
+    list_actions_french = ['[ouvrir,fermer,stop,my,NOMBRE]','[allumer,eteindre]','[allumer,eteindre]','[activer,desactiver,partiel,activer_nuit,activer_parti]','[confort,confort-1,confort-2,eco,eteindre]','[ouvrir,fermer,stop,my,NOMBRE]']
 
     try :
         f = open(notification_consent, 'r')
@@ -82,7 +82,7 @@ def main():
         print( " - List of available NAMES : tahoma --list-names \n - Liste des NOMS possibles : tahoma --list-names-french \n You must provide a part of the name you have assigned to the device in the Tahoma App. \n It must be a single and unic word, not taken by another device of the same category !\n For instance if you have two devices called <Alarm 1> and <Alarm 2> you will need to choose <2> as device [NAME] for <Alarm 2> and not <Alarm>).\n See tahoma --list or tahoma --help for info")
         print( "" )
         print( "                  You must provide at least 3 arguments" )
-        print( "         For instance : python3 tahoma open shutter kitchen" )
+        print( "         For instance : python3 tahoma open shutter kitchen or python3 tahoma 25 shutter kitchen" )
         print( "" )
         print( " You can also provide, as many as you wish, orders on the same line." ) 
         print( " Tahoma will execute all orders one by one on the same process ;-)" )
@@ -367,13 +367,18 @@ def main():
                 exit()
 
             if remove_accent(action).upper() == "OPEN" or remove_accent(action).upper() == "OUVRIR" :
-                fonction = Command(OverkizCommand.OPEN, [0])
+                fonction = Command(OverkizCommand.OPEN)
             elif remove_accent(action).upper() == 'CLOSE' or remove_accent(action).upper() == "FERMER" :
-                fonction = Command(OverkizCommand.CLOSE, [0])
+                fonction = Command(OverkizCommand.CLOSE)
             elif remove_accent(action).upper() == 'STOP' :
-                fonction = Command(OverkizCommand.STOP, [0])
+                print("Be careful! The 'stop' function is only available for IO protocols. It doesn't work with RTS devices, it will use the 'MY'function instead...")
+                fonction = Command(OverkizCommand.STOP)
             elif remove_accent(action).upper() == 'MY' :
-                fonction = Command(OverkizCommand.MY, [0])
+                fonction = Command(OverkizCommand.MY)
+            elif str(action).isnumeric() == True :
+                fonction = Command(OverkizCommand.SET_CLOSURE, [int(action)])
+                print('Will close to '+str(action)+' %')
+                print("Be careful! This function is only available for IO protocols. It doesn't work with RTS devices...")
             else :
                 print( "\n'"+action+"'"+" is not a valide action.\n")
                 print("Please provide one of this argument as action : [open close stop my]")
@@ -382,7 +387,7 @@ def main():
 
         ##########################SUNSCREEN
         
-        if remove_accent(category) == 'sunscreen' or remove_accent(category) == 'rideau':
+        elif remove_accent(category) == 'sunscreen' or remove_accent(category) == 'rideau':
             f = open(list_of_tahoma_sunscreens, 'r')
             content = f.read()
             f.close()
@@ -406,13 +411,18 @@ def main():
                 exit()
 
             if remove_accent(action).upper() == "OPEN" or remove_accent(action).upper() == "OUVRIR" :
-                fonction = Command(OverkizCommand.OPEN, [0])
+                fonction = Command(OverkizCommand.OPEN)
             elif remove_accent(action).upper() == 'CLOSE' or remove_accent(action).upper() == "FERMER" :
-                fonction = Command(OverkizCommand.CLOSE, [0])
+                fonction = Command(OverkizCommand.CLOSE)
             elif remove_accent(action).upper() == 'STOP' :
-                fonction = Command(OverkizCommand.STOP, [0])
+                print("Be careful! The 'stop' function is only available for IO protocols. It doesn't work with RTS devices, it will use the 'MY'function instead...")
+                fonction = Command(OverkizCommand.STOP)
             elif remove_accent(action).upper() == 'MY' :
-                fonction = Command(OverkizCommand.MY, [0])
+                fonction = Command(OverkizCommand.MY)
+            elif str(action).isnumeric() == True :
+                fonction = Command(OverkizCommand.SET_CLOSURE, [int(action)])
+                print('Will close to '+str(action)+' %')
+                print("Be careful! This function is only available for IO protocols. It doesn't work with RTS devices...")
             else :
                 print( "\n'"+action+"'"+" is not a valide action.\n")
                 print("Please provide one of this argument as action : [open close stop my]")
