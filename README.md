@@ -55,11 +55,13 @@ All is explained in `python3 tahoma.py --help` and `python3 tahoma.py --info`
 # Usage : `python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
 
 
-For instance : `python3 tahoma.py open shutter kitchen` or `python3 tahoma.py  ouvrir volet cuisine`
+For instance : `tahoma open shutter kitchen` or `tahoma ouvrir volet cuisine`
+
+You can also close a shutter or a sunscreen to a specific level. For example, to close to 25%, you can use the commands : `tahoma 25 shutter kitchen` or `tahoma 25 sunscreen kitchen`. Please note that this feature only works with IO protocols and not with RTS.
 
 You can also run many commands during the same process without restarting tahoma ;
 
-For instance : `python3 tahoma.py arm alarm garden open shutter kitchen close shutter room6 confort heater dining off plug office`
+For instance : `tahoma arm alarm garden open shutter kitchen close shutter room6 confort heater dining off plug office 25 sunscreen kitchen`
 
 
 # But first you need to retrieve your PERSONALS commands :
