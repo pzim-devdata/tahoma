@@ -155,7 +155,7 @@ def main():
             exit()
 
     for arg in sys.argv :
-        if arg == '-c' or arg == '--configure' :
+        if arg == '-c' or arg == '--configure' or arg == '--config' :
             print("Do you want to show desktop notifications ? (Only for Linux users) (Y/n)")
             notification = input()
             if notification.lower() == 'y'or notification.lower() == 'yes':
