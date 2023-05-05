@@ -131,7 +131,7 @@ It will be restored on the next reboot.
 ## On Windows :
 [How to create a PATH on Windows](https://www.computerhope.com/issues/ch000549.htm)
 
-Thanks to the tahoma.exe program, you will be able to execute tahoma just by entering this command : ``tahoma`` instead of ``python3 tahoma.py`` on Windows
+Thanks to the ``tahoma.exe`` program, you will be able to execute tahoma just by entering this command : ``tahoma`` instead of ``python3 tahoma.py`` on Windows
 
 
 
