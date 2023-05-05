@@ -19,7 +19,7 @@ IF YOU LIKE THIS PROGRAM, PLEASE GIVE ME A STAR :star:
 
 # Download the zip file and extract it :
 
-[Download :inbox_tray:](https://github.com/pzim-devdata/tahoma/releases/download/v2.2.5/tahoma-2.2.5.zip)
+[Download :inbox_tray:](https://github.com/pzim-devdata/tahoma/archive/refs/heads/main.zip)
 
 
 # Start the app :
