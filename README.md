@@ -40,7 +40,7 @@ All is explained in `python3 tahoma.py --help` and `python3 tahoma.py --info`
 1. Specify your Somfy-connect login's info and choose the Somfy server :
 
 
-- `python3 tahoma.py --config` or `python3 tahoma.py -c`
+- `python3 tahoma.py --configure` or `python3 tahoma.py -c`
 
 
 2. Configure the API and get the list of your personal Somfy's devices :
@@ -163,7 +163,7 @@ All is explained in tahoma --help and tahoma --info
 1. Specify your Somfy-connect login's info and choose the Somfy server (`sudo` command is required) :
 
 
-- `sudo tahoma --config` or `sudo tahoma -c`
+- `sudo tahoma --configure` or `sudo tahoma -c`
 
 
 2. Configure the API and get the list of your personal Somfy's devices (`sudo` command is also required) :
