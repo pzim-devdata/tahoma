@@ -111,9 +111,8 @@ By doing this, instead of taping `python3 '/place/of/the/folder/tahoma/tahoma.py
  you will be able to directly tape in the terminal : `tahoma open shutter kitchen`.
 
 
-Then execute tahoma just like this : `tahoma arm alarm garden open shutter kitchen close shutter room6 confort heater dining off plug office` and that's all !
+Then execute tahoma just like this : `tahoma arm alarm garden open shutter kitchen close shutter room6 confort heater dining off plug office 25 shutter kitchen` and that's all !
 
-You will also need to rename `tahoma.py` to `tahoma`
 
 ## On Linux :
 
@@ -128,11 +127,18 @@ If you want to temporarily test it before, you can just execute this command in 
 
 It will be restored on the next reboot.
 
+You should also need to rename `tahoma.py` to `tahoma`
+
+Then execute tahoma just like this : `tahoma arm alarm garden open shutter kitchen close shutter room6 confort heater dining off plug office 25 shutter kitchen` and that's all !
+
+
 ## On Windows :
+
 [How to create a PATH on Windows](https://www.computerhope.com/issues/ch000549.htm)
 
 Thanks to the ``tahoma.exe`` program, you will be able to execute tahoma just by entering this command : ``tahoma`` instead of ``python3 tahoma.py`` on Windows
 
+Then execute tahoma just like this : `tahoma arm alarm garden open shutter kitchen close shutter room6 confort heater dining off plug office 25 shutter kitchen` and that's all !
 
 
 -------------------------------------------------------------------------------------------------------------------------
@@ -233,11 +239,11 @@ Enjoy !  For more info `tahoma -h` or `tahoma -i`
 # Create a PATH to tahoma :
 
 
-If you have installed tahoma without the `sudo` command you will need to create a PATH for starting tahoma with the `tahoma` command.
+On Linux, if you have installed tahoma without the `sudo` command you will need to create a PATH for starting tahoma with the `tahoma` command.
 
 Indead, to be able to run tahoma directly in the terminal, without going to the source package, you should add the tahoma's folder to the PATH :
 
-On Linux, it can be permanently done by executing : `sudo gedit ~/.bashrc` and adding, at the end of the document, this line :
+It can be permanently done by executing : `sudo gedit ~/.bashrc` and adding, at the end of the document, this line :
 
 `export PATH=$PATH:/place/of/the/folder/tahoma`
 
