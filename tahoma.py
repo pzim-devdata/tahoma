@@ -19,6 +19,7 @@ from pyoverkiz.const import SUPPORTED_SERVERS
 from pyoverkiz.client import OverkizClient
 from pyoverkiz.enums import OverkizCommand
 from pyoverkiz.models import Command
+from pyoverkiz.models import Scenario
 import __version__
 
 
@@ -37,15 +38,16 @@ def main():
     list_of_tahoma_spotalarms = os.path.dirname(os.path.abspath(__file__))+'/temp/spotalarms.txt'
     list_of_tahoma_plugs = os.path.dirname(os.path.abspath(__file__))+'/temp/plugs.txt'
     list_of_tahoma_sunscreens = os.path.dirname(os.path.abspath(__file__))+'/temp/sunscreens.txt'
+    list_of_tahoma_scenes = os.path.dirname(os.path.abspath(__file__))+'/temp/scenarios.txt'
 
     notification_consent = os.path.dirname(os.path.abspath(__file__))+'/temp/consent_notification.txt'
 
     server_choosen =  os.path.dirname(os.path.abspath(__file__))+'/temp/server_choosen.txt'
 
-    list_categories = ['shutter','spotalarm','plug','alarm','heater','sunscreen']
-    list_categories_french = ['volet','spotalarme','prise','alarme','chauffage','rideau']
-    list_actions = ['[open,close,stop,my,NUMBER]','[on,off]','[on,off]','[arm,disarm,partial,arm_night,arm_away]','[comfort,comfort-1,comfort-2,eco,off]','[open,close,stop,my,NUMBER]']
-    list_actions_french = ['[ouvrir,fermer,stop,my,NOMBRE]','[allumer,eteindre]','[allumer,eteindre]','[activer,desactiver,partiel,activer_nuit,activer_parti]','[confort,confort-1,confort-2,eco,eteindre]','[ouvrir,fermer,stop,my,NOMBRE]']
+    list_categories = ['shutter','spotalarm','plug','alarm','heater','sunscreen','scene']
+    list_categories_french = ['volet','spotalarme','prise','alarme','chauffage','rideau','scenario']
+    list_actions = ['[open,close,stop,my,NUMBER]','[on,off]','[on,off]','[arm,disarm,partial,arm_night,arm_away]','[comfort,comfort-1,comfort-2,eco,off]','[open,close,stop,my,NUMBER]','[on,activate,launch,execute]']
+    list_actions_french = ['[ouvrir,fermer,stop,my,NOMBRE]','[allumer,eteindre]','[allumer,eteindre]','[activer,desactiver,partiel,activer_nuit,activer_parti]','[confort,confort-1,confort-2,eco,eteindre]','[ouvrir,fermer,stop,my,NOMBRE]','[lancer,activer,executer]']
 
     try :
         f = open(notification_consent, 'r')
@@ -556,9 +558,44 @@ def main():
                 exit()
             str1 = " "
             print("Output action : "+remove_accent(action).lower()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+
+        ##########################SCENES
+
+        elif remove_accent(category) == 'scene' or remove_accent(category) == 'scenario':
+            f = open(list_of_tahoma_scenes, 'r')
+            content = f.read()
+            f.close()
+            try:
+                master_list = content.split("\n")
+                master_list.remove('')
+            except ValueError:
+                print("\nDid you downloaded the list of Tahoma's scenes ?.\nExecute tahoma --getlist \nFor more info execute tahoma -h or tahoma --info")
+                exit()
+            for i in master_list :
+                bad_name.append(i.split(",")[0])
+                if remove_accent(i.split(",")[0]) in remove_accent(str(name)) or remove_accent(str(name)) in remove_accent(i.split(",")[0]) :
+                     url.append(i.split(",")[1])
+                     too_many_urls.append(i.split(",")[0])
+                     good_name.append(i.split(",")[0])
+            if len(url)== 0 :
+                print("There is no match. The <NAME> you gave is not exact. Did you mean : "+str(bad_name)+" ? Choose a UNIQUE part of word from this results as <NAME> argument\nIf you don't find your device in this results try tahoma --getlist\nSee tahoma --list-names for help.")
+                exit()
+            if len(url) > 1 :
+                print("There is more than one match. The <NAME> you gave is not exact. Choose a UNIQUE part of word from this results as <NAME> argument : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
+                exit()
+
             
+            #fonction = Command(OverkizCommand.SET_HEATING_LEVEL,['comfort'])
+            #exec_id = await client.execute_scenario(device_url)
+
+            str1 = " "
+            print("Output action : "+remove_accent(action).lower()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+
+        ##########################
+
         else :
             print( "\nThe <CATEGORY> you have entered doesn't exist.\nChoose one of this category : "+str(list_categories)+"\nUse tahoma --help-categories or tahoma --list-categories for info")
+
 
     ##########################MAIN FUNCTION
 
@@ -568,7 +605,12 @@ def main():
                     await client.login()
                     try :
                         for device_url in url :
-                            exec_id = await client.execute_command( device_url, fonction )
+                            try :
+                                exec_id = await client.execute_command( device_url, fonction )
+                            except : pass
+                            try :
+                                exec_id = await client.execute_scenario(device_url)
+                            except : pass
                     except Exception as e:
                         print(e) 
                         try:
