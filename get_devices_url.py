@@ -15,6 +15,7 @@ from pyoverkiz.const import SUPPORTED_SERVERS
 from pyoverkiz.client import OverkizClient
 from pyoverkiz.enums import OverkizCommand
 from pyoverkiz.models import Command
+from pyoverkiz.models import Scenario
 
 async def main() -> None:
 
@@ -26,6 +27,7 @@ async def main() -> None:
     list_of_tahoma_spotalarms = os.path.dirname(os.path.abspath(__file__))+'/temp/spotalarms.txt'
     list_of_tahoma_plugs = os.path.dirname(os.path.abspath(__file__))+'/temp/plugs.txt'
     list_of_tahoma_sunscreens = os.path.dirname(os.path.abspath(__file__))+'/temp/sunscreens.txt'
+    list_of_tahoma_scenes = os.path.dirname(os.path.abspath(__file__))+'/temp/scenarios.txt'
 
     server_choosen =  os.path.dirname(os.path.abspath(__file__))+'/temp/server_choosen.txt'
 
@@ -43,6 +45,7 @@ async def main() -> None:
     f6 = open(list_of_tahoma_spotalarms, 'w')
     f7 = open(list_of_tahoma_plugs, 'w')
     f8 = open(list_of_tahoma_sunscreens, 'w')
+    f9 = open(list_of_tahoma_scenes, 'w')
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-u", "--username")
@@ -75,33 +78,44 @@ async def main() -> None:
             print(exception)
             return
         devices = await client.get_devices()
+        scenarios = await client.get_scenarios()
     try :
+        f2.write(f"Devices :\n")
         for device in devices:
             print(f"\n{device.label},{device.id},{device.widget}")
             f2.write(f"{device.label},{device.id},{device.widget},{device.ui_class},{device.controllable_name}\n")
             if "Shutter" in device.widget or "PositionableTiltedScreen" in device.widget:
                 f3.write(device.label+","+device.id+","+device.widget+"\n")
-                print( "Device "+device.label+" controled by tahoma. Added to "+list_of_tahoma_shutters)
+                print( "Device "+device.label+" controled by tahoma. Added to : "+list_of_tahoma_shutters)
             elif "Heater" in device.widget :
                 f4.write(device.label+","+device.id+","+device.widget+"\n")
-                print( "Device "+device.label+" controled by tahoma. Added to "+list_of_tahoma_heaters)
+                print( "Device "+device.label+" controled by tahoma. Added to : "+list_of_tahoma_heaters)
             elif "MyFoxAlarm" in device.widget :
                 f5.write(device.label+","+device.id+","+device.widget+"\n")
-                print( "Device "+device.label+" controled by tahoma. Added to "+list_of_tahoma_alarms)
+                print( "Device "+device.label+" controled by tahoma. Added to : "+list_of_tahoma_alarms)
             elif "StatefulOnOffLight" in device.widget :
                 f6.write(device.label+","+device.id+","+device.widget+"\n")
-                print( "Device "+device.label+" controled by tahoma. Added to "+list_of_tahoma_spotalarms)
+                print( "Device "+device.label+" controled by tahoma. Added to : "+list_of_tahoma_spotalarms)
             elif "StatelessOnOff" in device.widget :
                 f7.write(device.label+","+device.id+","+device.widget+"\n")
-                print( "Device "+device.label+" controled by tahoma. Added to "+list_of_tahoma_plugs)
+                print( "Device "+device.label+" controled by tahoma. Added to : "+list_of_tahoma_plugs)
             elif "PositionableScreen" in device.widget or "PositionableHorizontalAwning" in device.widget:
                 f8.write(device.label+","+device.id+","+device.widget+"\n")
-                print( "Device "+device.label+" controled by tahoma. Added to "+list_of_tahoma_sunscreens)
+                print( "Device "+device.label+" controled by tahoma. Added to : "+list_of_tahoma_sunscreens)
             else :
                 print( "Device '"+device.label+"' NOT controlled by tahoma yet")
     except Exception as e :
         print(e)
-    
+    print("\nScenes :\n")
+    try :
+        f2.write(f"\nScenes :\n")
+        for scenario in scenarios:
+            f2.write(f"{scenario.label},{scenario.oid}\n")
+            f9.write(f"{scenario.label},{scenario.oid}\n")
+            print( 'Scene : "'+scenario.label+'" controled by tahoma. Added to : '+list_of_tahoma_scenes)
+    except Exception as e :
+        print(e)
+
     f2.close()
     f3.close()
     f4.close()
@@ -109,6 +123,7 @@ async def main() -> None:
     f6.close()
     f7.close()
     f8.close()
+    f9.close()
     
     print( "\nIf you want to add a device you have found in this list but which is not controlled by tahoma yet, please provide info about this device from this file at \nhttps://github.com/pzim-devdata/tahoma/issues and I will update the plugin ;-).")
     print( "\nThe list of devices has been succesfully imported to the file : "+list_of_tahoma_devices+"\n" )
