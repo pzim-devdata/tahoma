@@ -19,7 +19,7 @@ IF YOU LIKE THIS PROGRAM, PLEASE GIVE ME A STAR :star:
 
 # Download the zip file and extract it :
 
-[Download :inbox_tray:](https://github.com/pzim-devdata/tahoma/releases/download/v2.2.5/tahoma.zip)
+[Download :inbox_tray:](https://github.com/pzim-devdata/tahoma/archive/refs/heads/main.zip)
 
 
 # Start the app :
@@ -52,7 +52,7 @@ All is explained in `python3 tahoma.py --help` and `python3 tahoma.py --info`
 3. And now, you are ready to use tahoma :
 
 
-# Usage : `tahoma [ACTION] [CATEGORY] [NAME]`
+# Usage : `python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
 
 
 For instance : `tahoma open shutter kitchen` or `tahoma ouvrir volet cuisine`
@@ -61,7 +61,7 @@ You can also close a shutter or a sunscreen to a specific level. For example, to
 
 You can also run many commands during the same process without restarting tahoma ;
 
-For instance : `tahoma arm alarm garden open shutter kitchen close shutter room6 confort heater dining off plug office 25 sunscreen kitchen`
+For instance : `tahoma arm alarm garden open shutter room6 confort heater dining off plug office 25 sunscreen kitchen launch scene morning`
 
 
 # But first you need to retrieve your PERSONALS commands :
