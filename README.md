@@ -53,7 +53,8 @@ All is explained in `python3 tahoma.py --help` and `python3 tahoma.py --info`
 3. And now, you are ready to use tahoma :
 
 
-# Usage : `python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
+# Usage : 
+`python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
 
 
 For instance : `tahoma open shutter kitchen` or `tahoma ouvrir volet cuisine`
