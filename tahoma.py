@@ -22,7 +22,6 @@ from pyoverkiz.models import Command
 from pyoverkiz.models import Scenario
 import __version__
 
-
 def main():
     version ='tahoma - portable Version '+ str(__version__.__version__)+' - by @pzim-devdata'
 
@@ -39,15 +38,17 @@ def main():
     list_of_tahoma_plugs = os.path.dirname(os.path.abspath(__file__))+'/temp/plugs.txt'
     list_of_tahoma_sunscreens = os.path.dirname(os.path.abspath(__file__))+'/temp/sunscreens.txt'
     list_of_tahoma_scenes = os.path.dirname(os.path.abspath(__file__))+'/temp/scenarios.txt'
+    list_of_tahoma_sensors = os.path.dirname(os.path.abspath(__file__))+'/temp/sensors.txt'
+    list_of_tahoma_states = os.path.dirname(os.path.abspath(__file__))+'/temp/states.txt'
 
     notification_consent = os.path.dirname(os.path.abspath(__file__))+'/temp/consent_notification.txt'
 
     server_choosen =  os.path.dirname(os.path.abspath(__file__))+'/temp/server_choosen.txt'
 
-    list_categories = ['shutter','spotalarm','plug','alarm','heater','sunscreen','scene']
-    list_categories_french = ['volet','spotalarme','prise','alarme','chauffage','rideau','scenario']
-    list_actions = ['[open,close,stop,my,NUMBER]','[on,off]','[on,off]','[arm,disarm,partial,arm_night,arm_away]','[comfort,comfort-1,comfort-2,eco,off]','[open,close,stop,my,NUMBER]','[on,activate,launch,execute]']
-    list_actions_french = ['[ouvrir,fermer,stop,my,NOMBRE]','[allumer,eteindre]','[allumer,eteindre]','[activer,desactiver,partiel,activer_nuit,activer_parti]','[confort,confort-1,confort-2,eco,eteindre]','[ouvrir,fermer,stop,my,NOMBRE]','[lancer,activer,executer]']
+    list_categories = ['shutter','spotalarm','plug','alarm','heater','sunscreen','scene','sensor']
+    list_categories_french = ['volet','spotalarme','prise','alarme','chauffage','rideau','scenario','capteur']
+    list_actions = ['[open,close,stop,my,NUMBER]','[on,off]','[on,off]','[arm,disarm,partial,arm_night,arm_away]','[comfort,comfort-1,comfort-2,eco,off]','[open,close,stop,my,NUMBER]','[on,activate,launch,execute]','[get,get_state,get_position,get_lumens,get_temperature]']
+    list_actions_french = ['[ouvrir,fermer,stop,my,NOMBRE]','[allumer,eteindre]','[allumer,eteindre]','[activer,desactiver,partiel,activer_nuit,activer_parti]','[confort,confort-1,confort-2,eco,eteindre]','[ouvrir,fermer,stop,my,NOMBRE]','[lancer,activer,executer]','[obtenir,etat,position,luminosite,temperature]']
 
     try :
         f = open(notification_consent, 'r')
@@ -220,7 +221,7 @@ def main():
 
     for arg in sys.argv :
         if arg == '-lcf' or arg == '--list-categories-french' :
-            print( "tahoma peut controler ce type de categories d'équipements :\n"+str(list_categories))
+            print( "tahoma peut controler ce type de categories d'équipements :\n"+str(list_categories_french))
             exit()
 
     for arg in sys.argv :
@@ -308,7 +309,7 @@ def main():
     parser.add_argument("suite", nargs='*')
 
     args = parser.parse_args()
-    print(f'Input action(s) : {args.action} {args.category} {args.name} '+' '.join(args.suite) )
+#    print(f'Input action(s) : {args.action} {args.category} {args.name} '+' '.join(args.suite) )
 
     if args.password:
         PASSWORD = (f'{args.password}')
@@ -322,8 +323,9 @@ def main():
         new = re.sub(r'[ìíîï]', 'i', new)
         new = re.sub(r'[òóôõö]', 'o', new)
         new = re.sub(r'[ùúûü]', 'u', new)
+        new = re.sub(r'[ç]', 'c', new)
         return new
-        
+
     ##########################PARAMETERING FUNCTION
 
     j=0
@@ -591,6 +593,51 @@ def main():
             str1 = " "
             print("Output action : "+remove_accent(action).lower()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
 
+        ##########################SENSORS_STATES
+
+        elif remove_accent(category) == 'sensor' or remove_accent(category) == 'capteur':
+            command_state=[]
+            f = open(list_of_tahoma_states, 'r')
+            content = f.read()
+            f.close()
+            time.sleep(1)
+            try:
+                master_list = content.split("\n")
+                master_list.remove('')
+            except ValueError:
+                print("\nDid you downloaded the list of Tahoma's sensors ?.\nExecute tahoma --getlist \nFor more info execute tahoma -h or tahoma --info")
+                exit()
+            for i in master_list :
+                bad_name.append(i.split(",")[0])
+                if len(name.split())>1 :
+                    if remove_accent(i.split(",")[0]) == remove_accent(str(name)) or remove_accent(str(name)).replace('[','').replace(']','') == remove_accent(i.split(",")[0]) :
+                        url.append(i.split(",")[1])
+                        too_many_urls.append(i.split(",")[0])
+                        good_name.append(i.split(",")[0])
+                        command_state.append(i.split(",")[3])
+                elif str(name).startswith("[") :
+                    if '['+remove_accent(i.split(",")[0])+']' == remove_accent(str(name)) or remove_accent(str(name)).replace('[','').replace(']','') == remove_accent(i.split(",")[0]) :
+                        url.append(i.split(",")[1])
+                        too_many_urls.append(i.split(",")[0])
+                        good_name.append(i.split(",")[0])
+                        command_state.append(i.split(",")[3])
+                else :
+                    if remove_accent(i.split(",")[0]) in remove_accent(str(name)) or remove_accent(str(name)) in remove_accent(i.split(",")[0]) :
+                         url.append(i.split(",")[1])
+                         too_many_urls.append(i.split(",")[0])
+                         good_name.append(i.split(",")[0])
+                         command_state.append(i.split(",")[3])
+
+            if len(url)== 0 :
+                print("There is no match. The <NAME> you gave is not exact or it's impossible to retrieve the state of '"+args.name+"'. \nPerhaps because it's RTS protocol and not IO. \n\nHere are supported devices : "+str(bad_name)+" \n\nChoose a UNIQUE part of word from this supported devices as <NAME> argument or if you want to indicate the exact <NAME> use square brackets AND quotation mark : ['<NAME>'] . \nFor exemple if you want to use the <NAME> <Heater Room 6> the syntax should be : ['Heater Room 6']. \n\nIf you don't find your device in this results try tahoma --getlist\nSee tahoma --list-names for help.")
+                exit()
+
+#            command_state=[]
+#            time.sleep(1)
+#            for i in master_list :
+#                if remove_accent(i.split(",")[0]) in remove_accent(str(name)) or remove_accent(str(name)) in remove_accent(i.split(",")[0]) :
+#                     command_state.append(i.split(",")[3])
+
         ##########################
 
         else :
@@ -604,6 +651,7 @@ def main():
                 async with OverkizClient(USERNAME, PASSWORD, SUPPORTED_SERVERS[serverchoice]) as client:
                     await client.login()
                     try :
+                        j=0
                         for device_url in url :
                             try :
                                 exec_id = await client.execute_command( device_url, fonction )
@@ -611,6 +659,12 @@ def main():
                             try :
                                 exec_id = await client.execute_scenario(device_url)
                             except : pass
+                            try:
+                                get_state = await client.get_state(device_url)
+                                state_function=str(command_state[j]).replace("['","").replace("']","")
+                                print('The '+str(good_name[j])+' is '+str(eval(state_function)))
+                                j=j+1
+                            except :pass 
                     except Exception as e:
                         print(e) 
                         try:
