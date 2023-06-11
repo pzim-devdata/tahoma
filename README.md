@@ -63,7 +63,7 @@ For instance : `tahoma open shutter kitchen` or `tahoma ouvrir volet cuisine`
 
 You can also close a shutter or a sunscreen to a specific level. For example, to close to 25%, you can use the commands : `tahoma 25 shutter kitchen` or `tahoma 25 sunscreen kitchen`. Please note that this feature only works with IO protocols and not with RTS.
 
-As name you can use a unic word like `bath` or the full name with [""] like `["bath 1st floor"]`
+As name you can use a unic word like `bath` or the full name with [""]` like `["bath 1st floor"]`
 
 You can also run many commands during the same process without restarting tahoma :
 
