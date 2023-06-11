@@ -78,8 +78,8 @@ Exemples :
 
 - tahoma open shutter kitchen
 - tahoma 25 sunscreen Velux3 (You can close a shutter or a sunscreen to a specifique level. Here it will close to 25% )
-- tahoma get sensor ["Luminance sensor garden"] (You can use the full name of the device with ["<NAME>"] )
-- tahoma get sensor door (You will receive all the informations about all the sensors with the name <door> in the house in one time)
+- tahoma get sensor ["Luminance sensor garden"] (You can use the full name of the device with `["<NAME>"] )
+- tahoma get sensor door (You will receive all the informations about all the sensors with the name `door` in the house in one time)
 - tahoma get sensor ["Front door"] 
 - tahoma on plug office
 - tahoma open shutter ["room 6"]
