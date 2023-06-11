@@ -22,7 +22,7 @@ IF YOU LIKE THIS PROGRAM, PLEASE GIVE ME A STAR :star:
 
 # Download the zip file and extract it :
 
-[Download :inbox_tray:](https://github.com/pzim-devdata/tahoma/releases/download/v2.2.7/tahoma.zip)
+[Download :inbox_tray:](https://github.com/pzim-devdata/tahoma/releases/latest/download/tahoma.zip)
 
 
 # Start the app :
@@ -65,20 +65,30 @@ You can also close a shutter or a sunscreen to a specific level. For example, to
 
 You can also run many commands during the same process without restarting tahoma ;
 
-For instance : `tahoma arm alarm garden open shutter room6 confort heater dining off plug office 25 sunscreen kitchen launch scene morning`
+As name you can use a unic word like <bath> or the full name with [""] like <["bath 1st floor"]>
+
+For instance : `tahoma arm alarm garden open shutter ["room 6"] confort heater dining off plug office 25 sunscreen kitchen launch scene morning`
+
+There is also a wait functionality with `wait for` or `sleep for` or `attendre pendant` :
+
+For instance : `tahoma open shutter kitchen wait for 20 close shutter kitchen`
+
 
 Exemples :
 
 - tahoma open shutter kitchen
 - tahoma 25 sunscreen Velux3 (You can close a shutter or a sunscreen to a specifique level. Here it will close to 25% )
-- tahoma get sensor ["Luminance sensor garden"] (Just for sensors : you can use the full name of the device with [''] )
+- tahoma get sensor ["Luminance sensor garden"] (You can use the full name of the device with ["<NAME>"] )
+- tahoma get sensor door (You will receive all the informations about all the sensors with the name <door> in the house in one time)
+- tahoma get sensor ["Front door"] 
 - tahoma on plug office
-- tahoma get sensor door
+- tahoma open shutter ["room 6"]
 - tahoma arm alarm garden
-- confort heater dining
+- tahoma confort heater dining
 - tahoma get sensor ['heater dining room']
 - tahoma launch scene morning
-- tahoma arm alarm garden open shutter room6 confort heater dining off plug office 25 sunscreen kitchen launch scene morning get sensor ['heater dining room']
+- tahoma arm alarm garden wait for 10 open shutter room6 sleep for 7 confort heater dining off plug office 25 sunscreen kitchen launch scene morning get sensor ['heater dining room']
+- tahoma comfort heater dining wait for 3 get sensor ["Heater dining room"]
 
 # But first you need to retrieve your PERSONALS commands :
 
@@ -302,6 +312,8 @@ Alarm
 Shutter
 Plug
 Heater
+Sensors
+Scenes
 and more if you ask me on github : 
 
 [@pzim-devdata GitHub Pages](https://github.com/pzim-devdata/tahoma/issues)

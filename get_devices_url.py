@@ -122,15 +122,15 @@ async def main() -> None:
                     if "closed" in str(get_state[i].value) or "open" in str(get_state[i].value) :
                         f11.write(device.label+","+device.id+","+device.widget+",get_state["+str(i)+"].value,['closed','open'],"+str(get_state[i].value)+"\n")
                         print("States for "+device.label+" added to : "+ list_of_tahoma_states)
-                    elif "armed" in str(get_state[i].value) or "disarmed" in str(get_state[i].value) :
+                    if "armed" in str(get_state[i].value) or "disarmed" in str(get_state[i].value) :
                         f11.write(device.label+","+device.id+","+device.widget+",get_state["+str(i)+"].value,['armed','disarmed'],"+str(get_state[i].value)+"\n")
                         print("States for "+device.label+" added to : "+ list_of_tahoma_states)
-                    elif "Heater" not in device.widget :
+                    if "Heater" not in device.widget :
                         if 'DomesticHotWaterTank' not in device.widget :
                             if str(get_state[i].value) == 'on' or str(get_state[i].value) =='off':
                                 f11.write(device.label+","+device.id+","+device.widget+",get_state["+str(i)+"].value,['on','off'],"+str(get_state[i].value)+"\n")
                                 print("States for "+device.label+" added to : "+ list_of_tahoma_states)
-                    elif str(get_state[i].name) != 'io:TargetHeatingLevelState' :
+                    if str(get_state[i].name) != 'io:TargetHeatingLevelState' :
                         if str(get_state[i].name) != 'core:OnOffState':
                             if str(get_state[i].value) == 'eco' or str(get_state[i].value) =='comfort' or str(get_state[i].value) =='frostprotection' or str(get_state[i].value) =='off':
                                 f11.write(device.label+","+device.id+","+device.widget+",get_state["+str(i)+"].value,['eco','comfort','frostprotection','off'],"+str(get_state[i].value)+"\n")

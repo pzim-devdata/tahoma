@@ -82,7 +82,7 @@ def main():
         print( " - List of possible CATEGORIES : \n "+str(list_categories) )
         print( " - Liste des CATEGORIES possibles : \n "+str(list_categories_french) )
         print( "" )
-        print( " - List of available NAMES : tahoma --list-names \n - Liste des NOMS possibles : tahoma --list-names-french \n You must provide a part of the name you have assigned to the device in the Tahoma App. \n It must be a single and unic word, not taken by another device of the same category !\n For instance if you have two devices called <Alarm 1> and <Alarm 2> you will need to choose <2> as device [NAME] for <Alarm 2> and not <Alarm>).\n See tahoma --list or tahoma --help for info\nJust for sensors, you can use the full <NAME> : Use square brackets AND quotation mark : ['<NAME>'] . \nFor exemple if you want to use the <NAME> <Heater Room 6> the syntax should be : ['Heater Room 6'].")
+        print( ' - List of available NAMES : tahoma --list-names \n - Liste des NOMS possibles : tahoma --list-names-french \n You must provide a part of the name you have assigned to the device in the Tahoma App. \n It must be a single and unic word, not taken by another device of the same category !\n For instance if you have two devices called <Alarm 1> and <Alarm 2> you will need to choose <2> as device [NAME] for <Alarm 2> and not <Alarm>).\n You can also use the full <NAME> with [""].\n For instance ["Alarm 2"]\n See tahoma --list or tahoma --help for info.')
         print( "" )
         print( " You must provide at least 3 arguments" )
         print( " For instance : python3 tahoma open shutter kitchen")
@@ -90,8 +90,12 @@ def main():
         print( " For instance :python3 tahoma 25 shutter kitchen. It will open the shutter to 75% or close it to 25%" )
         print( "" )
         print( " You can also provide, as many as you wish, orders on the same line." ) 
-        print( " Tahoma will execute all orders one by one on the same process ;-)" )
+        print( " Tahoma will execute all orders one by one in the same process ;-)" )
         print( " For instance : tahoma open shutter kitchen arm alarm garden on plug room wait train garestation " )
+        print( "" )
+        print( " You can add a wait function with 'wait for' or 'sleep for'")
+        print( " Tahoma will wait the time in seconds you have specified")
+        print( " For instance : tahoma open shutter kitchen wait for 20 on plug room")
         print( "" )
         print( " FIRST you must configure login and password : sudo tahoma -c " )
         print( " It will be stored there : \n "+passwd_file )
@@ -208,12 +212,12 @@ def main():
 
     for arg in sys.argv :
         if arg == '-h' or arg == '--help' :
-            print("tahoma -h, --help : "+version+"\n\nUsage:\n tahoma <ACTION> <CATEGORY> <NAME> \n\n You must provide at least three arguments\n For instance : tahoma open shutter kitchen or tahoma ouvrir volet cuisine\n\nHelp options :\n -h,   --help                      Show this help\n -hf,  --help-french               Show this help in french\n -i,   --info                      Show more info\n\nPlugin options :\n -v,   --version                   Show the version of the plugin\n -c,   --configure                 To configure the plugin and store login and password in a text file which is located here : "+passwd_file+" Use with sudo !\n -u,   --username                  If you don't want to store the login, you can provide the mail-address with this option\n -p,   --password                  If you don't want to store the password, you can provide it with this option\n -g,   --getlist                   Download the list of devices and store them here : "+list_of_tahoma_devices+" Use with sudo !\n -l,   --list                      Show the complet list of devices installed\n -la,  --list-actions              Show the list of possible ACTIONS by CATEGORIES\n -lc,  --list-categories           Show all supported CATEGORIES of devices\n -lnf, --list-names                Show all installed devices by there NAMES\n")
+            print("tahoma -h, --help : "+version+"\n\nUsage:\n tahoma <ACTION> <CATEGORY> <NAME> \n\n You must provide at least three arguments\n For instance : tahoma open shutter kitchen or tahoma ouvrir volet cuisine\n\n You can close a shutter or a sunscreen to a specific level (IO protocols only)\n For instance : tahoma 25 shutter kitchen. It will open the shutter to 75% or close it to 25%\n\n You can also provide, as many as you wish, orders on the same line\n Tahoma will execute all orders one by one in the same process ;-)\n For instance : tahoma open shutter kitchen arm alarm garden on plug room wait train garestation\n\nHelp options :\n -h,   --help                      Show this help\n -hf,  --help-french               Show this help in french\n -i,   --info                      Show more info\n\nPlugin options :\n -v,   --version                   Show the version of the plugin\n -c,   --configure                 To configure the plugin and store login and password in a text file which is located here : "+passwd_file+" Use with sudo !\n -u,   --username                  If you don't want to store the login, you can provide the mail-address with this option\n -p,   --password                  If you don't want to store the password, you can provide it with this option\n -g,   --getlist                   Download the list of devices and store them here : "+list_of_tahoma_devices+" Use with sudo !\n -l,   --list                      Show the complet list of devices installed\n -la,  --list-actions              Show the list of possible ACTIONS by CATEGORIES\n -lc,  --list-categories           Show all supported CATEGORIES of devices\n -lnf, --list-names                Show all installed devices by there NAMES\n\nCommand options :\n wait for <seconds>                Tahoma will wait for <seconds> seconds to execute next action\n sleep for <seconds>\n")
             exit()
 
     for arg in sys.argv :
         if arg == '-hf' or arg == '--help-french' :
-            print("tahoma -h --help : "+version+"\n\nUsage:\n tahoma <ACTION> <CATEGORIE> <NOM> \n Vous devez fournir au moins trois arguments\n Par exemple : tahoma ouvrir volet cuisine ou tahoma open shutter kitchen \n\nOptions de l’aide :\n -h, --help                        Affiche les options de l’aide en anglais\n\nOptions de l’application :\n -v, --version                     Affiche la version de l’application\n -i, --info                        Afficher plus d'infos sur tahoma\n -c, --configure                   Renseigner l'identifiant et le mot de passe dans un fichier texte pour ne pas devoir les renseigner à chaque fois. Le fichier texte se situe dans : "+passwd_file+" Utiliser sudo !\n -u, --username                    Renseigner le nom d'utilisateur\n -p, --password                    Renseigner le mot de passe de Somfy-connect\n -g, --getlist                     Télécharge la liste des équipements et la stocke dans "+list_of_tahoma_devices+" Utiliser sudo !\n -l, --list                        Affiche la liste téléchargée des équipements\n -laf, --list-actions-french       Affiche la liste des ACTIONS possibles en français par CATEGORIES\n -lcf, --list-categories-french    Affiche toutes les CATEGORIES d'équipements pris en charge en français\n -lnf, --list-names-french         Affiche les NOMS des équipements installés par categories en français")
+            print("tahoma -h --help : "+version+"\n\nUsage:\n tahoma <ACTION> <CATEGORIE> <NOM> \n\n Vous devez fournir au moins trois arguments\n Par exemple : tahoma ouvrir volet cuisine ou tahoma open shutter kitchen\n\n Vous pouvez fermer des rideaux ou des volets à un niveau precis (Seulement pour les équipements utilisant le protocole IO)\n Par exemple : tahoma 25 volet cuisine. Les volets vont s'ouvrir de 75% ou se fermer de 25%\n\n Vous pouvez aussi spécifier autant de commandes que vous le souhaitez sur la même ligne :\n Tahoma va executer chaque commande l'une aprés l'autre durant le même processus\n Par exemple : tahoma ouvrir volet cuisine confort chauffage salon\n\nOptions de l’aide :\n -h, --help                        Affiche les options de l’aide en anglais\n\nOptions de l’application :\n -v, --version                     Affiche la version de l’application\n -i, --info                        Afficher plus d'infos sur tahoma\n -c, --configure                   Renseigner l'identifiant et le mot de passe dans un fichier texte pour ne pas devoir les renseigner à chaque fois. Le fichier texte se situe dans : "+passwd_file+" Utiliser sudo !\n -u, --username                    Renseigner le nom d'utilisateur\n -p, --password                    Renseigner le mot de passe de Somfy-connect\n -g, --getlist                     Télécharge la liste des équipements et la stocke dans "+list_of_tahoma_devices+" Utiliser sudo !\n -l, --list                        Affiche la liste téléchargée des équipements\n -laf, --list-actions-french       Affiche la liste des ACTIONS possibles en français par CATEGORIES\n -lcf, --list-categories-french    Affiche toutes les CATEGORIES d'équipements pris en charge en français\n -lnf, --list-names-french         Affiche les NOMS des équipements installés par categories en français\n\nOptions de commande :\n attendre pendant <secondes>       Tahoma attendra <secondes> secondes avant d'éxécuter la commande suivante\n")
             exit()
 
     for arg in sys.argv :
@@ -243,7 +247,7 @@ def main():
                     print("\nHere is the list of the installed devices for the "+category.upper()+" category :\n"+str(bad_name))
                 except Exception as e:
                     print("\nCan't obtain any device from the "+category.upper()+" category\nDid you downloaded the list of Tahoma's devices ?\nIf not, execute tahoma --getlist \nFor more info execute tahoma -h")
-            print( "\nYou must provide a part of the <NAME> as argument \nIt must be a single and unic word, not taken by another device of the same category !\nFor instance : <Kitchen>\nIf you have two devices called <Alarm 1> and <Alarm 2> you will need to choose <2> as device <NAME> for <Alarm 2> and not <Alarm>. See tahoma --list or tahoma --help for more info")
+            print( '\nYou must provide a part of the <NAME> as argument \nt must be a single and unic word, not taken by another device of the same category !\n For instance if you have two devices called <Alarm 1> and <Alarm 2> you will need to choose <2> as device [NAME] for <Alarm 2> and not <Alarm>).\n You can also use the full <NAME> with [""].\n For instance ["Alarm 2"]\n See tahoma --list or tahoma --help for info.')
             exit()
 
     for arg in sys.argv :
@@ -361,15 +365,21 @@ def main():
                 exit()
             for i in master_list :
                 bad_name.append(i.split(",")[0])
-                if remove_accent(i.split(",")[0]) in remove_accent(str(name)) or remove_accent(str(name)) in remove_accent(i.split(",")[0]) :
-                     url.append(i.split(",")[1])
-                     too_many_urls.append(i.split(",")[0])
-                     good_name.append(i.split(",")[0])
+                if str(name).startswith("[") :
+                    if '['+remove_accent(i.split(",")[0])+']' == remove_accent(str(name)) or remove_accent(str(name)).replace('[','').replace(']','') == remove_accent(i.split(",")[0]) :
+                        url.append(i.split(",")[1])
+                        too_many_urls.append(i.split(",")[0])
+                        good_name.append(i.split(",")[0])
+                else :
+                    if remove_accent(i.split(",")[0]) in remove_accent(str(name)) or remove_accent(str(name)) in remove_accent(i.split(",")[0]) :
+                         url.append(i.split(",")[1])
+                         too_many_urls.append(i.split(",")[0])
+                         good_name.append(i.split(",")[0])
             if len(url)== 0 :
-                print("There is no match. The <NAME> you gave is not exact. Did you mean : "+str(bad_name)+" ? Choose a UNIQUE part of word from this results as <NAME> argument\nIf you don't find your device in this results try tahoma --getlist\nSee tahoma --list-names for help.")
+                print("There is no match. The <NAME> you gave is not exact. Did you mean : "+str(bad_name)+" ? Choose a UNIC part of word from this results as <NAME> argument or use [''] with the full name.\nIf you don't find your device in this results try tahoma --getlist\nSee tahoma --list-names for help.")
                 exit()
             if len(url) > 1 :
-                print("There is more than one match. The <NAME> you gave is not exact. Choose a UNIQUE part of word from this results as <NAME> argument : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
+                print("There is more than one match. The <NAME> you gave is not exact. Choose a UNIC part of word from this results as <NAME> argument or use [''] with the full name : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
                 exit()
 
             if remove_accent(action).upper() == "OPEN" or remove_accent(action).upper() == "OUVRIR" :
@@ -405,15 +415,21 @@ def main():
                 exit()
             for i in master_list :
                 bad_name.append(i.split(",")[0])
-                if remove_accent(i.split(",")[0]) in remove_accent(str(name)) or remove_accent(str(name)) in remove_accent(i.split(",")[0]) :
-                     url.append(i.split(",")[1])
-                     too_many_urls.append(i.split(",")[0])
-                     good_name.append(i.split(",")[0])
+                if str(name).startswith("[") :
+                    if '['+remove_accent(i.split(",")[0])+']' == remove_accent(str(name)) or remove_accent(str(name)).replace('[','').replace(']','') == remove_accent(i.split(",")[0]) :
+                        url.append(i.split(",")[1])
+                        too_many_urls.append(i.split(",")[0])
+                        good_name.append(i.split(",")[0])
+                else :
+                    if remove_accent(i.split(",")[0]) in remove_accent(str(name)) or remove_accent(str(name)) in remove_accent(i.split(",")[0]) :
+                         url.append(i.split(",")[1])
+                         too_many_urls.append(i.split(",")[0])
+                         good_name.append(i.split(",")[0])
             if len(url)== 0 :
-                print("There is no match. The <NAME> you gave is not exact. Did you mean : "+str(bad_name)+" ? Choose a UNIQUE part of word from this results as <NAME> argument\nIf you don't find your device in this results try tahoma --getlist\nSee tahoma --list-names for help.")
+                print("There is no match. The <NAME> you gave is not exact. Did you mean : "+str(bad_name)+" ? Choose a UNIC part of word from this results as <NAME> argument or use [''] with the full name\nIf you don't find your device in this results try tahoma --getlist\nSee tahoma --list-names for help.")
                 exit()
             if len(url) > 1 :
-                print("There is more than one match. The <NAME> you gave is not exact. Choose a UNIQUE part of word from this results as <NAME> argument : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
+                print("There is more than one match. The <NAME> you gave is not exact. Choose a UNIC part of word from this results as <NAME> argument or use [''] with the full name : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
                 exit()
 
             if remove_accent(action).upper() == "OPEN" or remove_accent(action).upper() == "OUVRIR" :
@@ -459,15 +475,21 @@ def main():
                 exit()
             for i in master_list :
                 bad_name.append(i.split(",")[0])
-                if remove_accent(i.split(",")[0]) in remove_accent(str(name)) or remove_accent(str(name)) in remove_accent(i.split(",")[0]) :
-                     url.append(i.split(",")[1])
-                     too_many_urls.append(i.split(",")[0])
-                     good_name.append(i.split(",")[0])
+                if str(name).startswith("[") :
+                    if '['+remove_accent(i.split(",")[0])+']' == remove_accent(str(name)) or remove_accent(str(name)).replace('[','').replace(']','') == remove_accent(i.split(",")[0]) :
+                        url.append(i.split(",")[1])
+                        too_many_urls.append(i.split(",")[0])
+                        good_name.append(i.split(",")[0])
+                else :
+                    if remove_accent(i.split(",")[0]) in remove_accent(str(name)) or remove_accent(str(name)) in remove_accent(i.split(",")[0]) :
+                         url.append(i.split(",")[1])
+                         too_many_urls.append(i.split(",")[0])
+                         good_name.append(i.split(",")[0])
             if len(url)== 0 :
-                print("There is no match. The <NAME> you gave is not exact. Did you mean : "+str(bad_name)+" ? Choose a UNIQUE part of word from this results as <NAME> argument\nIf you don't find your device in this results try tahoma --getlist\nSee tahoma --list-names for help.")
+                print("There is no match. The <NAME> you gave is not exact. Did you mean : "+str(bad_name)+" ? Choose a UNIC part of word from this results as <NAME> argument or use [''] with the full name\nIf you don't find your device in this results try tahoma --getlist\nSee tahoma --list-names for help.")
                 exit()
             if len(url) > 1 :
-                print("There is more than one match. The <NAME> you gave is not exact. Choose a UNIQUE part of word from this results as <NAME> argument : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
+                print("There is more than one match. The <NAME> you gave is not exact. Choose a UNIC part of word from this results as <NAME> argument or use [''] with the full name : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
                 exit()
 
             if remove_accent(action).upper() == "ON" or remove_accent(action).upper() == "ALLUMER" :
@@ -494,15 +516,21 @@ def main():
                 exit()
             for i in master_list :
                 bad_name.append(i.split(",")[0])
-                if remove_accent(i.split(",")[0]) in remove_accent(str(name)) or remove_accent(str(name)) in remove_accent(i.split(",")[0]) :
-                     url.append(i.split(",")[1])
-                     too_many_urls.append(i.split(",")[0])
-                     good_name.append(i.split(",")[0])
+                if str(name).startswith("[") :
+                    if '['+remove_accent(i.split(",")[0])+']' == remove_accent(str(name)) or remove_accent(str(name)).replace('[','').replace(']','') == remove_accent(i.split(",")[0]) :
+                        url.append(i.split(",")[1])
+                        too_many_urls.append(i.split(",")[0])
+                        good_name.append(i.split(",")[0])
+                else :
+                    if remove_accent(i.split(",")[0]) in remove_accent(str(name)) or remove_accent(str(name)) in remove_accent(i.split(",")[0]) :
+                         url.append(i.split(",")[1])
+                         too_many_urls.append(i.split(",")[0])
+                         good_name.append(i.split(",")[0])
             if len(url)== 0 :
-                print("There is no match. The <NAME> you gave is not exact. Did you mean : "+str(bad_name)+" ? Choose a UNIQUE part of word from this results as <NAME> argument\nIf you don't find your device in this results try tahoma --getlist\nSee tahoma --list-names for help.")
+                print("There is no match. The <NAME> you gave is not exact. Did you mean : "+str(bad_name)+" ? Choose a UNIC part of word from this results as <NAME> argument or use [''] with the full name\nIf you don't find your device in this results try tahoma --getlist\nSee tahoma --list-names for help.")
                 exit()
             if len(url) > 1 :
-                print("There is more than one match. The <NAME> you gave is not exact. Choose a UNIQUE part of word from this results as <NAME> argument : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
+                print("There is more than one match. The <NAME> you gave is not exact. Choose a UNIC part of word from this results as <NAME> argument or use [''] with the full name : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
                 exit()
 
             if remove_accent(action).upper() == "ARM" or remove_accent(action).upper() == "ACTIVER" or remove_accent(action).upper() == "ON":
@@ -535,15 +563,21 @@ def main():
                 exit()
             for i in master_list :
                 bad_name.append(i.split(",")[0])
-                if remove_accent(i.split(",")[0]) in remove_accent(str(name)) or remove_accent(str(name)) in remove_accent(i.split(",")[0]) :
-                     url.append(i.split(",")[1])
-                     too_many_urls.append(i.split(",")[0])
-                     good_name.append(i.split(",")[0])
+                if str(name).startswith("[") :
+                    if '['+remove_accent(i.split(",")[0])+']' == remove_accent(str(name)) or remove_accent(str(name)).replace('[','').replace(']','') == remove_accent(i.split(",")[0]) :
+                        url.append(i.split(",")[1])
+                        too_many_urls.append(i.split(",")[0])
+                        good_name.append(i.split(",")[0])
+                else :
+                    if remove_accent(i.split(",")[0]) in remove_accent(str(name)) or remove_accent(str(name)) in remove_accent(i.split(",")[0]) :
+                         url.append(i.split(",")[1])
+                         too_many_urls.append(i.split(",")[0])
+                         good_name.append(i.split(",")[0])
             if len(url)== 0 :
-                print("There is no match. The <NAME> you gave is not exact. Did you mean : "+str(bad_name)+" ? Choose a UNIQUE part of word from this results as <NAME> argument\nIf you don't find your device in this results try tahoma --getlist\nSee tahoma --list-names for help.")
+                print("There is no match. The <NAME> you gave is not exact. Did you mean : "+str(bad_name)+" ? Choose a UNIC part of word from this results as <NAME> argument or use [''] with the full name\nIf you don't find your device in this results try tahoma --getlist\nSee tahoma --list-names for help.")
                 exit()
             if len(url) > 1 :
-                print("There is more than one match. The <NAME> you gave is not exact. Choose a UNIQUE part of word from this results as <NAME> argument : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
+                print("There is more than one match. The <NAME> you gave is not exact. Choose a UNIC part of word from this results as <NAME> argument or use [''] with the full name : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
                 exit()
 
             if remove_accent(action).lower() == "comfort" or remove_accent(action).lower() == "confort" :
@@ -577,15 +611,22 @@ def main():
                 exit()
             for i in master_list :
                 bad_name.append(i.split(",")[0])
-                if remove_accent(i.split(",")[0]) in remove_accent(str(name)) or remove_accent(str(name)) in remove_accent(i.split(",")[0]) :
-                     url.append(i.split(",")[1])
-                     too_many_urls.append(i.split(",")[0])
-                     good_name.append(i.split(",")[0])
+                if str(name).startswith("[") :
+                    if '['+remove_accent(i.split(",")[0])+']' == remove_accent(str(name)) or remove_accent(str(name)).replace('[','').replace(']','') == remove_accent(i.split(",")[0]) :
+                        url.append(i.split(",")[1])
+                        too_many_urls.append(i.split(",")[0])
+                        good_name.append(i.split(",")[0])
+                else :
+                    if remove_accent(i.split(",")[0]) in remove_accent(str(name)) or remove_accent(str(name)) in remove_accent(i.split(",")[0]) :
+                         url.append(i.split(",")[1])
+                         too_many_urls.append(i.split(",")[0])
+                         good_name.append(i.split(",")[0])
+
             if len(url)== 0 :
-                print("There is no match. The <NAME> you gave is not exact. Did you mean : "+str(bad_name)+" ? Choose a UNIQUE part of word from this results as <NAME> argument\nIf you don't find your device in this results try tahoma --getlist\nSee tahoma --list-names for help.")
+                print("There is no match. The <NAME> you gave is not exact. Did you mean : "+str(bad_name)+" ? Choose a UNIC part of word from this results as <NAME> argument or use [''] with the full name\nIf you don't find your device in this results try tahoma --getlist\nSee tahoma --list-names for help.")
                 exit()
             if len(url) > 1 :
-                print("There is more than one match. The <NAME> you gave is not exact. Choose a UNIQUE part of word from this results as <NAME> argument : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
+                print("There is more than one match. The <NAME> you gave is not exact. Choose a UNIC part of word from this results as <NAME> argument or use [''] with the full name : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
                 exit()
 
             
@@ -631,7 +672,7 @@ def main():
                          command_state.append(i.split(",")[3])
 
             if len(url)== 0 :
-                print("There is no match. The <NAME> you gave is not exact or it's impossible to retrieve the state of '"+args.name+"'. \nPerhaps because it's RTS protocol and not IO. \n\nHere are supported devices : "+str(bad_name)+" \n\nChoose a UNIQUE part of word from this supported devices as <NAME> argument or if you want to indicate the exact <NAME> use square brackets AND quotation mark : ['<NAME>'] . \nFor exemple if you want to use the <NAME> <Heater Room 6> the syntax should be : ['Heater Room 6']. \n\nIf you don't find your device in this results try tahoma --getlist\nSee tahoma --list-names for help.")
+                print("There is no match. The <NAME> you gave is not exact or it's impossible to retrieve the state of '"+args.name+"'. \nPerhaps because it's RTS protocol and not IO. \n\nHere are supported devices : "+str(bad_name)+" \n\nChoose a UNIC part of word from this supported devices as <NAME> argument or if you want to indicate the exact <NAME> use square brackets AND quotation mark : ['<NAME>'] . \nFor exemple if you want to use the <NAME> <Heater Room 6> the syntax should be : ['Heater Room 6']. \n\nIf you don't find your device in this results try tahoma --getlist\nSee tahoma --list-names for help.")
                 exit()
 
 #            command_state=[]
@@ -639,6 +680,11 @@ def main():
 #            for i in master_list :
 #                if remove_accent(i.split(",")[0]) in remove_accent(str(name)) or remove_accent(str(name)) in remove_accent(i.split(",")[0]) :
 #                     command_state.append(i.split(",")[3])
+
+        ##########################WAIT FUNCTION
+
+        elif remove_accent(action) == 'wait' or remove_accent(action) == 'sleep' or remove_accent(action) == 'attendre':
+            url.append(int(name))
 
         ##########################
 
@@ -655,18 +701,23 @@ def main():
                     try :
                         j=0
                         for device_url in url :
-                            try :
-                                exec_id = await client.execute_command( device_url, fonction )
-                            except : pass
-                            try :
-                                exec_id = await client.execute_scenario(device_url)
-                            except : pass
-                            try:
-                                get_state = await client.get_state(device_url)
-                                state_function=str(command_state[j]).replace("['","").replace("']","")
-                                print('The '+str(good_name[j])+' is '+str(eval(state_function)))
-                                j=j+1
-                            except :pass 
+                            if str(device_url).isnumeric() == True :
+                                time.sleep(int(device_url))
+                                async with OverkizClient(USERNAME, PASSWORD, SUPPORTED_SERVERS[serverchoice]) as client:
+                                    await client.login()
+                            else :
+                                try :
+                                    exec_id = await client.execute_command( device_url, fonction )
+                                except : pass
+                                try :
+                                    exec_id = await client.execute_scenario(device_url)
+                                except : pass
+                                try:
+                                    get_state = await client.get_state(device_url)
+                                    state_function=str(command_state[j]).replace("['","").replace("']","")
+                                    print('The '+str(good_name[j])+' is '+str(eval(state_function)))
+                                    j=j+1
+                                except :pass 
                     except Exception as e:
                         print(e) 
                         try:
@@ -674,22 +725,6 @@ def main():
                                 os.system("notify-send -i "+icon_app+" -t 150000 Tahoma "+"'Program failed. Here is the error message :\n\n "+str(e)+"'")
                         except:pass
                         exit()
-                    if 'wait' in locals() or 'wait' in globals():
-                        try:
-                            if notification.lower() == 'y'or notification.lower() == 'yes':
-                                os.system("notify-send -i "+icon2+" -t "+str(wait*1000) +" Tahoma 'Device wake for "+str(wait)+" seconds'")
-                        except : pass
-                        time.sleep(wait)
-                        await client.login()
-                        try :
-                            for device_url in url :
-                                exec_id = await client.execute_command( device_url, fonction2 )
-                        except NameError: 
-                                try:
-                                    if notification.lower() == 'y'or notification.lower() == 'yes':
-                                        os.system("notify-send -i "+icon_app+" --expire-time=150000 Tahoma '"+str_info+"'")
-                                except:pass
-                                info()
         except Exception as e:
             print( e )
             try :
