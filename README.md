@@ -17,7 +17,7 @@ THIS TAG DOESN'T WORK, DON'T TRUST IT : ![GitHub All Releases](https://img.shiel
 THIS IS THE PORTABLE VERSION FOR DIRECT DOWNLOADING. IT'S NOT AN INSTALLED PACKAGE. TO RUN THE APP JUST EXECUTE, IN YOUR IMPORTED FOLDER, `python3 tahoma.py`
 . IF YOU WANT TO INSTALL THE PACKAGE USING PyPI (pip version) go there : [How to install tahoma with pip ?](https://github.com/pzim-devdata/tahoma#install-the-main-package-) or go directly to the [PyPI Project Website](https://pypi.org/project/tahoma/#description) It's easier.
 
-IF YOU LIKE THIS PROGRAM, PLEASE GIVE ME A STAR :star:
+IF YOU LIKE THIS PROGRAM, PLEASE STAR IT TO IMPROVE TAHOMA'S VISIBILITY SO THAT OTHERS CAN ALSO BENEFIT FROM IT. :star:
 
 
 # Download the zip file and extract it :
