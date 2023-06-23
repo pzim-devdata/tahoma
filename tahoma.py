@@ -21,9 +21,32 @@ from pyoverkiz.enums import OverkizCommand
 from pyoverkiz.models import Command
 from pyoverkiz.models import Scenario
 import __version__
+import requests
+
+version_number=str(__version__.__version__)
+get_devices_url="import get_devices_url"
+
+url_releases = 'https://api.github.com/repos/pzim-devdata/tahoma/releases'
+
+def check_last_release (show='y'):
+    try:
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+        response = requests.get(url_releases, headers=headers)
+        releases = response.json()
+        last_release = releases[0]['tag_name']
+        if str(last_release.lower()) == str(version_number).lower():
+            if show == 'y' :
+                print(" You are using the last version of Tahoma : " + str(last_release.lower()))
+        else :
+            print(" Last version of Tahoma is : " + str(last_release.lower()) + " and you are using the version : " + str(version_number).lower())
+            print(" Pypi version : sudo python3 -m pip install -U tahoma or pipx upgrade tahoma")
+            print(" Github version : https://github.com/pzim-devdata/tahoma/releases/latest/download/tahoma.zip")
+    except : pass
+
+check_last_release ('n')
 
 def main():
-    version ='tahoma - portable Version '+ str(__version__.__version__)+' - by @pzim-devdata'
+    version ='tahoma - portable Version '+ str(version_number)+' - by @pzim-devdata'
 
     icon_app = os.path.dirname(os.path.abspath(__file__))+'/icons/connected_house.png'
     icon_chauffe_eau=os.path.dirname(os.path.abspath(__file__))+'/icons/water heater.png'
@@ -67,9 +90,9 @@ def main():
     def info():
         print( "" )
         print( "      ***************************************************************      " )
-        print( "------*     Tahoma version : "+version+"     *-------" )
+        print( "      Tahoma version : "+version+"     " )
         print( "      ***************************************************************        " )
-        print( "              sudo python3 -m pip install tahoma-pzim -U" )
+        print( "              sudo python3 -m pip install tahoma -U" )
         print( "                   https://pypi.org/project/tahoma/" )
         print( "                 https://github.com/pzim-devdata/tahoma" )
         print( "                          contact@pzim.fr" )
@@ -109,6 +132,9 @@ def main():
         print( "" )
         print( "      Il existe une aide en français : tahoma --help-french " )
         print( " ********************************************************************        " )
+        print( "" )
+        check_last_release ()
+        print( "" )
         print( "    Open your terminal in full screen mode to have a better view \n" )
     #    try :
     #        os.system("wmctrl -r ':ACTIVE:' -b toggle,fullscreen")
@@ -134,7 +160,7 @@ def main():
     for arg in sys.argv :
         if arg == '-g' or arg == '--getlist' :
             try :
-                import get_devices_url
+                exec(get_devices_url)
                 exit()
             except Exception as e: 
                 print(e)
