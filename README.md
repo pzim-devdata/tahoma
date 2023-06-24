@@ -58,6 +58,8 @@ All the details are explained in `python3 tahoma.py --help` and `python3 tahoma.
 #### 4. Retrieve your PERSONAL commands 
 **USAGE:** `python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
 
+For example : `tahoma open shutter kitchen` or `tahoma ouvrir volet cuisine`
+
 To retrieve your personal commands, you can use the following options:
 
 1. List all possible [ACTIONS] for each [CATEGORIES]: 
@@ -87,10 +89,10 @@ Now you are ready to use tahoma
 # Use Cases: 
 **Usage:** `python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
 
-
 For example : `tahoma open shutter kitchen` or `tahoma ouvrir volet cuisine`
 
-- You can also specify the closing level for shutters or sunscreens with a numeric value as ACTION.
+
+- You can specify the closing level for shutters or sunscreens with a numeric value as ACTION.
 
 For instance, to close a shutter or a sunsceen to 25% : 
 
