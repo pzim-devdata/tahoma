@@ -33,7 +33,7 @@ If you like this program, please star it on GitHub to improve Tahoma's visibilit
 
 [Download :inbox_tray:](https://github.com/pzim-devdata/tahoma/releases/latest/download/tahoma.zip)
 
-### 2. **Start the app** by running the following commands in your imported folder:
+#### 2. **Start the app** by running the following commands in your imported folder:
 
 - `python3 -m pip install -r requirements.txt` in order to install dependencies
 and
