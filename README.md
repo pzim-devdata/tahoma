@@ -29,17 +29,17 @@ If you like this program, please star it on GitHub to improve Tahoma's visibilit
 
 # Quick Start
 
-## **Download** the zip file and extract it to a choosen folder:
+## 1. **Download** the zip file and extract it to a choosen folder:
 
 [Download :inbox_tray:](https://github.com/pzim-devdata/tahoma/releases/latest/download/tahoma.zip)
 
-## **Start the app** by running the following commands in your imported folder:
+## 2. **Start the app** by running the following commands in your imported folder:
 
 - `python3 -m pip install -r requirements.txt` in order to install dependencies
 and
 - `python3 tahoma.py`  to ensure that Tahoma starts.
 
-## **Configuration :** There are just two commands to execute once. All the details are explained in `python3 tahoma.py --help` and `python3 tahoma.py --info` :
+## 3. **Configuration :** There are just two commands to execute once. All the details are explained in `python3 tahoma.py --help` and `python3 tahoma.py --info` :
 
 1. Specify your Somfy-connect login information and choose the Somfy server: :
 
@@ -49,7 +49,7 @@ and
 
 - `python3 tahoma.py --getlist` or `python3 tahoma.py -g`
 
-## **Retrieve** your PERSONAL commands : `python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
+## 4. **Retrieve** your PERSONAL commands : `python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
 
 To retrieve your personal commands, you can use the following options:
 
