@@ -13,13 +13,7 @@ THIS TAG DOESN'T WORK, DON'T TRUST IT : ![GitHub All Releases](https://img.shiel
 -->
 [![Downloads](https://static.pepy.tech/personalized-badge/tahoma?period=total&units=international_system&left_color=grey&right_color=blue&left_text=PyPI%20downloads)](https://pepy.tech/project/tahoma)
 
-<p>Cliquez sur le drapeau pour afficher la page en français :</p>
-<a href="https://github.com/pzim-devdata/tahoma/blob/main/README_FR.md">
-  <img src="https://cdn.countryflags.com/thumbs/france/flag-round-250.png" width="30" height="30" alt="Drapeau français">
-</a>
-
-
-
+<a href="https://github.com/pzim-devdata/tahoma/blob/main/README_FR.md" title="Cliquez ici pour accéder à la version française du site"><img src="https://cdn.countryflags.com/thumbs/france/flag-round-250.png" width="30" height="30" alt="Drapeau français"></a>
 
 <a href="https://github.com/pzim-devdata/tahoma/blob/main/README_FR.md"><img src="https://cdn.countryflags.com/thumbs/france/flag-round-250.png" width="30" height="30" alt="Drapeau français"></a>
 
