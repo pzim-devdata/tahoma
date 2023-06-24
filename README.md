@@ -13,6 +13,8 @@ THIS TAG DOESN'T WORK, DON'T TRUST IT : ![GitHub All Releases](https://img.shiel
 -->
 [![Downloads](https://static.pepy.tech/personalized-badge/tahoma?period=total&units=international_system&left_color=grey&right_color=blue&left_text=PyPI%20downloads)](https://pepy.tech/project/tahoma)
 
+<p>Utilisez le bouton ci-dessous pour traduire cette page en français : <a href="assets/translate.html"><img src="https://cdn.countryflags.com/thumbs/france/flag-round-250.png"> Traduction</a></p>
+
 # Features
 
 ![GifTahoma.gif](GifTahoma.gif)
