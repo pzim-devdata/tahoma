@@ -41,8 +41,8 @@ Run the following commands in your imported folder:
 and
 - `python3 tahoma.py`  to ensure that Tahoma starts.
 
-#### 3. Configuration 
-There are just two commands to execute once:
+#### 3. Configure
+There are just two commands to execute once to configure Tahoma:
 
 All the details are explained in `python3 tahoma.py --help` and `python3 tahoma.py --info`.
 
