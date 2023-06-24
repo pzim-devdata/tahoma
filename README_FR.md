@@ -24,7 +24,7 @@ CE TAG NE FONCTIONNE PAS, N'Y FEREZ PAS CONFIANCE : ![GitHub All Releases](https
 - Compatible avec les systèmes d'exploitation Windows et Linux
 
 # Installation
-**Note:** Il s'agit d'une version portable à télécharger directement. Il ne s'agit pas d'un paquetage installé. Pour lancer l'application, il suffit d'exécuter `python3 tahoma.py` dans votre dossier importé. Si vous voulez installer le paquet en utilisant PyPI (version pip), allez à : [How to install tahoma with pip ?](https://github.com/pzim-devdata/tahoma#install-the-main-package-) ou visitez directement le [PyPI Project Website](https://pypi.org/project/tahoma/#description) pour un processus d'installation plus facile.
+**Note:** Il s'agit d'une version portable à télécharger directement. Il ne s'agit pas d'un paquetage installé. Pour lancer l'application, il suffit d'exécuter `python3 tahoma.py` dans votre dossier importé. Si vous voulez installer le paquet en utilisant PyPI (version pip), allez à : [Comment installer tahoma avec pip ?](https://github.com/pzim-devdata/tahoma#install-the-main-package-) ou visitez directement le [site Pypi du projet](https://pypi.org/project/tahoma/#description) pour un processus d'installation plus facile.
 
 Si vous aimez ce programme, veuillez lui attribuer une étoile sur GitHub pour améliorer la visibilité de Tahoma et permettre à d'autres personnes d'en bénéficier. :star :
 
