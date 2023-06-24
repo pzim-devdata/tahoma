@@ -84,7 +84,7 @@ Enjoy !  For more info  refer to `python3 tahoma.py -h` or `python3 tahoma.py -i
 Now you are ready to use tahoma
 
 
-# Usage : 
+# Use Cases: 
 `python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
 
 
