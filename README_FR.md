@@ -11,7 +11,7 @@ Elle a été initialement créée pour Tahoma mais fonctionne également avec So
 CE TAG NE FONCTIONNE PAS, N'Y FEREZ PAS CONFIANCE : ![GitHub All Releases](https://img.shields.io/github/downloads/pzim-devdata/tahoma/total?style=plastic) 
 -->
 [![Downloads](https://static.pepy.tech/personalized-badge/tahoma?period=total&units=international_system&left_color=grey&right_color=blue&left_text=PyPI%20downloads)](https://pepy.tech/project/tahoma)
-# Caractéristiques
+# Présentation
 
 ![GifTahoma.gif](GifTahoma.gif)
 
@@ -89,7 +89,7 @@ Pour plus d'informations, consultez `python3 tahoma.py -h` ou `python3 tahoma.py
 
 
 
-# Cas d'utilisation : 
+# Cas d'usage : 
 **Utilisation:** `python3 tahoma.py [ACTION] [CATEGORIE] [NOM]`
 
 Par exemple : `tahoma open shutter kitchen` ou `tahoma ouvrir volet cuisine`
