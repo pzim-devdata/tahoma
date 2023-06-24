@@ -40,7 +40,7 @@ and
 - `python3 tahoma.py`  to ensure that Tahoma starts.
 
 #### 3. **Configuration :** There are just two commands to execute once. 
-All the details are explained in `python3 tahoma.py --help` and `python3 tahoma.py --info` :
+All the details are explained in `python3 tahoma.py --help` and `python3 tahoma.py --info`.
 
 
 1. Specify your Somfy-connect login information and choose the Somfy server: :
