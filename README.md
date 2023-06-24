@@ -134,7 +134,7 @@ Here are some example commands :
 - tahoma on plug office
 - tahoma open shutter ["room 6"]
 - tahoma arm alarm garden
-- tahoma confort heater dining
+- tahoma comfort heater dining
 - tahoma get sensor ['heater dining room']
 - tahoma launch scene morning
 - tahoma arm alarm garden wait for 10 open shutter room6 sleep for 7 confort heater dining off plug office 25 sunscreen kitchen launch scene morning get sensor ['heater dining room']
