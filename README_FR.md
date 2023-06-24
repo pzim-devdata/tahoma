@@ -17,7 +17,7 @@ CE TAG NE FONCTIONNE PAS, N'Y FEREZ PAS CONFIANCE : ![GitHub All Releases](https
     }
   </style>
 </head>
-[![Downloads](https://static.pepy.tech/personalized-badge/tahoma?period=total&units=international_system&left_color=grey&right_color=blue&left_text=PyPI%20downloads)](https://pepy.tech/project/tahoma)  <a href="https://github.com/pzim-devdata/tahoma" title="Click here to access the English version of the site" class="float-right><img src="https://cdn.countryflags.com/thumbs/united-kingdom/flag-round-250.png" width="30" height="30" alt="British flag"></a>
+[![Downloads](https://static.pepy.tech/personalized-badge/tahoma?period=total&units=international_system&left_color=grey&right_color=blue&left_text=PyPI%20downloads)](https://pepy.tech/project/tahoma)  <a href="https://github.com/pzim-devdata/tahoma" title="Click here to access the English version of the site" class="float-right"><img src="https://cdn.countryflags.com/thumbs/united-kingdom/flag-round-250.png" width="30" height="30" alt="British flag"></a>
 
 # Présentation
 
