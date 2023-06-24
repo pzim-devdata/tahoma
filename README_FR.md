@@ -33,7 +33,7 @@ Si vous aimez ce programme, veuillez lui attribuer une étoile sur GitHub pour a
 #### 1. Télécharger
 Télécharger le fichier zip et l'extraire dans un dossier choisi :
 
-[Download :inbox_tray :](https://github.com/pzim-devdata/tahoma/releases/latest/download/tahoma.zip)
+[Download :inbox_tray:](https://github.com/pzim-devdata/tahoma/releases/latest/download/tahoma.zip)
 
 #### 2. Installer les dépendances
 Exécutez les commandes suivantes dans votre dossier importé :
