@@ -29,7 +29,7 @@ If you like this program, please star it on GitHub to improve Tahoma's visibilit
 
 # Quick Start
 
-### 1. **Download** the zip file and extract it to a choosen folder:
+#### 1. **Download** the zip file and extract it to a choosen folder:
 
 [Download :inbox_tray:](https://github.com/pzim-devdata/tahoma/releases/latest/download/tahoma.zip)
 
@@ -39,7 +39,7 @@ If you like this program, please star it on GitHub to improve Tahoma's visibilit
 and
 - `python3 tahoma.py`  to ensure that Tahoma starts.
 
-### 3. **Configuration :** There are just two commands to execute once. 
+#### 3. **Configuration :** There are just two commands to execute once. 
 All the details are explained in `python3 tahoma.py --help` and `python3 tahoma.py --info` :
 
 
@@ -51,23 +51,23 @@ All the details are explained in `python3 tahoma.py --help` and `python3 tahoma.
 
 - `python3 tahoma.py --getlist` or `python3 tahoma.py -g`
 
-### 4. **Retrieve** your PERSONAL commands : `python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
+#### 4. **Retrieve** your PERSONAL commands : `python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
 
 To retrieve your personal commands, you can use the following options:
 
-1 List all possible [ACTIONS] for each [CATEGORIES]: 
+1. List all possible [ACTIONS] for each [CATEGORIES]: 
 
 - `python3 tahoma.py --list-actions` or `tahoma -la`
 or
 - `python3 tahoma.py --list-actions-french` or `tahoma -laf`
  
-2 List available [CATEGORIES]:
+2. List available [CATEGORIES]:
 
 - `python3 tahoma.py --list-categories` or `tahoma -lc`
 or 
 - `python3 tahoma.py --list-categories-french` or `tahoma -lcf`
 
-3 Retrieve the [NAMES] you have assigned to your personal devices in the Somfy's App:
+3. Retrieve the [NAMES] you have assigned to your personal devices in the Somfy's App:
 
 - `python3 tahoma.py --list-names` or `tahoma -ln`
 or
