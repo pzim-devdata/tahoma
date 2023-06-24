@@ -29,43 +29,43 @@ If you like this program, please star it on GitHub to improve Tahoma's visibilit
 
 # Quick Start
 
-1. **Download** the zip file and extract it to a choosen folder:
+## **Download** the zip file and extract it to a choosen folder:
 
 [Download :inbox_tray:](https://github.com/pzim-devdata/tahoma/releases/latest/download/tahoma.zip)
 
-2. **Start the app** by running the following commands in your imported folder:
+## **Start the app** by running the following commands in your imported folder:
 
 - `python3 -m pip install -r requirements.txt` in order to install dependencies
 and
 - `python3 tahoma.py`  to ensure that Tahoma starts.
 
-3. **Configuration :** There are just two commands to execute once. All the details are explained in `python3 tahoma.py --help` and `python3 tahoma.py --info` :
+## **Configuration :** There are just two commands to execute once. All the details are explained in `python3 tahoma.py --help` and `python3 tahoma.py --info` :
 
-3.1. Specify your Somfy-connect login information and choose the Somfy server: :
+1. Specify your Somfy-connect login information and choose the Somfy server: :
 
 - `python3 tahoma.py --configure` or `python3 tahoma.py -c`
 
-3.2.  Retrieve the list of your personal Somfy devices: :
+2.  Retrieve the list of your personal Somfy devices: :
 
 - `python3 tahoma.py --getlist` or `python3 tahoma.py -g`
 
-4. **Retrieve** your PERSONAL commands : `python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
+## **Retrieve** your PERSONAL commands : `python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
 
 To retrieve your personal commands, you can use the following options:
 
-4.1 List all possible [ACTIONS] for each [CATEGORIES]: 
+1 List all possible [ACTIONS] for each [CATEGORIES]: 
 
 - `python3 tahoma.py --list-actions` or `tahoma -la`
 or
 - `python3 tahoma.py --list-actions-french` or `tahoma -laf`
  
-4.2 List available [CATEGORIES]:
+2 List available [CATEGORIES]:
 
 - `python3 tahoma.py --list-categories` or `tahoma -lc`
 or 
 - `python3 tahoma.py --list-categories-french` or `tahoma -lcf`
 
-4.3 Retrieve the [NAMES] you have assigned to your personal devices in the Somfy's App:
+3 Retrieve the [NAMES] you have assigned to your personal devices in the Somfy's App:
 
 - `python3 tahoma.py --list-names` or `tahoma -ln`
 or
@@ -81,25 +81,35 @@ Now you are ready to use tahoma
 `python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
 
 
-For exemple : `tahoma open shutter kitchen` or `tahoma ouvrir volet cuisine`
+For example : `tahoma open shutter kitchen` or `tahoma ouvrir volet cuisine`
 
 - You can also specify the closing level for shutters or sunscreens with a numeric value as ACTION.
+
 For instance, to close a shutter or a sunsceen to 25% : 
+
 `tahoma 25 shutter kitchen`
 `tahoma 25 sunscreen kitchen`.
+
 Please note that this feature only works with IO protocols and not with RTS.
 
 - You can use either a unique word : `bath` or the full name of a device in square brackets `[""]` : `["bath 1st floor"]`) as the NAME parameter.
+
 For example :
+
 `tahoma open shutter garden`
+
 `tahoma arm alarm ["garden door"]`
 
 - Multiple commands can be executed in the same process without restarting Tahoma. 
+
 For example : 
+
 `tahoma arm alarm garden open shutter ["room 6"] confort heater dining off plug office 25 sunscreen kitchen launch scene morning`
 
 - There is also a wait functionality with `wait for` or `sleep for` or `attendre pendant` :
+
 For example : 
+
 `tahoma open shutter kitchen wait for 20 close shutter kitchen`
 
 
