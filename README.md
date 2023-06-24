@@ -85,8 +85,8 @@ For exemple : `tahoma open shutter kitchen` or `tahoma ouvrir volet cuisine`
 
 - You can also specify the closing level for shutters or sunscreens with a numeric value as ACTION.
 For instance, to close a shutter or a sunsceen to 25% : 
--- `tahoma 25 shutter kitchen`
--- `tahoma 25 sunscreen kitchen`.
+`tahoma 25 shutter kitchen`
+`tahoma 25 sunscreen kitchen`.
 Please note that this feature only works with IO protocols and not with RTS.
 
 - You can use either a unique word : `bath` or the full name of a device in square brackets `[""]` : `["bath 1st floor"]`) as the NAME parameter.
@@ -96,11 +96,11 @@ For example :
 
 - Multiple commands can be executed in the same process without restarting Tahoma. 
 For example : 
---`tahoma arm alarm garden open shutter ["room 6"] confort heater dining off plug office 25 sunscreen kitchen launch scene morning`
+`tahoma arm alarm garden open shutter ["room 6"] confort heater dining off plug office 25 sunscreen kitchen launch scene morning`
 
 - There is also a wait functionality with `wait for` or `sleep for` or `attendre pendant` :
 For example : 
--- `tahoma open shutter kitchen wait for 20 close shutter kitchen`
+`tahoma open shutter kitchen wait for 20 close shutter kitchen`
 
 
 # Examples :
