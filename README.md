@@ -23,23 +23,23 @@ THIS TAG DOESN'T WORK, DON'T TRUST IT : ![GitHub All Releases](https://img.shiel
 - Support for various devices: alarm, shutter, plug, heater, sensors, scenes, and more
 
 # Installation
-*Note:* This is a portable version for direct downloading. It's not an installed package. To run the app, simply execute python3 tahoma.py in your imported folder. If you want to install the package using PyPI (pip version), go to : [How to install tahoma with pip ?](https://github.com/pzim-devdata/tahoma#install-the-main-package-) or directly visit the [PyPI Project Website](https://pypi.org/project/tahoma/#description) for an easier installation process.
+**Note:** This is a portable version for direct downloading. It's not an installed package. To run the app, simply execute python3 tahoma.py in your imported folder. If you want to install the package using PyPI (pip version), go to : [How to install tahoma with pip ?](https://github.com/pzim-devdata/tahoma#install-the-main-package-) or directly visit the [PyPI Project Website](https://pypi.org/project/tahoma/#description) for an easier installation process.
 
 If you like this program, please star it on GitHub to improve Tahoma's visibility so that others can also benefit from it. :star:
 
 # Quick Start
 
-1. *Download* the zip file and extract it to a choosen folder:
+1. **Download** the zip file and extract it to a choosen folder:
 
 [Download :inbox_tray:](https://github.com/pzim-devdata/tahoma/releases/latest/download/tahoma.zip)
 
-2. *Start the app* by running the following commands in your imported folder:
+2. **Start the app** by running the following commands in your imported folder:
 
 - `python3 -m pip install -r requirements.txt` in order to install dependencies
 and
 - `python3 tahoma.py`  to ensure that Tahoma starts.
 
-3. *Configuration :* There are just two commands to execute once. All the details are explained in `python3 tahoma.py --help` and `python3 tahoma.py --info` :
+3. **Configuration :** There are just two commands to execute once. All the details are explained in `python3 tahoma.py --help` and `python3 tahoma.py --info` :
 
 3.1. Specify your Somfy-connect login information and choose the Somfy server: :
 
@@ -49,7 +49,7 @@ and
 
 - `python3 tahoma.py --getlist` or `python3 tahoma.py -g`
 
-4. *Retrieve* your PERSONAL commands : `python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
+4. **Retrieve** your PERSONAL commands : `python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
 
 To retrieve your personal commands, you can use the following options:
 
@@ -83,24 +83,24 @@ Now you are ready to use tahoma
 
 For exemple : `tahoma open shutter kitchen` or `tahoma ouvrir volet cuisine`
 
-. You can also specify the closing level for shutters or sunscreens with a numeric value as ACTION.
+- You can also specify the closing level for shutters or sunscreens with a numeric value as ACTION.
 For instance, to close a shutter or a sunsceen to 25% : 
-- `tahoma 25 shutter kitchen`
-- `tahoma 25 sunscreen kitchen`.
+-- `tahoma 25 shutter kitchen`
+-- `tahoma 25 sunscreen kitchen`.
 Please note that this feature only works with IO protocols and not with RTS.
 
-. You can use either a unique word : `bath` or the full name of a device in square brackets `[""]` : `["bath 1st floor"]`) as the NAME parameter.
+- You can use either a unique word : `bath` or the full name of a device in square brackets `[""]` : `["bath 1st floor"]`) as the NAME parameter.
 For example :
-- `tahoma open shutter garden`
-- `tahoma arm alarm ["garden door"]`
+-- `tahoma open shutter garden`
+-- `tahoma arm alarm ["garden door"]`
 
-. Multiple commands can be executed in the same process without restarting Tahoma. 
+- Multiple commands can be executed in the same process without restarting Tahoma. 
 For example : 
-- `tahoma arm alarm garden open shutter ["room 6"] confort heater dining off plug office 25 sunscreen kitchen launch scene morning`
+-- `tahoma arm alarm garden open shutter ["room 6"] confort heater dining off plug office 25 sunscreen kitchen launch scene morning`
 
-. There is also a wait functionality with `wait for` or `sleep for` or `attendre pendant` :
+- There is also a wait functionality with `wait for` or `sleep for` or `attendre pendant` :
 For example : 
-- `tahoma open shutter kitchen wait for 20 close shutter kitchen`
+-- `tahoma open shutter kitchen wait for 20 close shutter kitchen`
 
 
 # Examples :
