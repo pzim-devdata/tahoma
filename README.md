@@ -1,6 +1,6 @@
 # tahoma
 [UP TO DATE] Tahoma is a simple API for controlling Somfy Tahoma devices using Python 3, thanks to the pyoverkiz API. With just a three-word input, you can control your devices. 
-It was initially created for Tahoma but also works with Somfy Connectivity Kit, Connexoon, and Cozytouch. <a href="https://github.com/pzim-devdata/tahoma/blob/main/README_FR.md" title="Cliquez ici pour accéder à la version française du site"><img src="https://cdn.countryflags.com/thumbs/france/flag-round-250.png" width="30" height="30" alt="Drapeau français"></a>
+It was initially created for Tahoma but also works with Somfy Connectivity Kit, Connexoon, and Cozytouch. 
 
 
 ![Somfy](https://www.voletsdusud.com/wp-content/uploads/2018/04/logo-tahoma.jpg)
@@ -12,7 +12,7 @@ It was initially created for Tahoma but also works with Somfy Connectivity Kit, 
 THIS TAG DOESN'T WORK, DON'T TRUST IT : ![GitHub All Releases](https://img.shields.io/github/downloads/pzim-devdata/tahoma/total?style=plastic) 
 -->
 [![Downloads](https://static.pepy.tech/personalized-badge/tahoma?period=total&units=international_system&left_color=grey&right_color=blue&left_text=PyPI%20downloads)](https://pepy.tech/project/tahoma) 
-
+<a href="https://github.com/pzim-devdata/tahoma/blob/main/README_FR.md" title="Cliquez ici pour accéder à la version française du site"><img src="https://cdn.countryflags.com/thumbs/france/flag-round-250.png" width="30" height="30" alt="Drapeau français"></a>
 # Features
 
 ![GifTahoma.gif](GifTahoma.gif)
