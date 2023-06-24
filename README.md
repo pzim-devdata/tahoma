@@ -13,14 +13,12 @@ THIS TAG DOESN'T WORK, DON'T TRUST IT : ![GitHub All Releases](https://img.shiel
 -->
 [![Downloads](https://static.pepy.tech/personalized-badge/tahoma?period=total&units=international_system&left_color=grey&right_color=blue&left_text=PyPI%20downloads)](https://pepy.tech/project/tahoma)
 
-
-![GifTahoma.gif](GifTahoma.gif)
-
-
 # Features
 - Control Somfy Tahoma devices with a simple API
 - Works with Somfy Connectivity Kit, Connexoon, Cozytouch, and more
 - Support for various devices: alarm, shutter, plug, heater, sensors, scenes, and more
+
+![GifTahoma.gif](GifTahoma.gif)
 
 # Installation
 **Note:** This is a portable version for direct downloading. It's not an installed package. To run the app, simply execute `python3 tahoma.py` in your imported folder. If you want to install the package using PyPI (pip version), go to : [How to install tahoma with pip ?](https://github.com/pzim-devdata/tahoma#install-the-main-package-) or directly visit the [PyPI Project Website](https://pypi.org/project/tahoma/#description) for an easier installation process.
