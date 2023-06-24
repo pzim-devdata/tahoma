@@ -85,7 +85,7 @@ Now you are ready to use tahoma
 
 
 # Use Cases: 
-`python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
+**Usage:** `python3 tahoma.py [ACTION] [CATEGORY] [NAME]`
 
 
 For example : `tahoma open shutter kitchen` or `tahoma ouvrir volet cuisine`
