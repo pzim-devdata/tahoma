@@ -151,7 +151,7 @@ Here are some example commands :
 - tahoma launch scene morning
 - tahoma arm alarm garden wait for 10 open shutter room6 sleep for 7 confort heater dining off plug office 25 sunscreen kitchen launch scene morning get sensor ['heater dining room']
 - tahoma comfort heater dining wait for 3 get sensor ["Heater dining room"]
-- tahoma open shutter kitchen open shutter room6 wait for 2 cancel last action` (It will stop the room6 shutter)
+- tahoma open shutter kitchen open shutter room6 wait for 2 cancel last action` (It will stop the room6 shutter after 2 seconds)
 
 
 
