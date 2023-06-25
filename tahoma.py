@@ -357,6 +357,18 @@ def main():
         new = re.sub(r'[ùúûü]', 'u', new)
         new = re.sub(r'[ç]', 'c', new)
         return new
+    ##########################CANCEL LAST PROCESS FUNCTION
+
+    async def cancel_last_execution() -> None:
+        async with OverkizClient(USERNAME, PASSWORD, SUPPORTED_SERVERS[serverchoice]) as client:
+            await client.login()
+            executions = await client.get_current_executions()
+            for execution in executions:
+                execution_id=str(execution.id)
+            try:
+                await client.cancel_command(str(execution_id))
+                print("The command with execution ID  : "+execution_id+" has been successfully cancelled.")
+            except: pass
 
     ##########################PARAMETERING FUNCTION
 
@@ -413,8 +425,10 @@ def main():
             elif remove_accent(action).upper() == 'CLOSE' or remove_accent(action).upper() == "FERMER" :
                 fonction = Command(OverkizCommand.CLOSE)
             elif remove_accent(action).upper() == 'STOP' :
-                print("Be careful! The 'stop' function is only available for IO protocols. It doesn't work with RTS devices, it will use the 'MY'function instead...")
-                fonction = Command(OverkizCommand.STOP)
+                #print("Be careful! The 'stop' function is only available for IO protocols. It doesn't work with RTS devices, it will use the 'MY'function instead...")
+                asyncio.run(cancel_last_execution())
+                fonction = 'ERROR'
+                #fonction = Command(OverkizCommand.STOP)
             elif remove_accent(action).upper() == 'MY' :
                 fonction = Command(OverkizCommand.MY)
             elif str(action).isnumeric() == True :
@@ -463,8 +477,10 @@ def main():
             elif remove_accent(action).upper() == 'CLOSE' or remove_accent(action).upper() == "FERMER" :
                 fonction = Command(OverkizCommand.CLOSE)
             elif remove_accent(action).upper() == 'STOP' :
-                print("Be careful! The 'stop' function is only available for IO protocols. It doesn't work with RTS devices, it will use the 'MY'function instead...")
-                fonction = Command(OverkizCommand.STOP)
+                #print("Be careful! The 'stop' function is only available for IO protocols. It doesn't work with RTS devices, it will use the 'MY'function instead...")
+                asyncio.run(cancel_last_execution())
+                fonction = 'ERROR'
+                #fonction = Command(OverkizCommand.STOP)
             elif remove_accent(action).upper() == 'MY' :
                 fonction = Command(OverkizCommand.MY)
             elif str(action).isnumeric() == True :
