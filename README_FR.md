@@ -127,6 +127,14 @@ Par exemple :
 
 `tahoma ouvrir volet cuisine attendre 20 fermer volet cuisine`
 
+- Comme il est impossible d'arrêter un périphérique RTS en cours d'execution, vous pouvez annuler la commande précédente immédiate (sans affecter une commande "attendre pendant <SECONDES>"). Pour cela, utilisez la commande "cancel last action" ou "annuler précédente commande" juste après une commande qui ouvre ou ferme un périphérique RTS.
+
+Par exemple :
+
+`tahoma ouvrir volet cuisine attendre pendant 2 annuler precedente commande` : Cela va arreter le volet de la cuisine après 2 secondes
+
+`tahoma ouvrir volet cuisine ouvrir volet chambre6 annuler precedente commande` : Cela va seulement arreter le volet de la chambre 6
+
 
 # Exemples :
 Voici quelques exemples de commandes :
@@ -144,6 +152,7 @@ Voici quelques exemples de commandes :
 - tahoma lancer scenario matin
 - tahoma activer alarme jardin attendre pendant 10 ouvrir volet chambre6 attendre for 7 confort chauffage manger eteindre prise bureau 25 rideau cuisine lancer scenario matin obtenir capteur ["salle à manger"]
 - tahoma confort chauffage manger attendre pour 3 recup capteur ["Chauffage salle à manger"]
+- tahoma ouvrir volet cuisine ouvrir volet chambre6 attendre pendant 10 annuler precedente commande` : Cela va seulement arreter le volet de la chambre 6 après 10 secondes
 
 
 
