@@ -131,7 +131,7 @@ For example :
 
 For example :
 
-`tahoma open shutter kitchen wait for 2 cancel last action' : It will stop the kitchen shutter after 2 seconds
+`tahoma open shutter kitchen wait for 2 cancel last action` : It will stop the kitchen shutter after 2 seconds
 
 `tahoma open shutter kitchen open shutter room6 cancel last action` : It will only stop the room6 shutter
 
