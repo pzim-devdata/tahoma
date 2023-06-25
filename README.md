@@ -127,6 +127,13 @@ For example :
 
 `tahoma open shutter kitchen wait for 20 close shutter kitchen`
 
+- Since it is impossible to stop an RTS device, there is the possibility to cancel the immediate preceding command (without affecting a 'wait for <SECONDS>' command). To do this you can use the command 'cancel last action' or 'annuler precedente commande' just after a command that opens or closes an RTS device.
+
+For example :
+
+`tahoma open shutter kitchen wait for 2 cancel last action' : It will stop the kitchen shutter after 2 seconds
+
+`tahoma open shutter kitchen open shutter room6 cancel last action` : It will only stop the room6 shutter
 
 # Examples :
 Here are some example commands :
@@ -144,6 +151,7 @@ Here are some example commands :
 - tahoma launch scene morning
 - tahoma arm alarm garden wait for 10 open shutter room6 sleep for 7 confort heater dining off plug office 25 sunscreen kitchen launch scene morning get sensor ['heater dining room']
 - tahoma comfort heater dining wait for 3 get sensor ["Heater dining room"]
+- tahoma open shutter kitchen open shutter room6 wait for 2 cancel last action` (It will stop the room6 shutter)
 
 
 
