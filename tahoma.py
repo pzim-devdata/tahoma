@@ -108,9 +108,9 @@ def main():
         print( ' - List of available NAMES : tahoma --list-names \n - Liste des NOMS possibles : tahoma --list-names-french \n You must provide a part of the name you have assigned to the device in the Tahoma App. \n It must be a single and unique word, not taken by another device of the same category !\n For instance if you have two devices called <Alarm 1> and <Alarm 2> you will need to choose <2> as device [NAME] for <Alarm 2> and not <Alarm>).\n You can also use the full NAME with [""].\n For instance ["Alarm 2"]\n See tahoma --list or tahoma --help for info.')
         print( "" )
         print( " You must provide at least 3 arguments" )
-        print( " For instance : python3 tahoma open shutter kitchen")
+        print( " For instance :  tahoma open shutter kitchen")
         print( "\n You can close a shutter or a sunscreen to a specific level (IO protocols only)")
-        print( " For instance :python3 tahoma 25 shutter kitchen. It will open the shutter to 75% or close it to 25%" )
+        print( " For instance : tahoma 25 shutter kitchen. It will open the shutter to 75% or close it to 25%" )
         print( "" )
         print( " You can also provide, as many as you wish, orders on the same line." ) 
         print( " Tahoma will execute all orders one by one in the same process ;-)" )
@@ -119,6 +119,11 @@ def main():
         print( " You can add a wait function with 'wait for' or 'sleep for'")
         print( " Tahoma will wait the time in seconds you have specified")
         print( " For instance : tahoma open shutter kitchen wait for 20 on plug room")
+        print( "" )
+        print( " The STOP action for shutters and sunscreens doesn't work with RTS protocols. " ) 
+        print( " Instead you can cancel the immediate preceding command (without affecting a 'wait for <SECONDS>' command)." )
+        print( " To do this you can use the command 'cancel last action' just after a command that opens or closes an RTS device." )
+        print( " For instance : 'tahoma open shutter kitchen wait for 2 cancel last action' : It will stop the kitchen shutter after 2 seconds" )
         print( "" )
         print( " FIRST you must configure login and password : sudo tahoma -c " )
         print( " It will be stored there : \n "+passwd_file )
@@ -238,12 +243,14 @@ def main():
 
     for arg in sys.argv :
         if arg == '-h' or arg == '--help' :
-            print("tahoma -h, --help : "+version+"\n\nUsage:\n tahoma ACTION CATEGORY NAME \n\n You must provide at least three arguments\n For instance : tahoma open shutter kitchen or tahoma ouvrir volet cuisine\n\n You can close a shutter or a sunscreen to a specific level (IO protocols only)\n For instance : tahoma 25 shutter kitchen. It will open the shutter to 75% or close it to 25%\n\n You can also provide, as many as you wish, orders on the same line\n Tahoma will execute all orders one by one in the same process ;-)\n For instance : tahoma open shutter kitchen arm alarm garden on plug room wait train garestation\n\nHelp options :\n -h,   --help                      Show this help\n -hf,  --help-french               Show this help in french\n -i,   --info                      Show more info\n\nPlugin options :\n -v,   --version                   Show the version of the plugin\n -c,   --configure                 To configure the plugin and store login and password in a text file which is located here : "+passwd_file+" Use with sudo !\n -u,   --username                  If you don't want to store the login, you can provide the mail-address with this option\n -p,   --password                  If you don't want to store the password, you can provide it with this option\n -g,   --getlist                   Download the list of devices and store them here : "+list_of_tahoma_devices+" Use with sudo !\n -l,   --list                      Show the complet list of devices installed\n -la,  --list-actions              Show the list of possible ACTIONS by CATEGORIES\n -lc,  --list-categories           Show all supported CATEGORIES of devices\n -lnf, --list-names                Show all installed devices by there NAMES\n\nCommand options :\n wait for <seconds>                Tahoma will wait for <seconds> seconds to execute next action\n sleep for <seconds>\n")
+            print("tahoma -h, --help : "+version+"\n\nUsage:\n tahoma ACTION CATEGORY NAME \n\n You must provide at least three arguments\n For instance : tahoma open shutter kitchen or tahoma ouvrir volet cuisine\n\n You can close a shutter or a sunscreen to a specific level (IO protocols only)\n For instance : tahoma 25 shutter kitchen. It will open the shutter to 75% or close it to 25%\n\n You can also provide, as many as you wish, orders on the same line\n Tahoma will execute all orders one by one in the same process ;-)\n For instance : tahoma open shutter kitchen arm alarm garden on plug room wait train garestation\n\nHelp options :\n -h,   --help                      Show this help\n -hf,  --help-french               Show this help in french\n -i,   --info                      Show more info\n\nPlugin options :\n -v,   --version                   Show the version of the plugin\n -c,   --configure                 To configure the plugin and store login and password in a text file which is located here : "+passwd_file+" Use with sudo !\n -u,   --username                  If you don't want to store the login, you can provide the mail-address with this option\n -p,   --password                  If you don't want to store the password, you can provide it with this option\n -g,   --getlist                   Download the list of devices and store them here : "+list_of_tahoma_devices+" Use with sudo !\n -l,   --list                      Show the complet list of devices installed\n -la,  --list-actions              Show the list of possible ACTIONS by CATEGORIES\n -lc,  --list-categories           Show all supported CATEGORIES of devices\n -lnf, --list-names                Show all installed devices by there NAMES\n\nCommand options :\n wait for <seconds>\n sleep for <seconds>               Tahoma will wait for <seconds> seconds to execute next action\n cancel last action                Tahoma will cancel the immediate preceding command (without affecting the 'wait for' command). This is useful for stopping an RTS device\n")
+            check_last_release ()
             exit()
 
     for arg in sys.argv :
         if arg == '-hf' or arg == '--help-french' :
-            print("tahoma -h --help : "+version+"\n\nUsage:\n tahoma ACTION CATEGORIE NOM \n\n Vous devez fournir au moins trois arguments\n Par exemple : tahoma ouvrir volet cuisine ou tahoma open shutter kitchen\n\n Vous pouvez fermer des rideaux ou des volets à un niveau precis (Seulement pour les équipements utilisant le protocole IO)\n Par exemple : tahoma 25 volet cuisine. Les volets vont s'ouvrir de 75% ou se fermer de 25%\n\n Vous pouvez aussi spécifier autant de commandes que vous le souhaitez sur la même ligne :\n Tahoma va executer chaque commande l'une aprés l'autre durant le même processus\n Par exemple : tahoma ouvrir volet cuisine confort chauffage salon\n\nOptions de l’aide :\n -h, --help                        Affiche les options de l’aide en anglais\n\nOptions de l’application :\n -v, --version                     Affiche la version de l’application\n -i, --info                        Afficher plus d'infos sur tahoma\n -c, --configure                   Renseigner l'identifiant et le mot de passe dans un fichier texte pour ne pas devoir les renseigner à chaque fois. Le fichier texte se situe dans : "+passwd_file+" Utiliser sudo !\n -u, --username                    Renseigner le nom d'utilisateur\n -p, --password                    Renseigner le mot de passe de Somfy-connect\n -g, --getlist                     Télécharge la liste des équipements et la stocke dans "+list_of_tahoma_devices+" Utiliser sudo !\n -l, --list                        Affiche la liste téléchargée des équipements\n -laf, --list-actions-french       Affiche la liste des ACTIONS possibles en français par CATEGORIES\n -lcf, --list-categories-french    Affiche toutes les CATEGORIES d'équipements pris en charge en français\n -lnf, --list-names-french         Affiche les NOMS des équipements installés par categories en français\n\nOptions de commande :\n attendre pendant <secondes>       Tahoma attendra <secondes> secondes avant d'éxécuter la commande suivante\n")
+            print("tahoma -h --help : "+version+"\n\nUsage:\n tahoma ACTION CATEGORIE NOM \n\n Vous devez fournir au moins trois arguments\n Par exemple : tahoma ouvrir volet cuisine ou tahoma open shutter kitchen\n\n Vous pouvez fermer des rideaux ou des volets à un niveau precis (Seulement pour les équipements utilisant le protocole IO)\n Par exemple : tahoma 25 volet cuisine. Les volets vont s'ouvrir de 75% ou se fermer de 25%\n\n Vous pouvez aussi spécifier autant de commandes que vous le souhaitez sur la même ligne :\n Tahoma va executer chaque commande l'une aprés l'autre durant le même processus\n Par exemple : tahoma ouvrir volet cuisine confort chauffage salon\n\nOptions de l’aide :\n -h, --help                        Affiche les options de l’aide en anglais\n\nOptions de l’application :\n -v, --version                     Affiche la version de l’application\n -i, --info                        Afficher plus d'infos sur tahoma\n -c, --configure                   Renseigner l'identifiant et le mot de passe dans un fichier texte pour ne pas devoir les renseigner à chaque fois. Le fichier texte se situe dans : "+passwd_file+" Utiliser sudo !\n -u, --username                    Renseigner le nom d'utilisateur\n -p, --password                    Renseigner le mot de passe de Somfy-connect\n -g, --getlist                     Télécharge la liste des équipements et la stocke dans "+list_of_tahoma_devices+" Utiliser sudo !\n -l, --list                        Affiche la liste téléchargée des équipements\n -laf, --list-actions-french       Affiche la liste des ACTIONS possibles en français par CATEGORIES\n -lcf, --list-categories-french    Affiche toutes les CATEGORIES d'équipements pris en charge en français\n -lnf, --list-names-french         Affiche les NOMS des équipements installés par categories en français\n\nOptions de commande :\n attendre pendant <secondes>       Tahoma attendra <secondes> secondes avant d'éxécuter la commande suivante\n annuler precedente commande       Tahoma annulera la commande précédente immédiate (sans affecter la commande 'attendre pendant'). Ceci est utile pour arrêter un périphérique RTS.")
+            check_last_release ()
             exit()
 
     for arg in sys.argv :
@@ -357,18 +364,6 @@ def main():
         new = re.sub(r'[ùúûü]', 'u', new)
         new = re.sub(r'[ç]', 'c', new)
         return new
-    ##########################CANCEL LAST PROCESS FUNCTION
-
-    async def cancel_last_execution() -> None:
-        async with OverkizClient(USERNAME, PASSWORD, SUPPORTED_SERVERS[serverchoice]) as client:
-            await client.login()
-            executions = await client.get_current_executions()
-            for execution in executions:
-                execution_id=str(execution.id)
-            try:
-                await client.cancel_command(str(execution_id))
-                print("The command with execution ID  : "+execution_id+" has been successfully cancelled.")
-            except: pass
 
     ##########################PARAMETERING FUNCTION
 
@@ -425,10 +420,8 @@ def main():
             elif remove_accent(action).upper() == 'CLOSE' or remove_accent(action).upper() == "FERMER" :
                 fonction = Command(OverkizCommand.CLOSE)
             elif remove_accent(action).upper() == 'STOP' :
-                #print("Be careful! The 'stop' function is only available for IO protocols. It doesn't work with RTS devices, it will use the 'MY'function instead...")
-                asyncio.run(cancel_last_execution())
-                fonction = 'ERROR'
-                #fonction = Command(OverkizCommand.STOP)
+                print("Please note that the 'stop' ACTION is only compatible with IO protocols and will not work with RTS devices. If you are using an RTS device, please use the command 'tahoma CANCEL LAST ACTION' instead.")
+                fonction = Command(OverkizCommand.STOP)
             elif remove_accent(action).upper() == 'MY' :
                 fonction = Command(OverkizCommand.MY)
             elif str(action).isnumeric() == True :
@@ -477,10 +470,8 @@ def main():
             elif remove_accent(action).upper() == 'CLOSE' or remove_accent(action).upper() == "FERMER" :
                 fonction = Command(OverkizCommand.CLOSE)
             elif remove_accent(action).upper() == 'STOP' :
-                #print("Be careful! The 'stop' function is only available for IO protocols. It doesn't work with RTS devices, it will use the 'MY'function instead...")
-                asyncio.run(cancel_last_execution())
-                fonction = 'ERROR'
-                #fonction = Command(OverkizCommand.STOP)
+                print("Please note that the 'stop' function is only compatible with IO protocols and will not work with RTS devices. If you are using an RTS device, please use the command 'tahoma CANCEL LAST ACTION' instead.")
+                fonction = Command(OverkizCommand.STOP)
             elif remove_accent(action).upper() == 'MY' :
                 fonction = Command(OverkizCommand.MY)
             elif str(action).isnumeric() == True :
@@ -728,6 +719,11 @@ def main():
         elif remove_accent(action) == 'wait' or remove_accent(action) == 'sleep' or remove_accent(action) == 'attendre':
             url.append(int(name))
 
+        ##########################CANCEL LAST ACTION FUNCTION
+
+        elif remove_accent(action) == 'cancel' or remove_accent(action) == 'annuler':
+            url.append('pass')
+
         ##########################
 
         else :
@@ -742,6 +738,7 @@ def main():
                     j=0
                     for device_url in url :
                         if str(device_url).isnumeric() == True :
+                            print("Waiting for "+str(device_url)+" second(s).")
                             time.sleep(int(device_url))
                         else :
                             if remove_accent(category) == 'scene' or remove_accent(category) == 'scenario':
@@ -757,6 +754,18 @@ def main():
                                         state_function=str(command_state[j]).replace("['","").replace("']","")
                                         print('The '+str(good_name[j])+' is '+str(eval(state_function)))
                                 except :pass
+                            elif remove_accent(action).upper() == 'CANCEL' or remove_accent(action).upper() == 'ANNULER':
+                                try:
+                                    async with OverkizClient(USERNAME, PASSWORD, SUPPORTED_SERVERS[serverchoice]) as client:
+                                        await client.login()
+                                        executions = await client.get_current_executions()
+                                        for execution in executions:
+                                            execution_id=str(execution.id)
+                                        try:
+                                            await client.cancel_command(str(execution_id))
+                                            print("The command with execution ID  : "+execution_id+" has been successfully cancelled.")
+                                        except: pass
+                                except : pass
                             else :
                                 try :
                                     async with OverkizClient(USERNAME, PASSWORD, SUPPORTED_SERVERS[serverchoice]) as client:
