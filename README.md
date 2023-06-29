@@ -205,15 +205,24 @@ IF YOU WANT TO INSTALL THE PACKAGE USE PyPi (pip version) :
 
 Install tahoma :
 
+For Linux users :
+
 ```python
 sudo python3 -m pip install -U tahoma
 ```
 
-!!! It's very important to use the `sudo` command because in this way tahoma can store your logins in a safe place
+!!! It's very important to use the `sudo` command because in this way tahoma will be in PATH
 
+For Windows users :
 
+```python
+python3 -m pip install -U tahoma
+```
+Without the `sudo` command
 
 # Configure :
+
+(Do not use `sudo` command for Windows users)
 
 
 
