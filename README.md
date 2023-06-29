@@ -205,7 +205,7 @@ IF YOU WANT TO INSTALL THE PACKAGE USE PyPi (pip version) :
 
 Install tahoma :
 
-For Linux users :
+- For Linux users :
 
 ```python
 sudo python3 -m pip install -U tahoma
@@ -213,7 +213,7 @@ sudo python3 -m pip install -U tahoma
 
 !!! It's very important to use the `sudo` command because in this way tahoma will be in PATH
 
-For Windows users :
+- For Windows users :
 
 ```python
 python3 -m pip install -U tahoma
