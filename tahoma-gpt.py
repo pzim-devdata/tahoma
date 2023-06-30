@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+#MIT licence
+#@pzim-devdata
 #https://github.com/openai/openai-python
 #https://github.com/pzim-devdata/tahoma#add-chatgpt-functionalities-
 #python3 -m pip install --upgrade openai
@@ -9,11 +11,17 @@
 
 ##############################################################################
 ###You can create a vitual environnement in Python if you want to test it first. All will be installed in the tahoma-gpt directory
-#Create a directory with tahoma-gpt.py and requirements_tahoma-gpt.txt inside
+#Create a directory with tahoma-gpt.py and requirements_tahoma-gpt.txt inside from there : https://github.com/pzim-devdata/tahoma
 #Open a terminal
 #cd in this directory
 #Run : python3 -m venv env
 #Run : source env/bin/activate
+#
+#Install tahoma and configure it (if it's not already done) :
+##Run : python3 -m pip install -U tahoma
+##Configure tahoma : tahoma -c
+##Get the list of your devices : tahoma -g
+#
 #Run : python3 -m pip install -r requirements_tahoma-gpt.txt
 #Modify this script to add OpenAI API key
 #Run : python3 tahoma-gpt.py
