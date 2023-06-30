@@ -54,7 +54,7 @@ First you must install venv : `pip install virtualenv` or `python3 -m pip instal
 11. Run : `deactivate` (to deactivate the vitual environnement)
 
 
-[](https://github.com/pzim-devdata/tahoma/blob/main/picture_tahoma-gpt.png)
+![Picture tahoma-gpt](https://github.com/pzim-devdata/tahoma/blob/main/picture_tahoma-gpt.png)
 
 
 (This is a quick tutorial)
