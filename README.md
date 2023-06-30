@@ -33,7 +33,7 @@ You can create a vitual environnement in Python if you want to test it first. Al
 First you must install venv : `pip install virtualenv` or `python3 -m pip install virtualenv` or `pipx install virtualenv` to install vitual environnement
 1. Create a directory with `tahoma-gpt.py` and `requirements_tahoma-gpt.txt` inside. Download from [there](https://github.com/pzim-devdata/tahoma/blob/main/requirements_tahoma-gpt.txt) and [there](https://github.com/pzim-devdata/tahoma/blob/main/tahoma-gpt.py)
 2. Open a terminal
-3. cd in the directory you have just created
+3. `cd` in the directory you have just created
 4. Run : `python3 -m venv env` (Windows : `virtualenv --python C:\Path\To\Python\python.exe venv`)
 5. Run : `source env/bin/activate` (Windows : `.\venv\Scripts\activate`)
 6. Install tahoma and configure it (if it's not already done) :
