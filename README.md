@@ -1,6 +1,6 @@
 # tahoma
 [UP TO DATE] Tahoma is a simple API for controlling Somfy Tahoma devices using Python 3, thanks to the pyoverkiz API. With just a three-word input, you can control your devices. 
-It was initially created for Tahoma but also works with Somfy Connectivity Kit, Connexoon, and Cozytouch. 
+It was initially created for Tahoma but also works with Somfy Connectivity Kit, Connexoon, and Cozytouch. You can use ChatGPT to control it.
 
 
 ![Somfy](https://www.voletsdusud.com/wp-content/uploads/2018/04/logo-tahoma.jpg)
@@ -31,6 +31,8 @@ THIS TAG DOESN'T WORK, DON'T TRUST IT : ![GitHub All Releases](https://img.shiel
 **Note:** This is a portable version for direct downloading. It's not an installed package. To run the app, simply execute `python3 tahoma.py` in your imported folder. If you want to install the package using PyPI (pip version), go to : [How to install tahoma with pip ?](https://github.com/pzim-devdata/tahoma#install-the-main-package-) or directly visit the [PyPI Project Website](https://pypi.org/project/tahoma/#description) for an easier installation process.
 
 If you like this program, please star it on GitHub to improve Tahoma's visibility so that others can also benefit from it. :star:
+
+There is a ChatGPT functionality. See this [documentation](https://github.com/pzim-devdata/tahoma#add-chatgpt-functionalities-)
 
 # Quick Start
 
@@ -193,6 +195,32 @@ Then execute tahoma just like this : `tahoma arm alarm garden open shutter kitch
 Thanks to the ``tahoma.exe`` program, you will be able to execute tahoma just by entering this command : ``tahoma`` instead of ``python3 tahoma.py`` on Windows
 
 Then execute tahoma just like this : `tahoma arm alarm garden open shutter kitchen close shutter room6 confort heater dining off plug office 25 shutter kitchen` and that's all !
+
+
+# Add ChatGPT functionalities : 
+
+If you want to use tahoma with chatGPT follow this steps :
+
+
+1. install tahoma by following the instructions provided in the first steps
+
+2. Downbload `tahoma-gpt.py` and `requirements_tahoma-gpt.txt`:
+
+3. Install requirements:
+
+`python3 -m pip install -r requirements_tahoma-gpt.txt` in order to install dependencies
+
+4. Open `tahoma-gpt.py` with a text editor and add your ChatGPT API key and the model you want to use inside the document
+
+5. Run the program in a terminal or command prompt by executing the following command: :
+
+`python3 tahoma-gpt.py`
+
+
+Make sure to carefully follow these steps to successfully integrate tahoma with ChatGPT.
+
+
+
 
 
 -------------------------------------------------------------------------------------------------------------------------
