@@ -26,6 +26,7 @@ THIS TAG DOESN'T WORK, DON'T TRUST IT : ![GitHub All Releases](https://img.shiel
 - Works with Somfy Connectivity Kit, Connexoon, Cozytouch, and more
 - Support various Somfy's devices: alarm, shutter, plug, heater, sensors, scenes, and more
 - Compatible with Windows and Linux operating systems
+- 100% functional with ChatGPT
 
 # Easy process to test and install tahoma with chatGPT
 You can create a vitual environnement in Python if you want to test it first. All will be installed in the tahoma-gpt directory
