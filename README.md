@@ -27,7 +27,7 @@ THIS TAG DOESN'T WORK, DON'T TRUST IT : ![GitHub All Releases](https://img.shiel
 - Support various Somfy's devices: alarm, shutter, plug, heater, sensors, scenes, and more
 - Compatible with Windows and Linux operating systems
 
-# Easy process to install
+# Easy process to test and install tahoma with chatGPT
 You can create a vitual environnement in Python if you want to test it first. All will be installed in the tahoma-gpt directory
 First : `pip install virtualenv` or `python3 -m pip install virtualenv` or `pipx install virtualenv` to install vitual environnement
 1. Create a directory with `tahoma-gpt.py` and `requirements_tahoma-gpt.txt` inside. Download from [there](https://github.com/pzim-devdata/tahoma/blob/main/requirements_tahoma-gpt.txt) and [there](https://github.com/pzim-devdata/tahoma/blob/main/tahoma-gpt.py)
