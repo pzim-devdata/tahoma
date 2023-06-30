@@ -27,7 +27,29 @@ THIS TAG DOESN'T WORK, DON'T TRUST IT : ![GitHub All Releases](https://img.shiel
 - Support various Somfy's devices: alarm, shutter, plug, heater, sensors, scenes, and more
 - Compatible with Windows and Linux operating systems
 
-# Installation
+# Easy process to install
+You can create a vitual environnement in Python if you want to test it first. All will be installed in the tahoma-gpt directory
+First : `pip install virtualenv` or `python3 -m pip install virtualenv` or `pipx install virtualenv` to install vitual environnement
+1. Create a directory with tahoma-gpt.py and requirements_tahoma-gpt.txt inside. Download from there : https://github.com/pzim-devdata/tahoma
+2. Open a terminal
+3. cd in the directory
+4. Run : python3 -m venv env (Windows : virtualenv --python C:\Path\To\Python\python.exe venv)
+5. Run : source env/bin/activate (Windows : .\venv\Scripts\activate)
+6. Install tahoma and configure it (if it's not already done) :
+6.1. Run : python3 -m pip install -U tahoma
+6.2 Configure tahoma : tahoma -c
+6.3 Get the list of your devices : tahoma -g
+7. Run : python3 -m pip install -r requirements_tahoma-gpt.txt
+8. Modify the script tahoma-gpt.py with a notepad to add OpenAI API key
+9. Run : python3 tahoma-gpt.py
+10. Play with tahoma and ChatGPT
+11. Run : exit (to leave tahoma-gpt)
+12. Run : exit() (to leave Python)
+11. Run : deactivate (to deactivate the vitual environnement)
+(This is a quick tutorial)
+##############################################################################
+
+# Installation from this Git
 **Note:** This is a portable version for direct downloading. It's not an installed package. To run the app, simply execute `python3 tahoma.py` in your imported folder. If you want to install the package using PyPI (pip version), go to : [How to install tahoma with pip ?](https://github.com/pzim-devdata/tahoma#install-the-main-package-) or directly visit the [PyPI Project Website](https://pypi.org/project/tahoma/#description) for an easier installation process.
 
 If you like this program, please star it on GitHub to improve Tahoma's visibility so that others can also benefit from it. :star:
