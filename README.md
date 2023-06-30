@@ -53,6 +53,7 @@ First you must install venv : `pip install virtualenv` or `python3 -m pip instal
 11. Run : `deactivate` (to deactivate the vitual environnement)
 
 (This is a quick tutorial)
+
 ##############################################################################
 
 # Installation from this Git
