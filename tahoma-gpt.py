@@ -1,14 +1,25 @@
 #!/usr/bin/python3
 #https://github.com/openai/openai-python
-
-#cd ~/Bureau/OpenAI
-#python3 -m venv env
-#source env/bin/activate
+#https://github.com/pzim-devdata/tahoma#add-chatgpt-functionalities-
 #python3 -m pip install --upgrade openai
 #python3 -m pip install openai[embeddings]
 #python3 -m pip install openai[wandb]
 #python3 -m pip install openai[datalib] 
-#deactivate
+
+
+##############################################################################
+###You can create a vitual environnement in Python if you want to test it first. All will be installed in the tahoma-gpt directory
+#Create a directory with tahoma-gpt.py and requirements_tahoma-gpt.txt inside
+#Open a terminal
+#cd in this directory
+#Run : python3 -m venv env
+#Run : source env/bin/activate
+#Run : python3 -m pip install -r requirements_tahoma-gpt.txt
+#Modify this script to add OpenAI API key
+#Run : python3 tahoma-gpt.py
+#Play with tahoma and ChatGPT
+#Run : deactivate
+##############################################################################
 
 import openai
 import datetime
@@ -20,7 +31,6 @@ import pyoverkiz
 
 openai.api_key = "sk-xxxxxxxxxxxxxxxxxxxxxx"
 models=['gpt-3.5-turbo-0613', 'gpt-3.5-turbo-0301', 'gpt-3.5-turbo-0613', 'gpt-3.5-turbo-0301', 'gpt-3.5-turbo', 'gpt-3.5-turbo-16k-0613', 'gpt-3.5-turbo-16k']
-
 
 model = models[4]
 
