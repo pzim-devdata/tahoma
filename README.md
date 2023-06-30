@@ -30,22 +30,27 @@ THIS TAG DOESN'T WORK, DON'T TRUST IT : ![GitHub All Releases](https://img.shiel
 # Easy process to install
 You can create a vitual environnement in Python if you want to test it first. All will be installed in the tahoma-gpt directory
 First : `pip install virtualenv` or `python3 -m pip install virtualenv` or `pipx install virtualenv` to install vitual environnement
-1. Create a directory with tahoma-gpt.py and requirements_tahoma-gpt.txt inside. Download from [there](https://github.com/pzim-devdata/tahoma/blob/main/requirements_tahoma-gpt.txt) and [there](https://github.com/pzim-devdata/tahoma/blob/main/tahoma-gpt.py)
+1. Create a directory with `tahoma-gpt.py` and `requirements_tahoma-gpt.txt` inside. Download from [there](https://github.com/pzim-devdata/tahoma/blob/main/requirements_tahoma-gpt.txt) and [there](https://github.com/pzim-devdata/tahoma/blob/main/tahoma-gpt.py)
 2. Open a terminal
-3. cd in the directory
-4. Run : python3 -m venv env (Windows : virtualenv --python C:\Path\To\Python\python.exe venv)
-5. Run : source env/bin/activate (Windows : .\venv\Scripts\activate)
+3. cd in the directory you have just created
+4. Run : `python3 -m venv env` (Windows : `virtualenv --python C:\Path\To\Python\python.exe venv`)
+5. Run : `source env/bin/activate` (Windows : `.\venv\Scripts\activate`)
 6. Install tahoma and configure it (if it's not already done) :
-  6.1. Run : python3 -m pip install -U tahoma
-  6.2 Configure tahoma : tahoma -c
-  6.3 Get the list of your devices : tahoma -g
-7. Run : python3 -m pip install -r requirements_tahoma-gpt.txt
+
+    6.1. Run : `python3 -m pip install -U tahoma`
+
+    6.2 Configure `tahoma : tahoma -c`
+
+    6.3 Get the list of your devices : `tahoma -g`
+
+7. Run : `python3 -m pip install -r requirements_tahoma-gpt.txt`
 8. Modify the script tahoma-gpt.py with a notepad to add OpenAI API key
-9. Run : python3 tahoma-gpt.py
+9. Run : `python3 tahoma-gpt.py`
 10. Play with tahoma and ChatGPT
-11. Run : exit (to leave tahoma-gpt)
-12. Run : exit() (to leave Python)
-11. Run : deactivate (to deactivate the vitual environnement)
+11. Run : `exit` (to leave tahoma-gpt)
+12. Run : `exit()` (to leave Python)
+11. Run : `deactivate` (to deactivate the vitual environnement)
+
 (This is a quick tutorial)
 ##############################################################################
 
