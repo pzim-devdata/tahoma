@@ -45,7 +45,7 @@ First you must install venv : `pip install virtualenv` or `python3 -m pip instal
     6.3 Get the list of your devices : `tahoma -g`
 
 7. Run : `python3 -m pip install -r requirements_tahoma-gpt.txt`
-8. Modify the script tahoma-gpt.py with a notepad to add OpenAI API key
+8. Modify the script `tahoma-gpt.py` with a notepad to add OpenAI API key
 9. Run : `python3 tahoma-gpt.py`
 10. Play with tahoma and ChatGPT
 11. Run : `exit` (to leave tahoma-gpt)
