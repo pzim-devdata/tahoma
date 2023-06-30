@@ -36,13 +36,9 @@ First : `pip install virtualenv` or `python3 -m pip install virtualenv` or `pipx
 4. Run : python3 -m venv env (Windows : virtualenv --python C:\Path\To\Python\python.exe venv)
 5. Run : source env/bin/activate (Windows : .\venv\Scripts\activate)
 6. Install tahoma and configure it (if it's not already done) :
-
-6.1. Run : python3 -m pip install -U tahoma
-
-6.2 Configure tahoma : tahoma -c
-
-6.3 Get the list of your devices : tahoma -g
-
+  6.1. Run : python3 -m pip install -U tahoma
+  6.2 Configure tahoma : tahoma -c
+  6.3 Get the list of your devices : tahoma -g
 7. Run : python3 -m pip install -r requirements_tahoma-gpt.txt
 8. Modify the script tahoma-gpt.py with a notepad to add OpenAI API key
 9. Run : python3 tahoma-gpt.py
