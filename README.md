@@ -1,6 +1,6 @@
 # tahoma
 [UP TO DATE] Tahoma is a simple API for controlling Somfy Tahoma devices using Python 3, thanks to the pyoverkiz API. With just a three-word input, you can control your devices. 
-It was initially created for Tahoma but also works with Somfy Connectivity Kit, Connexoon, and Cozytouch. You can use ChatGPT to control it.
+It was initially created for Tahoma but also works with Somfy Connectivity Kit, Connexoon, and Cozytouch. You can also use ChatGPT to control it and for help.
 
 
 ![Somfy](https://www.voletsdusud.com/wp-content/uploads/2018/04/logo-tahoma.jpg)
