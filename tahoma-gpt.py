@@ -43,7 +43,7 @@ except:pass
 import sys
 
 
-openai.api_key = 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+openai.api_key = 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 models=['gpt-3.5-turbo-0613', 'gpt-3.5-turbo-0301', 'gpt-3.5-turbo-0613', 'gpt-3.5-turbo-0301', 'gpt-3.5-turbo', 'gpt-3.5-turbo-16k-0613', 'gpt-3.5-turbo-16k']
 
 model = models[4]
@@ -170,7 +170,7 @@ def main(model):
         return chat_completion_resp
 #
     async def chat_loop():
-        if len(args) > 1:
+        if len(args) > 1 and sys.argv[1] != "":
             user_input = ' '.join(args[1:])
             response = await create_chat_completion(user_input)
             command = response['choices'][0]['message']['content']
@@ -266,8 +266,8 @@ def main(model):
                     print("")
             else:
                 print("Chargement de la configuration par défaut...")
-        except TimeoutOccurred:
-            print("Timeout atteint. Chargement de la configuration par défaut.")
+#        except TimeoutOccurred:
+#            print("Timeout atteint. Chargement de la configuration par défaut.")
         except: pass
         assistant_response = "\nBienvenue dans votre service tahoma. Le model d'IA utilisé est : "+ model +"\nVous pouvez quitter à tout moment en tapant 'exit'."
         print("\n\033[1mAssistant:\033[0m ", assistant_response)
