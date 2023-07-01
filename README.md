@@ -49,7 +49,7 @@ If you want to install Tahoma and Tahoma-GPT using a simple script on Linux, fol
     
 6. Execute the installation script in the terminal using the following command:
 
-   - `bash -c './install_tahoma-gpt.sh; exec bash'`
+   - `bash -c './install_tahoma-gpt.sh'`
 
 7. You can now start tahoma-gpt.py in vitual env:
 
