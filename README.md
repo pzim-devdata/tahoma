@@ -51,6 +51,17 @@ If you want to install Tahoma and Tahoma-GPT using a simple script on Linux, fol
 
    - `bash -c './install_tahoma-gpt.sh; exec bash'`
 
+7. You can now start tahoma-gpt.py in vitual env:
+
+   - `cd $HOME/tahoma-gpt` (or go to the installed folder with the terminal)
+   - `python3 -m venv env`
+   - `source env/bin/activate`
+   - `python3 tahoma-gpt.py`
+
+     You can also execute orders as arguments :
+     
+   - `python3 "tahoma-gpt.py" could you please open the shutter in the kitchen ?` 
+
 By following these steps, Tahoma and Tahoma-GPT will be installed on your Linux system.
 
 
