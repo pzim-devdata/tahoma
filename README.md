@@ -60,13 +60,13 @@ If you want to install Tahoma and Tahoma-GPT using a simple script on Linux, fol
    
      If you want to run tahoma without tahoma-gpt in the same virtual environnement:
      
-   - `python3 tahoma.py` and follow instrctions [there](https://github.com/pzim-devdata/tahoma#4-retrieve-your-personal-commands)
+   - `python3 tahoma.py` and follow instructions [there](https://github.com/pzim-devdata/tahoma#4-retrieve-your-personal-commands)
 
      You can also execute orders as arguments :
      
    - `python3 "tahoma-gpt.py" could you please open the shutter in the kitchen ?` 
 
-By following these steps, Tahoma and Tahoma-GPT will be installed on your Linux system.
+By following these steps, Tahoma and Tahoma-GPT will be installed on your Linux system in a virtual environnement.
 
 
 # Step by steps process to Test and Install tahoma and tahoma-pgt
