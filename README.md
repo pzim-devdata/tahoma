@@ -57,6 +57,10 @@ If you want to install Tahoma and Tahoma-GPT using a simple script on Linux, fol
    - `python3 -m venv env`
    - `source env/bin/activate`
    - `python3 tahoma-gpt.py`
+   
+     If you want to run tahoma without tahoma-gpt in the same virtual environnement:
+     
+   - `python3 tahoma.py` and follow instrctions [there](https://github.com/pzim-devdata/tahoma#4-retrieve-your-personal-commands-)
 
      You can also execute orders as arguments :
      
