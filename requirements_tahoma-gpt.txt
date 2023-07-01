@@ -62,3 +62,4 @@ urllib3==1.26.16
 wandb==0.15.4
 warrant-lite==1.0.4
 yarl==1.9.2
+inputimeout==1.0.4
