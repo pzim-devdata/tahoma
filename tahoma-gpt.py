@@ -38,11 +38,16 @@ import asyncio
 import pyoverkiz
 import time
 from inputimeout import inputimeout, TimeoutOccurred
+import sys
 
 
-openai.api_key = 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+openai.api_key = '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'
 models=['gpt-3.5-turbo-0613', 'gpt-3.5-turbo-0301', 'gpt-3.5-turbo-0613', 'gpt-3.5-turbo-0301', 'gpt-3.5-turbo', 'gpt-3.5-turbo-16k-0613', 'gpt-3.5-turbo-16k']
+
 model = models[4]
+
+#arguments
+args = sys.argv
 
 def search(filename_to_find):
     # Fonction récursive pour rechercher le fichier dans les répertoires
@@ -163,6 +168,38 @@ def main(model):
         return chat_completion_resp
 #
     async def chat_loop():
+        if len(args) > 1:
+            user_input = ' '.join(args[1:])
+            response = await create_chat_completion(user_input)
+            command = response['choices'][0]['message']['content']
+            # Vérifie si la commande est "Command: echo 'Hello world'"
+            if "command: tahoma" in command.lower():
+                # Exécute la commande en utilisant subprocess
+                print("\nExécution de la commande :", command.replace('command: ',''))
+                try:
+                    try:
+                        output = subprocess.check_output(""+search('tahoma') +" "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
+                        #print(response['choices'][0]['message']['content'])
+                        print("Résultat de la commande :", output.decode())
+                        response = await create_chat_completion(str(output.decode()))
+                        assistant_response = response['choices'][0]['message']['content']
+                    except:
+                        output = subprocess.check_output("python3 "+search('tahoma.py') +" "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
+                        print("Commande incorrecte : tahoma ", output.decode())
+                        response = await create_chat_completion(str(output.decode()))
+                        assistant_response = response['choices'][0]['message']['content']
+                except Exception as e:
+                    print(e)
+                    response = await create_chat_completion(str(e))
+                    assistant_response = response['choices'][0]['message']['content']
+            else:
+                # Affiche la réponse de ChatGPT
+                assistant_response = response['choices'][0]['message']['content']
+                print("\n\033[1mAssistant:\033[0m ", assistant_response)
+            time.sleep(5)
+            exit()
+        else:
+            pass
         print("")
         try:
             choix = inputimeout(prompt="Voulez-vous charger une configuration avancée de tahoma-gpt pour l'exercer? (Y/n) ", timeout=3).lower()
