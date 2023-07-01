@@ -41,7 +41,7 @@ If you want to install Tahoma and Tahoma-GPT using a simple script on Linux, fol
 
 3. Download the script `install_tahoma-gpt.sh` using the following command:
 
-   - `wget -O "install_tahoma-gpt.sh" "https://github.com/pzim-devdata/tahoma/raw/main/install_tahoma-gpt.sh"``
+   - `wget -O "install_tahoma-gpt.sh" "https://github.com/pzim-devdata/tahoma/raw/main/install_tahoma-gpt.sh"`
 
 5. Make the installation script executable by running the following command:
 
