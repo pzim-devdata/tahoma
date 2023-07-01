@@ -54,7 +54,7 @@ If you want to install Tahoma and Tahoma-GPT using a simple script on Linux, fol
 By following these steps, Tahoma and Tahoma-GPT will be installed on your Linux system.
 
 
-# Step by steps process to Test and Install tahoma with tahoma-pgt
+# Step by steps process to Test and Install tahoma and tahoma-pgt
 
 You can create a vitual environnement in Python if you want to test it first. All will be installed in the tahoma-gpt directory
 
