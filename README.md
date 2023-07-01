@@ -28,7 +28,34 @@ THIS TAG DOESN'T WORK, DON'T TRUST IT : ![GitHub All Releases](https://img.shiel
 - Compatible with Windows and Linux operating systems
 - 100% functional with ChatGPT
 
-# Easy process to test and install tahoma with chatGPT
+
+# Easy Process to Test and Install tahoma and tahoma-gpt
+
+If you want to install Tahoma and Tahoma-GPT using a simple script on Linux, follow these steps:
+
+1. Open your terminal and navigate to the directory where you want to download the script `install_tahoma-gpt.sh`.
+
+   For example:
+   - `mkdir $HOME/tahoma-gpt`
+   - `cd $HOME/tahoma-gpt`
+
+3. Download the script `install_tahoma-gpt.sh` using the following command:
+
+   - `wget -O "install_tahoma-gpt.sh" "https://github.com/pzim-devdata/tahoma/raw/main/install_tahoma-gpt.sh"``
+
+5. Make the installation script executable by running the following command:
+
+   - `chmod +x install_tahoma-gpt.sh`
+    
+6. Execute the installation script in the terminal using the following command:
+
+   - `bash -c './install_tahoma-gpt.sh; exec bash'`
+
+By following these steps, Tahoma and Tahoma-GPT will be installed on your Linux system.
+
+
+# Step by steps process to Test and Install tahoma with tahoma-pgt
+
 You can create a vitual environnement in Python if you want to test it first. All will be installed in the tahoma-gpt directory
 
 First you must install venv : `pip install virtualenv` or `python3 -m pip install virtualenv` or `pipx install virtualenv` to install vitual environnement
