@@ -271,7 +271,7 @@ def main(model):
 #        except TimeoutOccurred:
 #            print("Timeout atteint. Chargement de la configuration par défaut.")
         except: pass
-        assistant_response = "\nBienvenue dans votre service d'aide à l'utilisation de tahoma. Je suis tahoma-gpt. Le model d'intelligence utilisé est : "+ model +".\nJe peux vous aider à la création de commandes pour tahoma et aussi en executer si vous me le demandez.\nVous pouvez quitter à tout moment en tapant 'exit'."
+        assistant_response = "\nBienvenue dans votre service d'aide à l'utilisation de tahoma. Je suis tahoma-gpt. \nLe model d'intelligence utilisé est : "+ model +".\nJe peux vous aider à la création de commandes pour tahoma et aussi en executer si vous me le demandez.\nVous pouvez quitter à tout moment en tapant 'exit'."
         print("\n\033[1mAssistant:\033[0m ", assistant_response)
         while True:
             # Demande à l'utilisateur d'entrer une phrase d'instruction
