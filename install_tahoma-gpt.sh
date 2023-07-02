@@ -35,6 +35,7 @@ download_file "https://raw.githubusercontent.com/pzim-devdata/tahoma/main/tahoma
 
 chmod +x "tahoma_chatgpt.sh"
 chmod +x "tahoma-gpt.py"
+chmod +r "tahoma-chatgpt.png"
 
 # Install venv
 python3 -m venv env
@@ -84,7 +85,7 @@ Version=1.0
 Type=Application
 Name=Tahoma-GPT
 Comment=Shortcut to run Tahoma-GPT
-Icon=$(dirname "$(readlink -f "$0")")/tahoma-gpt.png
+Icon=$(dirname "$(readlink -f "$0")")/tahoma-chatgpt.png
 Exec='$(dirname "$(readlink -f "$0")")/tahoma_chatgpt.sh'
 Terminal=true" > "$desktop_dir/tahoma-gpt.desktop"
 
