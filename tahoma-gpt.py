@@ -246,7 +246,7 @@ def main(model):
                     response = await create_chat_completion(user_input)
                     assistant_response = response['choices'][0]['message']['content']
                     print("5/6 : ok")
-                    print("\n\033[1mLIST DES EQUIPEMENTS\033[0m \n", assistant_response)
+                    print("\n\033[1mLIST OF DEVICES\033[0m \n", assistant_response)
                 except:
                     print("5/6 : non ok")
                 try:
@@ -254,7 +254,7 @@ def main(model):
                     response = await create_chat_completion(user_input)
                     assistant_response = response['choices'][0]['message']['content']
                     print("6/6 : ok")
-                    print("\n\033[1mINSTRUCTIONS GENERALES\033[0m \n", assistant_response)
+                    print("\n\033[1mGENERAL INSTRUCTIONS\033[0m \n", assistant_response)
                 except:
                     print("6/6 : non ok")
                 try:
