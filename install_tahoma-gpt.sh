@@ -1,78 +1,98 @@
 #!/bin/bash
 
-# Fonction pour télécharger un fichier depuis une URL
+# Function to download a file from URL
 download_file() {
   local url=$1
   local filename=$2
   wget -O "$filename" "$url"
 }
 
-# Demander si l'utilisateur souhaite installer venv
-read -p "Voulez-vous installer venv? (Oui/Non): " install_venv
+# Ask if the user wants to install venv
+read -p "Do you want to install venv? (Yes/No): " install_venv
 
-# Vérifier la réponse de l'utilisateur
-if [[ $install_venv =~ ^(Oui|oui|OUI|Yes|yes|YES|O|o)$ ]]; then
+# Check user's response
+if [[ $install_venv =~ ^(Oui|oui|OUI|Yes|yes|YES|O|o|Y|y)$ ]]; then
   python3 -m pip install virtualenv
 else
-  echo "Venv n'a pas été installé."
+  echo "Venv was not installed."
 fi
-# Demander l'emplacement du dossier d'installation
-read -p "Entrez le chemin du dossier d'installation (par défaut: ~/tahoma-gpt): " install_dir
+
+# Ask for the installation directory path
+read -p "Enter the installation directory path (default: ~/tahoma-gpt): " install_dir
 install_dir=${install_dir:-"$HOME/tahoma-gpt"}
 
-# Créer le dossier d'installation et se déplacer dedans
+# Create the installation directory and navigate into it
 mkdir -p "$install_dir"
 cd "$install_dir"
 
-# Télécharger les fichiers depuis GitHub
+# Download files from GitHub
 download_file "https://github.com/pzim-devdata/tahoma/raw/main/requirements_tahoma-gpt.txt" "requirements_tahoma-gpt.txt"
 download_file "https://github.com/pzim-devdata/tahoma/raw/main/tahoma-gpt.py" "tahoma-gpt.py"
+download_file "https://github.com/pzim-devdata/tahoma/raw/main/tahoma_chatgpt.sh" "tahoma_chatgpt.sh"
 
-# Installer venv
+# Install venv
 python3 -m venv env
 
-# Activer l'environnement virtuel
+# Activate the virtual environment
 source env/bin/activate
 
-# Demander si l'utilisateur souhaite installer tahoma
-read -p "Voulez-vous installer tahoma? (Oui/Non): " install_tahoma
+# Ask if the user wants to install Tahoma
+read -p "Do you want to install Tahoma? (Yes/No): " install_tahoma
 
-# Vérifier la réponse de l'utilisateur
-if [[ $install_tahoma =~ ^(Oui|oui|OUI|Yes|yes|YES|O|o)$ ]]; then
-  # Installer tahoma
-  python3 -m venv env
-  source env/bin/activate
+# Check user's response
+if [[ $install_tahoma =~ ^(Yes|yes|YES|O|o)$ ]]; then
+  # Install Tahoma
   python3 -m pip install -U tahoma
-  # Configurer tahoma
+
+  # Configure Tahoma
   echo ""
   tahoma -c
-  # Obtenir la liste des appareils
+
+  # Get the list of devices
   echo ""
   tahoma -g
+
   sleep 6
 fi
 
-# Installer les dépendances
-python3 -m venv env
-source env/bin/activate
+# Install dependencies
 python3 -m pip install -r requirements_tahoma-gpt.txt
 
-# Demander la clé API OpenAI
+# Ask for the OpenAI API key
 echo ""
-echo "Pour la création de la clé API OpenAI rendez-vous sur le site d'OpenAI : https://platform.openai.com/apps"
-read -p "Entrez la clé API OpenAI :" openai_api_key
+echo "To get the OpenAI API key, please visit the OpenAI website: https://platform.openai.com/apps"
+read -p "Enter the OpenAI API key: " openai_api_key
 
-# Modifier le fichier tahoma-gpt.py avec la clé API
+# Modify the tahoma-gpt.py file with the API key
 sed -i "s|openai.api_key =.*|openai.api_key = '$openai_api_key'|" tahoma-gpt.py
 
+# Ask if the user wants to create a desktop shortcut for Tahoma-GPT
+read -p "Do you want to create a desktop shortcut for Tahoma-GPT? (Yes/No): " response
+response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
 
-# Exécuter le script tahoma-gpt.py
-python3 -m venv env
-source env/bin/activate
+if [[ $response == "yes" || $response == "y" ]]; then
+    desktop_dir=$(xdg-user-dir DESKTOP)
+    if [ "$desktop_dir" ]; then
+        echo "[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Tahoma-GPT
+Comment=Shortcut to run Tahoma-GPT
+Icon=$(dirname "$(readlink -f "$0")")/tahoma-gpt.png
+Exec='$(dirname "$(readlink -f "$0")")/tahoma_chatgpt.sh'
+Terminal=true" > "$desktop_dir/tahoma-gpt.desktop"
+
+        # Make the desktop shortcut executable
+        chmod +x "$desktop_dir/tahoma-gpt.desktop"
+
+        echo "The desktop shortcut for Tahoma-GPT has been created successfully and made executable."
+    else
+        echo "Could not find the Desktop directory, unable to install the shortcut."
+    fi
+fi
+
+# Execute the tahoma-gpt.py script
 python3 tahoma-gpt.py
 
-
-
-# Désactiver l'environnement virtuel
+# Deactivate the virtual environment
 deactivate
-
