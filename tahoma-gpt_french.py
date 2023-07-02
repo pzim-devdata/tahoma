@@ -85,17 +85,18 @@ def search(filename_to_find):
 
 temp=search('temp')
 try:
-    names = subprocess.check_output(search('tahoma') + " -ln", shell=True)
+    names = subprocess.check_output(search('tahoma') + " -lnf", shell=True)
     names = names.decode('utf-8')
-    index_exclusion = names.find("You must provide a part of the NAME as argument")
+    index_exclusion = names.find("pour vous assurer que la liste des équipements est complète
+")
     if index_exclusion != -1:
         names = names[:index_exclusion]
-        names = "Here " + names.split("Here", 1)[-1].strip()
-        start_index = names.index("Here is the list of the installed devices for the SUNSCREEN category")
+        names = "Voici " + names.split("Here", 1)[-1].strip()
+        start_index = names.index("Voici la liste des équipements installés pour la catégorie RIDEAU")
         names1 = names[:start_index]
         names2 = names[start_index:]
 except:
-    names = subprocess.check_output("python3 " + search('tahoma.py') + " -ln", shell=True)
+    names = subprocess.check_output("python3 " + search('tahoma.py') + " -lnf", shell=True)
     names = names.decode('utf-8')
     index_exclusion = names.find("You must provide a part of the NAME as argument")
     if index_exclusion != -1:
@@ -103,17 +104,17 @@ except:
         names = "Here " + names.split("Here", 1)[-1].strip()
 
 try:
-    actions = subprocess.check_output(search('tahoma') + " -la", shell=True)
+    actions = subprocess.check_output(search('tahoma') + " -laf", shell=True)
     actions = actions.decode('utf-8')
 except:
-    actions = subprocess.check_output("python3 " + search('tahoma.py') + " -la", shell=True)
+    actions = subprocess.check_output("python3 " + search('tahoma.py') + " -laf", shell=True)
     actions = actions.decode('utf-8')
 
 try:
-    categories = subprocess.check_output(search('tahoma') + " -lc", shell=True)
+    categories = subprocess.check_output(search('tahoma') + " -lcf", shell=True)
     categories = categories.decode('utf-8')
 except:
-    categories = subprocess.check_output("python3 " + search('tahoma.pc') + " -ln", shell=True)
+    categories = subprocess.check_output("python3 " + search('tahoma.pc') + " -lnf", shell=True)
     categories = categories.decode('utf-8')
 
 def main(model):
@@ -247,11 +248,11 @@ def main(model):
                     response = await create_chat_completion(user_input)
                     assistant_response = response['choices'][0]['message']['content']
                     print("5/6 : ok")
-                    print("\n\033[1mLIST DES EQUIPEMENTS\033[0m \n", assistant_response)
+                    print("\n\033[1mLISTE DES EQUIPEMENTS\033[0m \n", assistant_response)
                 except:
                     print("5/6 : non ok")
                 try:
-                    user_input = """\nPeux-tu, conformément à tes instructions expliquer le plus succinctement possible la syntaxe à utiliser en pensant bien à préciser pour le NAME qu'il faut des brakets, des guillemets et le nom EXACTE entre les deux guillemtets : ["EXACT NAME"] ? Pourras-tu aussi me dire très succinctement pourquoi, pour les équipement RTS, concernant l'ACTION stop, il faut utiliser la commande 'cancel last action' ? Pourras-tu par ailleurs me dire comment fermer un volet ou un rideau à une position précise ? ATTENTION, NE JAMAIS TRADUIRE OU MODIFIER LES ["EXACTE NAME"], LES NOMS D'ACTION ET LES NOMS DES CATEGORY DANS TES REPONSES ET FOURNI LES NOMS EXACTES ET PAS SEULEMENT UN PARTIE DU NAME dans la syntaxe ["EXACT NAME"]. Utilise des exemples avec les noms réels et complets de mes équipements en utilisant les brakets et le guillemets. Tu me répondras sans phrase d'accroche et sans phrase de politesse en conclusion mais en présentant cela comme une présentation des instructions générale"""
+                    user_input = """\nPeux-tu, conformément à tes instructions expliquer le plus succinctement possible la syntaxe à utiliser en pensant bien à préciser pour le NAME qu'il faut des brakets, des guillemets et le nom EXACTE entre les deux guillemtets : ["EXACT NAME"] ? Pourras-tu me preciser pourquoi concernant les capteurs, il peut être judicieux de ne pas entrer le ["EXACT NAME"] mais un NOM8COMMUN ? Pourras-tu aussi me dire très succinctement pourquoi, pour les équipement RTS, concernant l'ACTION stop, il faut utiliser la commande 'cancel last action' ? Pourras-tu par ailleurs me dire comment fermer un volet ou un rideau à une position précise ? ATTENTION, NE JAMAIS TRADUIRE OU MODIFIER LES ["EXACTE NAME"], LES NOMS D'ACTION ET LES NOMS DES CATEGORY DANS TES REPONSES ET FOURNI LES NOMS EXACTES ET PAS SEULEMENT UN PARTIE DU NAME dans la syntaxe ["EXACT NAME"]. Utilise des exemples avec les noms réels et complets de mes équipements en utilisant les brakets et le guillemets. Tu me répondras sans phrase d'accroche et sans phrase de politesse en conclusion mais en présentant cela comme une présentation des instructions générale"""
                     response = await create_chat_completion(user_input)
                     assistant_response = response['choices'][0]['message']['content']
                     print("6/6 : ok")
