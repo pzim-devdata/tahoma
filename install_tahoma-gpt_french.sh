@@ -79,16 +79,19 @@ response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
 if [[ $response == "oui" || $response == "o" || $response == "yes" || $response == "y" ]]; then
     desktop_dir=$(xdg-user-dir DESKTOP)
     if [ "$desktop_dir" ]; then
+        sed -i 's/tahoma-gpt.py/tahoma-gpt_french.py/g' tahoma_chatgpt.sh
         echo "[Desktop Entry]
+        rm "$desktop_dir/tahoma-gpt.desktop"
 Version=1.0
 Type=Application
-Name=Tahoma-GPT
+Name="Tahoma-GPT en français"
 Comment=Raccourci pour exécuter Tahoma-GPT
 Icon=$(dirname "$(readlink -f "$0")")/tahoma-chatgpt.png
 Exec='$(dirname "$(readlink -f "$0")")/tahoma_chatgpt.sh'
 Terminal=true" > "$desktop_dir/tahoma-gpt.desktop"
       chmod +x "$desktop_dir/tahoma-gpt.desktop"
-      echo "Le raccourci bureau pour Tahoma-GPT a été créé avec succès et rendu exécutable."
+      echo "Le raccourci bureau pour Tahoma-GPT a été créé avec succès et rendu exécutable. Les autres raccourcis ont été supprimés"
+      echo "Le fichier $install_dir/tahoma_chatgpt.sh a été modifié pour lancer $install_dir/tahoma-gpt_french.py"
     else
       echo "Je n'ai pas trouvé le dossier Desktop, impossible d'installer le raccourci"
     fi
