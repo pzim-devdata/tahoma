@@ -103,7 +103,7 @@ First you must install venv : `pip install virtualenv` or `python3 -m pip instal
 
 ##############################################################################
 
-# Installation from this Git
+# Installation tahoma from this Git
 **Note:** This is a portable version for direct downloading. It's not an installed package. To run the app, simply execute `python3 tahoma.py` in your imported folder. If you want to install the package using PyPI (pip version), go to : [How to install tahoma with pip ?](https://github.com/pzim-devdata/tahoma#install-the-main-package-) or directly visit the [PyPI Project Website](https://pypi.org/project/tahoma/#description) for an easier installation process.
 
 If you like this program, please star it on GitHub to improve Tahoma's visibility so that others can also benefit from it. :star:
