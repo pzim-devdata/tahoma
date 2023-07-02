@@ -44,9 +44,23 @@ import sys
 
 
 openai.api_key = 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-models=['gpt-3.5-turbo-0613', 'gpt-3.5-turbo-0301', 'gpt-3.5-turbo-0613', 'gpt-3.5-turbo-0301', 'gpt-3.5-turbo', 'gpt-3.5-turbo-16k-0613', 'gpt-3.5-turbo-16k']
 
-model = models[4]
+#models
+all_models = openai.Model.list()
+models = []
+for i in range(len(all_models.data)):
+    if all_models.data[i].id.startswith('gpt'):
+        models.append(all_models.data[i].id)
+#models=['gpt-3.5-turbo-0613', 'gpt-3.5-turbo-0301', 'gpt-3.5-turbo-0613', 'gpt-3.5-turbo-0301', 'gpt-3.5-turbo', 'gpt-3.5-turbo-16k-0613', 'gpt-3.5-turbo-16k']
+if "gpt-3.5-turbo-16k-0613" in models :
+    model='gpt-3.5-turbo-16k-0613'
+else :
+    if len(models) > 0:
+        model=models[0]
+    else :
+        model = "gpt-3.5-turbo"
+
+max_tokens = 4096
 
 #arguments
 args = sys.argv
@@ -74,7 +88,7 @@ def search(filename_to_find):
 
 #folder_path=search('tahoma.py')
 
-temp=search('temp')
+
 try:
     names = subprocess.check_output(search('tahoma') + " -ln", shell=True)
     names = names.decode('utf-8')
@@ -92,6 +106,9 @@ except:
     if index_exclusion != -1:
         names = names[:index_exclusion]
         names = "Here " + names.split("Here", 1)[-1].strip()
+        start_index = names.index("Voici la liste des équipements installés pour la catégorie RIDEAU")
+        names1 = names[:start_index]
+        names2 = names[start_index:]
 
 try:
     actions = subprocess.check_output(search('tahoma') + " -la", shell=True)
@@ -109,10 +126,11 @@ except:
 
 def main(model):
     async def create_chat_completion(prompt):
-#        chat_completion_resp = await openai.ChatCompletion.acreate(
+#        chat_completion_resp = await openai.ChatCompletion.create(
         chat_completion_resp = await openai.ChatCompletion.acreate(
     #        model="gpt-3.5-turbo",
             model=model,
+            max_tokens=max_tokens,
             messages=[
                 {"role": "system", "content": """Here is the user manual for the Tahoma application, including the various commands it contains. Your task is to display the correct command to help me use this application or execute an instance of Tahoma using the syntax: 'command:' For example: 'command: tahoma ACTION CATEGORY ["EXACT NAME"]' based on what I ask you."""},
                 {"role": "system", "content": "Here is part 1/2 of the list of equipment NAMES present in the house for each category. You will base your answers on these exact names. WARNING: DO NOT TRANSLATE OR MODIFY THESE NAMES IN YOUR RESPONSES: " + str(names1)},
