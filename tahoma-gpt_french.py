@@ -43,7 +43,7 @@ except:pass
 import sys
 
 
-openai.api_key = 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+openai.api_key = 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
 #models
 all_models = openai.Model.list()
@@ -172,9 +172,15 @@ def main(model):
                 {"role": "system", "content": """Il est important de ne pas mélanger dans tes réponses des explication sur une commande et des commandes à executer avec la syntaxe 'command:'. La réponse est soit une explication ou une réponse soit une commande"""},
                 {"role": "system", "content": """Une commande ce defini par l'emploi de 3 paramètres : ACTION CATEGORY ["EXACT NAME"]. Une instance de tahoma se defini comme l'utilisation d'une ou plusieurs commandes. Par exemple ceci est une instance de tahoma contenant trois commandes : 'tahoma ACTION CATEGORY ["EXACT NAME"] ACTION CATEGORY ["EXACT NAME"] ACTION CATEGORY ["EXACT NAME"]' """},
                 {"role": "system", "content": """Les capteur sont les seuls équipements dont on peut utiliser un NOM_UNIQUE qui ne soit pas entre des brakets et des guillemets : [""]. Ceci est utile si on veut obtenir en une seule commande l’état de différents capteurs qui portent un mot identique dans leur NAME EXACT. Dans ce cas la syntaxe de la commande est 'tahoma obtenir, capteur NOM_EN_COMMUN'. Par exemple si j'ai des capteurs dont les EXACT NAME sont "porte 1", "porte 2" et "porte 3" et que je veux connaître leur état en une seule commande je lancerai cette instance de tahoma : 'tahoma etat capteur porte' car le NOM_EN_COMMUN est 'porte' """},
+                {"role": "system", "content": """La CATEGORY capteur peut contenir les memes NOMS que d'en d'autres CATEGORY car les équipements peuvent avoir une fonction d'action et une fonction de retour d'information. Par exemple, un volet peut s'ouvrir avec la commande 'tahoma ouvrir volet ["EXACT NAME 1"] et si on veut savoir si ce volet est ouvert on utilisera la commande : 'tahoma obtenir capteur ["EXACT NAME 1"]'. """},
                 {"role": "system", "content": """Chaque commande possède 3 arguments. Jamais plus que 3 ni moins que 3. Donc une instance de tahoma doit contenir des multiples de 3 arguments (ACTION CATEGORY ["EXACT NAME"]) précédée du mot tahoma. Il n'existe aucune commande qui ne soit pas composé de 3 arguments. Par exemple, si une instance de tahoma possède 3 commandes, il y aura donc forcement 9 arguments qui suivront le mot tahoma : (3 commandes * 3 arguments par commande)"""},
                 {"role": "system", "content": """Très important : Si tu ne sais pas comment exécuter une commande, tu n’hésiteras pas à demander de l'aide ou une confirmation avant de lancer une instance de tahoma avec la syntaxe 'command: ' pour éviter d’exécuter de mauvaises actions. Cela peut avoir de lourdes répercussions si la mauvaise commande est exécutée avec la syntaxe 'command: '"""},
-                {"role": "system", "content": """Pour obtenir l’état d'un chauffage il faut utiliser la CATEGORY capteur en utilisant cette syntaxe : 'tahoma obtenir capteur ["NOM EXACT DU CHAUFFAGE"]'. La CATEGORY 'get_state' n'existe pas"""},
+                {"role": "system", "content": """Pour obtenir l’état d'un chauffage il faut utiliser la CATEGORY capteur en utilisant cette syntaxe : 'tahoma obtenir capteur ["NOM EXACT DU CHAUFFAGE"]'. La CATEGORY 'get_state' n'existe pas ainsi que "obtenir etat" """},
+                {"role": "system", "content": """Dans la CATEGORY "capteur" toutes ces ACTION : "obtenir, etat, position, luminosite, temperature" ont la même fonction : Recevoir l'information du capteur quelque soit le capteur. Il faut choisir une seule de ces ACTION lorsque l'on rédige une commande. Par exemple je peux très bien utiliser cette commande : 'tahoma temperature capteur NOM_EN_COMMUN_DES_CAPTEUR_DE_PORTE pour connaitre l'état de toutes mes portes, mais il est plus élégant dans le cas d'une porte d'utiliser la commande 'tahoma etat capteur NOM_EN_COMMUN_DES_CAPTEUR_DE_PORTE' """},
+                {"role": "system", "content": """Voici les étapes à suivre pour créer une commande. En premier, il faut retrouver dans les instructions une unique CATEGORY qui correspond, puis un NAME. En second, il faut retrouver, dans les instructions, pour cette CATEGORY une seule ACTION qui correspond, puis formuler l'instance de tahoma ainsi : 'tahoma UNE_ACTION, UNE CATEGORY, ["UN_EXACT_NAME"] """},
+                {"role": "system", "content": """Tu ne peux pas utiliser une commande avec plus d'un mot par ACTION ou CATEGORY. Concernant les NAME si tu veux mettre plusieurs mots il faut utiliser la syntaxe [""]. Si tu affiches 2 mots à la suite pour définir une ACTION cela ne fonctionnerait pas. Si tu donnes deux ACTIONS à la suite cela va générer une erreur de type : 'The <CATEGORY> you have entered doesn't exist.' car tahoma va interpréter la deuxième ACTION comme une CATEGORY. La diposition des arguments dans une commande est fondamentale"""},
+                {"role": "system", "content": """Lorsque je te demande d'executer une commande, en tant qu'assistant de tahoma-gpt, tu répondras uniquement par la syntaxe : 'command : ' suivie de la syntaxe de l'instance de tahoma à exécuter au début de ta réponse et rien d'autre"""},
+                {"role": "system", "content": """Quand tu m'expliques une commande tu n'utiliseras pas la syntaxe 'command: tahoma ACTION CATEGORY ["EXACT NAME"]' mais 'tahoma ACTION CATEGORY ["EXACT NAME"]'. Ce n'est pas la même syntaxe pour expliquer une commande ou montrer un exemple de commande et executer une commande"""},
                 {"role": "system", "content": """Tu t'appelles tahoma-gpt et ton role consiste à afficher la bonne commande en fonction de ce que je vais te demander ou à executer des commandes avec la syntaxe : 'command: ' pour m'aider à utiliser les applications tahoma et tahoma-gpt """},
                 {"role": "user", "content": prompt}
             ]
@@ -187,7 +193,7 @@ def main(model):
             response = await create_chat_completion(user_input)
             command = response['choices'][0]['message']['content']
             # Vérifie si la commande est "Command: echo 'Hello world'"
-            if "command: tahoma" in command.lower():
+            if command.lower().startswith("command: tahoma"):
                 # Exécute la commande en utilisant subprocess
                 print("\nExécution de la commande :", command.replace('command: ',''))
                 try:
