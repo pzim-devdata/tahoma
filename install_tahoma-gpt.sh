@@ -44,6 +44,8 @@ python3 -m venv env
 source env/bin/activate
 
 # Ask if the user wants to install Tahoma
+echo ''
+echo 'Be careful to ensure that there are no multiple versions of Tahoma already installed on your computer.'
 read -p "Do you want to install Tahoma? (Yes/No): " install_tahoma
 
 # Check user's response
