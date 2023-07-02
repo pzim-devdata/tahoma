@@ -258,7 +258,7 @@ def main(model):
                 except:
                     print("6/6 : non ok")
                 try:
-                    user_input = "\nCan you, according to your instructions, quickly explain the use of the 'wait' command and the need to formulate commands within the same Tahoma instance? Please provide concise and understandable answers. Respond without any introductory or concluding polite phrases, but present it as a general instruction presentation. Use examples with the full and actual names of my devices using brackets and quotation marks. Also, let me know that you can execute commands if I ask you to."
+                    user_input = "\nCan you, according to your instructions, quickly explain the use of the 'wait' command and the need to formulate commands within the same Tahoma instance? Please provide concise and understandable answers. Respond without any introductory or concluding polite phrases, but present it as a general instruction presentation. Use examples with the full and actual names of my devices using brackets and quotation marks. Also, let me know that YOU CAN execute commands if I ask you to."
                     response = await create_chat_completion(user_input)
                     assistant_response = response['choices'][0]['message']['content']
                     print("")
@@ -270,7 +270,7 @@ def main(model):
 #        except TimeoutOccurred:
 #            print("Timeout atteint. Chargement de la configuration par défaut.")
         except: pass
-        assistant_response = "\nWelcome to your Tahoma usage assistance service. I am tahoma-gpt. \nThe intelligence model used is: " + model + ".\nI can help you create commands for Tahoma and also execute them if you ask me to.\nYou can exit at any time by typing 'exit'."
+        assistant_response = "\nWelcome to your Tahoma usage assistance service. I am tahoma-gpt. \nThe intelligence model used is: " + model + ".\nI can help you to create commands for Tahoma and also execute them if you ask me to.\nYou can exit at any time by typing 'exit'."
         print("\n\033[1mAssistant:\033[0m ", assistant_response)
         while True:
             # Demande à l'utilisateur d'entrer une phrase d'instruction
