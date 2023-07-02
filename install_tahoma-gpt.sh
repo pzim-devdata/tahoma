@@ -40,7 +40,7 @@ source env/bin/activate
 read -p "Do you want to install Tahoma? (Yes/No): " install_tahoma
 
 # Check user's response
-if [[ $install_tahoma =~ ^(Yes|yes|YES|O|o)$ ]]; then
+if [[ $install_tahoma =~ ^(Oui|oui|OUI|Yes|yes|YES|O|o|Y|y)$ ]]; then
   # Install Tahoma
   python3 -m pip install -U tahoma
 
