@@ -40,7 +40,7 @@ Si vous souhaitez installer Tahoma et Tahoma-GPT à l'aide d'un script simple so
 
 3. Téléchargez le script `install_tahoma-gpt_french.sh` en utilisant la commande suivante :
 
-   - `wget -O "install_tahoma-gpt.sh" "https://github.com/pzim-devdata/tahoma/raw/main/install_tahoma-gpt_french.sh"`
+   - `wget -O "install_tahoma-gpt_french.sh" "https://github.com/pzim-devdata/tahoma/raw/main/install_tahoma-gpt_french.sh"`
 
 5. Rendez le script d'installation exécutable en exécutant la commande suivante :
 
