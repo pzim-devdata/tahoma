@@ -203,7 +203,7 @@ Par exemple :
 
 Par exemple : 
 
-`tahoma ouvrir volet cuisine attendre 20 fermer volet cuisine`
+`tahoma ouvrir volet cuisine attendre pendant 20 fermer volet cuisine`
 
 - Comme il est impossible d'arrêter un périphérique RTS en cours d'execution, vous pouvez annuler la commande précédente immédiate (sans affecter une commande "attendre pendant <SECONDES>"). Pour cela, utilisez la commande "cancel last action" ou "annuler précédente commande" juste après une commande qui ouvre ou ferme un périphérique RTS.
 
