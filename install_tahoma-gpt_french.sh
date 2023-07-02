@@ -17,7 +17,7 @@ else
   echo "Venv n'a pas été installé."
 fi
 # Demander l'emplacement du dossier d'installation
-read -p "Entrez le chemin du dossier d'installation (par défaut: ~/tahoma-gpt): " install_dir
+read -p "Entrez le chemin du dossier d'installation (Presser Entrée pour installer dans : ~/tahoma-gpt): " install_dir
 install_dir=${install_dir:-"$HOME/tahoma-gpt"}
 
 # Créer le dossier d'installation et se déplacer dedans
@@ -30,6 +30,8 @@ download_file "https://github.com/pzim-devdata/tahoma/raw/main/tahoma-gpt_french
 download_file "https://github.com/pzim-devdata/tahoma/raw/main/tahoma_chatgpt.sh" "tahoma_chatgpt.sh"
 download_file "https://raw.githubusercontent.com/pzim-devdata/tahoma/main/tahoma-gpt.png" "tahoma-chatgpt.png"
 
+chmod +x "tahoma_chatgpt.sh"
+chmod +x "tahoma-gpt_french.py"
 
 # Installer venv
 python3 -m venv env
