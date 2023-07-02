@@ -185,7 +185,7 @@ def main(model):
             response = await create_chat_completion(user_input)
             command = response['choices'][0]['message']['content']
             # Vérifie si la commande est "Command: echo 'Hello world'"
-            if "command: tahoma" in command.lower():
+            if command.lower().startswith("command: tahoma"):
                 # Exécute la commande en utilisant subprocess
                 print("\nExecuting command:", command.replace('command: ',''))
                 try:
@@ -294,7 +294,7 @@ def main(model):
             if response['choices'][0]['message']['role'] == 'assistant':
                 command = response['choices'][0]['message']['content']
                 # Vérifie si la commande est "Command: echo 'Hello world'"
-                if "command: tahoma" in command.lower():
+                if command.lower().startswith("command: tahoma"):
                     # Exécute la commande en utilisant subprocess
                     print("\nExecuting command:", command.replace('command: ',''))
                     try:
