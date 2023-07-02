@@ -18,7 +18,7 @@ else
 fi
 
 # Ask for the installation directory path
-read -p "Enter the installation directory path (default: ~/tahoma-gpt): " install_dir
+read -p "Enter the installation directory path (Press Enter to install here : ~/tahoma-gpt): " install_dir
 install_dir=${install_dir:-"$HOME/tahoma-gpt"}
 
 # Create the installation directory and navigate into it
@@ -30,6 +30,9 @@ download_file "https://github.com/pzim-devdata/tahoma/raw/main/requirements_taho
 download_file "https://github.com/pzim-devdata/tahoma/raw/main/tahoma-gpt.py" "tahoma-gpt.py"
 download_file "https://github.com/pzim-devdata/tahoma/raw/main/tahoma_chatgpt.sh" "tahoma_chatgpt.sh"
 download_file "https://raw.githubusercontent.com/pzim-devdata/tahoma/main/tahoma-gpt.png" "tahoma-chatgpt.png"
+
+chmod +x "tahoma_chatgpt.sh"
+chmod +x "tahoma-gpt.py"
 
 # Install venv
 python3 -m venv env
