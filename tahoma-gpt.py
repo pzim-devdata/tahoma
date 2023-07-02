@@ -205,7 +205,7 @@ def main(model):
             pass
         print("")
         try:
-            choix = inputimeout(prompt="Voulez-vous charger une configuration avancée de tahoma-gpt pour l'exercer? (Y/n) ", timeout=4).lower()
+            choix = inputimeout(prompt="Would you like to load an advanced configuration of Tahoma-GPT for practice? (Y/n) ", timeout=4).lower()
 #            choix = choix.lower()
             if choix in ["y", "yes", "o", "oui"]:
                 try:
