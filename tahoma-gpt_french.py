@@ -74,7 +74,7 @@ def search(filename_to_find):
 
 #folder_path=search('tahoma.py')
 
-temp=search('temp')
+
 try:
     names = subprocess.check_output(search('tahoma') + " -lnf", shell=True)
     names = names.decode('utf-8')
