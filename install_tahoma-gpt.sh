@@ -18,7 +18,7 @@ else
 fi
 
 # Ask for the installation directory path
-echo "Enter the installation directory path :"
+echo "\nEnter the installation directory path :"
 read -p "Or press Enter to install tahoma and tahoma-gtp there : ~/tahoma-gpt) " install_dir
 install_dir=${install_dir:-"$HOME/tahoma-gpt"}
 
