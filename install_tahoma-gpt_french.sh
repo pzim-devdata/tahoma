@@ -80,8 +80,8 @@ if [[ $response == "oui" || $response == "o" || $response == "yes" || $response 
     desktop_dir=$(xdg-user-dir DESKTOP)
     if [ "$desktop_dir" ]; then
         sed -i 's/tahoma-gpt.py/tahoma-gpt_french.py/g' tahoma_chatgpt.sh
-        echo "[Desktop Entry]
         rm "$desktop_dir/tahoma-gpt.desktop"
+        echo "[Desktop Entry]
 Version=1.0
 Type=Application
 Name="Tahoma-GPT en français"
