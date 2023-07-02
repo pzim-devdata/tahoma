@@ -40,17 +40,17 @@ Si vous souhaitez installer Tahoma et Tahoma-GPT à l'aide d'un script simple so
 
 3. Téléchargez le script `install_tahoma-gpt_french.sh` en utilisant la commande suivante :
 
-   - `wget -O "install_tahoma-gpt.sh" "https://github.com/pzim-devdata/tahoma/raw/main/install_tohoma-gpt_french.sh"`
+   - `wget -O "install_tahoma-gpt.sh" "https://github.com/pzim-devdata/tahoma/raw/main/install_tahoma-gpt_french.sh"`
 
 5. Rendez le script d'installation exécutable en exécutant la commande suivante :
 
-   - `chmod +x install_tohoma-gpt_french.sh`
+   - `chmod +x install_tahoma-gpt_french.sh`
     
 6. Exécutez le script d'installation dans le terminal en utilisant la commande suivante :
 
-   - `bash -c './install_tohoma-gpt_french.sh'`
+   - `bash -c './install_tahoma-gpt_french.sh'`
 
-7. Vous pouvez maintenant démarrer tahoma-gpt.py dans un environnement virtuel :
+7. Vous pouvez maintenant démarrer tahoma-gpt_french.py dans un environnement virtuel :
 
    - `cd $HOME/tahoma-gpt` (ou accédez au dossier d'installation avec le terminal)
    - `python3 -m venv env`
@@ -59,11 +59,11 @@ Si vous souhaitez installer Tahoma et Tahoma-GPT à l'aide d'un script simple so
    
      Si vous souhaitez exécuter tahoma sans tahoma-gpt dans le même environnement virtuel :
      
-   - `python3 tahoma.py` et suivez les instructions [ici](https://github.com/pzim-devdata/tahoma#4-retrieve-your-personal-commands)
+   - `python3 tahoma.py` et suivez les instructions [ici](https://github.com/pzim-devdata/tahoma/blob/main/README_FR.md#4-récupérez-vos-commandes-personnelles)
 
      Vous pouvez également exécuter des commandes en tant qu'arguments :
      
-   - `python3 "tahoma-gpt_french.py" could you please open the shutter in the kitchen ?` 
+   - `python3 "tahoma-gpt_french.py" Pourrais-tu ouvrir les volets dans la cuisine ?` 
 
 En suivant ces étapes, Tahoma et Tahoma-GPT seront installés sur votre système Linux dans un environnement virtuel.
 
