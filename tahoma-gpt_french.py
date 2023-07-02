@@ -87,33 +87,36 @@ temp=search('temp')
 try:
     names = subprocess.check_output(search('tahoma') + " -lnf", shell=True)
     names = names.decode('utf-8')
-    index_exclusion = names.find("pour vous assurer que la liste des équipements est complète")
+    index_exclusion = names.find("Vous devez fournir une partie du NOM comme argument")
     if index_exclusion != -1:
         names = names[:index_exclusion]
-        names = "Voici " + names.split("Here", 1)[-1].strip()
+        names = "Voici " + names.split("Voici", 1)[-1].strip()
         start_index = names.index("Voici la liste des équipements installés pour la catégorie RIDEAU")
         names1 = names[:start_index]
         names2 = names[start_index:]
 except:
-    names = subprocess.check_output("python3 " + search('tahoma.py') + " -lnf", shell=True)
+    names = subprocess.check_output("python3 '" + search('tahoma.py') + "' -lnf", shell=True)
     names = names.decode('utf-8')
-    index_exclusion = names.find("You must provide a part of the NAME as argument")
+    index_exclusion = names.find("Vous devez fournir une partie du NOM comme argument")
     if index_exclusion != -1:
         names = names[:index_exclusion]
-        names = "Here " + names.split("Here", 1)[-1].strip()
+        names = "Voici " + names.split("Voici", 1)[-1].strip()
+        start_index = names.index("Voici la liste des équipements installés pour la catégorie RIDEAU")
+        names1 = names[:start_index]
+        names2 = names[start_index:]
 
 try:
     actions = subprocess.check_output(search('tahoma') + " -laf", shell=True)
     actions = actions.decode('utf-8')
 except:
-    actions = subprocess.check_output("python3 " + search('tahoma.py') + " -laf", shell=True)
+    actions = subprocess.check_output("python3 '" + search('tahoma.py') + "' -laf", shell=True)
     actions = actions.decode('utf-8')
 
 try:
     categories = subprocess.check_output(search('tahoma') + " -lcf", shell=True)
     categories = categories.decode('utf-8')
 except:
-    categories = subprocess.check_output("python3 " + search('tahoma.pc') + " -lnf", shell=True)
+    categories = subprocess.check_output("python3 '" + search('tahoma.py') + "' -lcf", shell=True)
     categories = categories.decode('utf-8')
 
 def main(model):
