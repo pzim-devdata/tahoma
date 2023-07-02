@@ -14,19 +14,97 @@ CE TAG NE FONCTIONNE PAS, N'Y FEREZ PAS CONFIANCE : ![GitHub All Releases](https
 
 <a href="https://github.com/pzim-devdata/tahoma" title="Click here to access the English version of the site"><img src="https://cdn.countryflags.com/thumbs/united-kingdom/flag-round-250.png" width="30" height="30" alt="British flag"></a>
 
-# Présentation
+# Fonctionnalités
 
 ![GifTahoma.gif](GifTahoma.gif)
 
 
 - Contrôlez les appareils Somfy Tahoma avec une API simple écrite en Python 3
-- Créez des scripts ou des raccourcis pour contrôler votre maison à partir d'un serveur domestique ou de votre ordinateur.
-- Avec cette API, vous pouvez intégrer les produits Somfy à d'autres dispositifs compatibles avec Matter.
-- Fonctionne avec Somfy Connectivity Kit, Connexoon, Cozytouch, etc.
-- Prise en charge de divers dispositifs Somfy : alarme, volet, prise, chauffage, capteurs, scènes, etc.
+- Créez des scripts ou des raccourcis pour contrôler votre maison depuis un serveur domestique ou votre ordinateur
+- Avec cette API, vous pouvez intégrer les produits Somfy avec d'autres appareils compatibles Matter
+- Fonctionne avec Somfy Connectivity Kit, Connexoon, Cozytouch et plus encore
+- Prend en charge différents appareils Somfy : alarme, volet, prise, chauffage, capteurs, scènes, etc.
 - Compatible avec les systèmes d'exploitation Windows et Linux
+- 100 % fonctionnel avec ChatGPT
 
-# Installation
+
+# Processus facile pour tester et installer Tahoma et Tahoma-GPT
+
+Si vous souhaitez installer Tahoma et Tahoma-GPT à l'aide d'un script simple sous Linux, suivez ces étapes :
+
+1. Ouvrez votre terminal et accédez au répertoire dans lequel vous souhaitez télécharger le script `install_tahoma-gpt.sh`.
+
+   Par exemple :
+   - `mkdir $HOME/tahoma-gpt`
+   - `cd $HOME/tahoma-gpt`
+
+3. Téléchargez le script `install_tahoma-gpt_french.sh` en utilisant la commande suivante :
+
+   - `wget -O "install_tahoma-gpt.sh" "https://github.com/pzim-devdata/tahoma/raw/main/install_tohoma-gpt_french.sh"`
+
+5. Rendez le script d'installation exécutable en exécutant la commande suivante :
+
+   - `chmod +x install_tohoma-gpt_french.sh`
+    
+6. Exécutez le script d'installation dans le terminal en utilisant la commande suivante :
+
+   - `bash -c './install_tohoma-gpt_french.sh'`
+
+7. Vous pouvez maintenant démarrer tahoma-gpt.py dans un environnement virtuel :
+
+   - `cd $HOME/tahoma-gpt` (ou accédez au dossier d'installation avec le terminal)
+   - `python3 -m venv env`
+   - `source env/bin/activate`
+   - `python3 tahoma-gpt_french.py`
+   
+     Si vous souhaitez exécuter tahoma sans tahoma-gpt dans le même environnement virtuel :
+     
+   - `python3 tahoma.py` et suivez les instructions [ici](https://github.com/pzim-devdata/tahoma#4-retrieve-your-personal-commands)
+
+     Vous pouvez également exécuter des commandes en tant qu'arguments :
+     
+   - `python3 "tahoma-gpt_french.py" could you please open the shutter in the kitchen ?` 
+
+En suivant ces étapes, Tahoma et Tahoma-GPT seront installés sur votre système Linux dans un environnement virtuel.
+
+
+# Processus étape par étape pour tester et installer Tahoma et Tahoma-PGT
+
+Vous pouvez créer un environnement virtuel en Python si vous souhaitez d'abord le tester. Tout sera installé dans le répertoire tahoma-gpt.
+
+Tout d'abord, vous devez installer venv : `pip install virtualenv` ou `python3 -m pip install virtualenv` ou `pipx install virtualenv` pour installer l'environnement virtuel.
+1. Créez un répertoire contenant `tahoma-gpt_french.py` et `requirements_tahoma-gpt.txt` à l'intérieur
+
+. Téléchargez-les depuis [ici](https://github.com/pzim-devdata/tahoma/blob/main/requirements_tahoma-gpt.txt) et [ici](https://github.com/pzim-devdata/tahoma/blob/main/tahoma-gpt_french.py).
+2. Ouvrez un terminal.
+3. Accédez au répertoire que vous venez de créer.
+4. Exécutez : `python3 -m venv env` (Windows : `virtualenv --python C:\Chemin\Vers\Python\python.exe venv`)
+5. Exécutez : `source env/bin/activate` (Windows : `.\venv\Scripts\activate`)
+6. Installez Tahoma et configurez-le (si ce n'est pas déjà fait) :
+
+    6.1. Exécutez : `python3 -m pip install -U tahoma`
+
+    6.2 Configurez Tahoma : `tahoma -c`
+
+    6.3 Obtenez la liste de vos appareils : `tahoma -g`
+
+7. Exécutez : `python3 -m pip install -r requirements_tahoma-gpt.txt`
+8. Modifiez le script `tahoma-gpt_french.py` avec un éditeur de texte pour ajouter la clé API OpenAI
+9. Exécutez : `python3 tahoma-gpt_french.py`
+10. Jouez avec Tahoma et ChatGPT.
+11. Exécutez : `exit` (pour quitter tahoma-gpt)
+12. Exécutez : `exit()` (pour quitter Python)
+11. Exécutez : `deactivate` (pour désactiver l'environnement virtuel)
+
+
+![Image tahoma-gpt](https://github.com/pzim-devdata/tahoma/blob/main/picture_tahoma-gpt.png)
+
+
+(Ceci est un tutoriel rapide)
+
+##############################################################################
+
+# Installation depuis ce dépot Git de tahoma
 **Note:** Il s'agit d'une version portable à télécharger directement. Il ne s'agit pas d'un paquetage installé. Pour lancer l'application, il suffit d'exécuter `python3 tahoma.py` dans votre dossier importé. Si vous voulez installer le paquet en utilisant PyPI (version pip), allez à : [Comment installer tahoma avec pip ?](https://github.com/pzim-devdata/tahoma/blob/main/README_FR.md#installer-le-paquet-principal-) ou visitez directement le [site Pypi du projet](https://pypi.org/project/tahoma/#description) pour un processus d'installation plus facile.
 
 Si vous aimez ce programme, veuillez lui attribuer une étoile sur GitHub pour améliorer la visibilité de Tahoma et permettre à d'autres personnes d'en bénéficier. :star :
