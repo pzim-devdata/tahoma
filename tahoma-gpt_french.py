@@ -87,8 +87,7 @@ temp=search('temp')
 try:
     names = subprocess.check_output(search('tahoma') + " -lnf", shell=True)
     names = names.decode('utf-8')
-    index_exclusion = names.find("pour vous assurer que la liste des équipements est complète
-")
+    index_exclusion = names.find("pour vous assurer que la liste des équipements est complète")
     if index_exclusion != -1:
         names = names[:index_exclusion]
         names = "Voici " + names.split("Here", 1)[-1].strip()
