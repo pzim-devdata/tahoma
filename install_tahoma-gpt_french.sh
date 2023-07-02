@@ -44,7 +44,7 @@ source env/bin/activate
 
 # Demander si l'utilisateur souhaite installer tahoma
 echo ''
-echo 'Faites bien attention qu'il n'y ai pas plusieurs version de tahoma dejà installées sur votre ordinateur.'
+echo "Faites bien attention qu'il n'y ai pas plusieurs version de tahoma dejà installées sur votre ordinateur."
 read -p "Voulez-vous installer tahoma? (Oui/Non): " install_tahoma
 
 # Vérifier la réponse de l'utilisateur
