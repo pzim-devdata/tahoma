@@ -28,6 +28,7 @@ cd "$install_dir"
 download_file "https://github.com/pzim-devdata/tahoma/raw/main/requirements_tahoma-gpt.txt" "requirements_tahoma-gpt.txt"
 download_file "https://github.com/pzim-devdata/tahoma/raw/main/tahoma-gpt_french.py" "tahoma-gpt_french.py"
 download_file "https://github.com/pzim-devdata/tahoma/raw/main/tahoma_chatgpt.sh" "tahoma_chatgpt.sh"
+download_file "https://raw.githubusercontent.com/pzim-devdata/tahoma/main/tahoma-gpt.png" "tahoma-chatgpt.png"
 
 
 # Installer venv
