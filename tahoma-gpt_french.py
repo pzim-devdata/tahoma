@@ -52,34 +52,25 @@ model = models[4]
 args = sys.argv
 
 def search(filename_to_find):
+    # Répertoire d'exécution du script
+    try:
+        script_directory = os.path.dirname(os.path.realpath(__file__))
+    except:
+        script_directory = os.path.dirname(os.path.realpath(__name__))
     # Fonction récursive pour rechercher le fichier dans les répertoires
     def search_directory_for_file(directory, filename):
         for root, dirs, files in os.walk(directory):
-            if filename in files or (filename in dirs and root.endswith('tahoma')):
+            if filename in files:
                 file_path = os.path.join(root, filename)
-                folder_path = os.path.dirname(file_path)
-                return folder_path
-        return None
-    if os.name == 'posix':  # Linux, macOS
-        root_directories = ['/']
-        separator = '/'
-    elif os.name == 'nt':  # Windows
-        root_directories = [f'{d}:' for d in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ']
-        separator = '\\'
+                return file_path
+        return None  
+    file_path = search_directory_for_file(script_directory, filename_to_find)
+    if file_path:
+        folder_path = os.path.dirname(file_path)
+        #print("Le fichier", filename_to_find, "a été trouvé dans le dossier :", folder_path)
     else:
-        print("Système d'exploitation non pris en charge.")
-        return
-    found = False
-    for root_directory in root_directories:
-        result = search_directory_for_file(root_directory, filename_to_find)
-        if result:
-            folder_path = os.path.join(result, filename_to_find)
-            #print("Le fichier ou répertoire", filename_to_find, "a été trouvé dans le dossier :", folder_path)
-            found = True
-            break
-    if not found:
-        print("Le fichier ou répertoire", filename_to_find, "n'a pas été trouvé dans les répertoires.")
-    return folder_path
+        print("Le fichier", filename_to_find, "n'a pas été trouvé dans les répertoires.")    
+    return file_path
 
 #folder_path=search('tahoma.py')
 
