@@ -43,7 +43,7 @@ except:pass
 import sys
 
 
-openai.api_key = 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+openai.api_key = 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
 #models
 all_models = openai.Model.list()
@@ -178,7 +178,7 @@ def main(model):
                 {"role": "system", "content": """Pour obtenir l’état d'un chauffage il faut utiliser la CATEGORY capteur en utilisant cette syntaxe : 'tahoma obtenir capteur ["NOM EXACT DU CHAUFFAGE"]'. La CATEGORY 'get_state' n'existe pas ainsi que "obtenir etat" """},
                 {"role": "system", "content": """Dans la CATEGORY "capteur" toutes ces ACTION : "obtenir, etat, position, luminosite, temperature" ont la même fonction : Recevoir l'information du capteur quelque soit le capteur. Il faut choisir une seule de ces ACTION lorsque l'on rédige une commande. Par exemple je peux très bien utiliser cette commande : 'tahoma temperature capteur NOM_EN_COMMUN_DES_CAPTEUR_DE_PORTE pour connaitre l'état de toutes mes portes, mais il est plus élégant dans le cas d'une porte d'utiliser la commande 'tahoma etat capteur NOM_EN_COMMUN_DES_CAPTEUR_DE_PORTE' """},
                 {"role": "system", "content": """Voici les étapes à suivre pour créer une commande. En premier, il faut retrouver dans les instructions une unique CATEGORY qui correspond, puis un NAME. En second, il faut retrouver, dans les instructions, pour cette CATEGORY une seule ACTION qui correspond, puis formuler l'instance de tahoma ainsi : 'tahoma UNE_ACTION, UNE CATEGORY, ["UN_EXACT_NAME"] """},
-                {"role": "system", "content": """Tu ne peux pas utiliser une commande avec plus d'un mot par ACTION ou CATEGORY. Concernant les NAME si tu veux mettre plusieurs mots il faut utiliser la syntaxe [""]. Si tu affiches 2 mots à la suite pour définir une ACTION cela ne fonctionnerait pas. Si tu donnes deux ACTIONS à la suite cela va générer une erreur de type : 'The <CATEGORY> you have entered doesn't exist.' car tahoma va interpréter la deuxième ACTION comme une CATEGORY. La diposition des arguments dans une commande est fondamentale"""},
+                {"role": "system", "content": """Tu ne peux pas utiliser une commande avec plus d'un mot par ACTION ou CATEGORY. Concernant les NAME si tu veux mettre plusieurs mots il faut utiliser la syntaxe [""]. Si tu affiches 2 mots à la suite pour définir une ACTION cela ne fonctionnerait pas. Si tu donnes deux ACTIONS à la suite cela va générer une erreur de type : 'The <CATEGORY> you have entered doesn't exist.' car tahoma va interpréter la deuxième ACTION comme une CATEGORY. La diposition des arguments dans une commande est fondamentale """},
                 {"role": "system", "content": """Lorsque je te demande d'executer une commande, en tant qu'assistant de tahoma-gpt, tu répondras uniquement par la syntaxe : 'command : ' suivie de la syntaxe de l'instance de tahoma à exécuter au début de ta réponse et rien d'autre"""},
                 {"role": "system", "content": """Quand tu m'expliques une commande tu n'utiliseras pas la syntaxe 'command: tahoma ACTION CATEGORY ["EXACT NAME"]' mais 'tahoma ACTION CATEGORY ["EXACT NAME"]'. Ce n'est pas la même syntaxe pour expliquer une commande ou montrer un exemple de commande et executer une commande"""},
                 {"role": "system", "content": """Tu t'appelles tahoma-gpt et ton role consiste à afficher la bonne commande en fonction de ce que je vais te demander ou à executer des commandes avec la syntaxe : 'command: ' pour m'aider à utiliser les applications tahoma et tahoma-gpt """},
@@ -302,7 +302,7 @@ def main(model):
             if response['choices'][0]['message']['role'] == 'assistant':
                 command = response['choices'][0]['message']['content']
                 # Vérifie si la commande est "Command: echo 'Hello world'"
-                if "command: tahoma" in command.lower():
+                if command.lower().startswith("command: tahoma"):
                     # Exécute la commande en utilisant subprocess
                     print("\nExécution de la commande :", command.replace('command: ',''))
                     try:
