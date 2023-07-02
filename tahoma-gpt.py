@@ -52,34 +52,25 @@ model = models[4]
 args = sys.argv
 
 def search(filename_to_find):
+    # Répertoire d'exécution du script
+    try:
+        script_directory = os.path.dirname(os.path.realpath(__file__))
+    except:
+        script_directory = os.path.dirname(os.path.realpath(__name__))
     # Fonction récursive pour rechercher le fichier dans les répertoires
     def search_directory_for_file(directory, filename):
         for root, dirs, files in os.walk(directory):
-            if filename in files or (filename in dirs and root.endswith('tahoma')):
+            if filename in files:
                 file_path = os.path.join(root, filename)
-                folder_path = os.path.dirname(file_path)
-                return folder_path
-        return None
-    if os.name == 'posix':  # Linux, macOS
-        root_directories = ['/']
-        separator = '/'
-    elif os.name == 'nt':  # Windows
-        root_directories = [f'{d}:' for d in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ']
-        separator = '\\'
+                return file_path
+        return None  
+    file_path = search_directory_for_file(script_directory, filename_to_find)
+    if file_path:
+        folder_path = os.path.dirname(file_path)
+        #print("Le fichier", filename_to_find, "a été trouvé dans le dossier :", folder_path)
     else:
-        print("Unsupported operating system.")
-        return
-    found = False
-    for root_directory in root_directories:
-        result = search_directory_for_file(root_directory, filename_to_find)
-        if result:
-            folder_path = os.path.join(result, filename_to_find)
-            #print("Le fichier ou répertoire", filename_to_find, "a été trouvé dans le dossier :", folder_path)
-            found = True
-            break
-    if not found:
-        print("The file or directory", filename_to_find, "was not found in the directories.")
-    return folder_path
+        print("Le fichier", filename_to_find, "n'a pas été trouvé dans les répertoires.")    
+    return file_path
 
 #folder_path=search('tahoma.py')
 
@@ -95,7 +86,7 @@ try:
         names1 = names[:start_index]
         names2 = names[start_index:]
 except:
-    names = subprocess.check_output("python3 " + search('tahoma.py') + " -ln", shell=True)
+    names = subprocess.check_output("python3 '" + search('tahoma.py') + "' -ln", shell=True)
     names = names.decode('utf-8')
     index_exclusion = names.find("You must provide a part of the NAME as argument")
     if index_exclusion != -1:
@@ -106,14 +97,14 @@ try:
     actions = subprocess.check_output(search('tahoma') + " -la", shell=True)
     actions = actions.decode('utf-8')
 except:
-    actions = subprocess.check_output("python3 " + search('tahoma.py') + " -la", shell=True)
+    actions = subprocess.check_output("python3 '" + search('tahoma.py') + "' -la", shell=True)
     actions = actions.decode('utf-8')
 
 try:
     categories = subprocess.check_output(search('tahoma') + " -lc", shell=True)
     categories = categories.decode('utf-8')
 except:
-    categories = subprocess.check_output("python3 " + search('tahoma.pc') + " -ln", shell=True)
+    categories = subprocess.check_output("python3 '" + search('tahoma.py') + "' -lc", shell=True)
     categories = categories.decode('utf-8')
 
 def main(model):
