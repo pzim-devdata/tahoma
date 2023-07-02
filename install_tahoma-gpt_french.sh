@@ -17,7 +17,8 @@ else
   echo "Venv n'a pas été installé."
 fi
 # Demander l'emplacement du dossier d'installation
-read -p "Entrez le chemin du dossier d'installation :\n Ou presser Entrée pour installer dans : ~/tahoma-gpt) " install_dir
+echo "Entrez le chemin du dossier d'installation :"
+read -p "Ou presser Entrée pour installer dans : ~/tahoma-gpt) " install_dir
 install_dir=${install_dir:-"$HOME/tahoma-gpt"}
 
 # Créer le dossier d'installation et se déplacer dedans
