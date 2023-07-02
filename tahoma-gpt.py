@@ -122,8 +122,7 @@ def main(model):
         chat_completion_resp = await openai.ChatCompletion.acreate(
     #        model="gpt-3.5-turbo",
             model=model,
-            "messages": 
-            [
+            messages=[
                 {"role": "system", "content": "Here is the user manual for the Tahoma application, including the various commands it contains. Your task is to display the correct command to help me use this application or execute an instance of Tahoma using the syntax: 'command:' For example: 'command: tahoma ACTION CATEGORY ["EXACT NAME"]' based on what I ask you."},
                 {"role": "system", "content": "Here is part 1/2 of the list of equipment NAMES present in the house for each category. You will base your answers on these exact names. WARNING: DO NOT TRANSLATE OR MODIFY THESE NAMES IN YOUR RESPONSES: " + str(names1)},
                 {"role": "system", "content": "Here is part 2/2 of the list of equipment NAMES present in the house for each category. You will base your answers on these exact names. WARNING: DO NOT TRANSLATE OR MODIFY THESE NAMES IN YOUR RESPONSES: " + str(names2)},
