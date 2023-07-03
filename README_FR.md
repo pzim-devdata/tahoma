@@ -76,10 +76,15 @@ Tout d'abord, vous devez installer venv : `pip install virtualenv` ou `python3 -
 1. Créez un répertoire contenant `tahoma-gpt_french.py` et `requirements_tahoma-gpt.txt` à l'intérieur
 
 . Téléchargez-les depuis [ici](https://github.com/pzim-devdata/tahoma/blob/main/requirements_tahoma-gpt.txt) et [ici](https://github.com/pzim-devdata/tahoma/blob/main/tahoma-gpt_french.py).
+
 2. Ouvrez un terminal.
+
 3. Accédez au répertoire que vous venez de créer.
+
 4. Exécutez : `python3 -m venv env` (Windows : `virtualenv --python C:\Chemin\Vers\Python\python.exe venv`)
+
 5. Exécutez : `source env/bin/activate` (Windows : `.\venv\Scripts\activate`)
+
 6. Installez Tahoma et configurez-le (si ce n'est pas déjà fait) :
 
     6.1. Exécutez : `python3 -m pip install -U tahoma`
@@ -89,11 +94,17 @@ Tout d'abord, vous devez installer venv : `pip install virtualenv` ou `python3 -
     6.3 Obtenez la liste de vos appareils : `tahoma -g`
 
 7. Exécutez : `python3 -m pip install -r requirements_tahoma-gpt.txt`
+
 8. Modifiez le script `tahoma-gpt_french.py` avec un éditeur de texte pour ajouter la clé API OpenAI
+
 9. Exécutez : `python3 tahoma-gpt_french.py`
+
 10. Jouez avec Tahoma et ChatGPT.
+
 11. Exécutez : `exit` (pour quitter tahoma-gpt)
+
 12. Exécutez : `exit()` (pour quitter Python)
+
 11. Exécutez : `deactivate` (pour désactiver l'environnement virtuel)
 
 
