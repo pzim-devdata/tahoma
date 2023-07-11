@@ -110,7 +110,7 @@ First you must install venv : `pip install virtualenv` or `python3 -m pip instal
 10. Play with tahoma and ChatGPT
 11. Run : `exit` (to leave tahoma-gpt)
 12. Run : `exit()` (to leave Python)
-11. Run : `deactivate` (to deactivate the vitual environnement)
+13. Run : `deactivate` (to deactivate the vitual environnement)
 
 
 ![Picture tahoma-gpt](https://github.com/pzim-devdata/tahoma/blob/main/picture_tahoma-gpt.png)
