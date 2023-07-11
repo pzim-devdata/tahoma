@@ -314,9 +314,9 @@ def main(model):
                             response = await create_chat_completion(str(output.decode()))
                             assistant_response = response['choices'][0]['message']['content']
                         except:
-                            output = subprocess.check_output(""+search('tahoma.exe') +" "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
-                            print("Incorrect command: tahoma", output.decode())
-                            response = await create_chat_completion(str(output.decode()))
+                            output = subprocess.check_output(""+search('tahoma.exe') +" "+ command.lower().replace('command: tahoma ', '') +"", encoding='ISO-8859-1', shell=True)
+                            print("Incorrect command: tahoma", output)
+                            response = await create_chat_completion(str(output))
                             assistant_response = response['choices'][0]['message']['content']
                     except Exception as e:
                         print(e)
