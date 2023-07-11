@@ -100,7 +100,7 @@ try:
         names1 = names[:start_index]
         names2 = names[start_index:]
 except:
-    names = subprocess.check_output("python3 '" + search('tahoma.py') + "' -ln", shell=True)
+    names = subprocess.check_output(search('tahoma.exe') + " -ln", shell=True)
     names = names.decode('utf-8')
     index_exclusion = names.find("You must provide a part of the NAME as argument")
     if index_exclusion != -1:
@@ -204,7 +204,7 @@ def main(model):
                         response = await create_chat_completion(str(output.decode()))
                         assistant_response = response['choices'][0]['message']['content']
                     except:
-                        output = subprocess.check_output("python3 "+search('tahoma.py') +" "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
+                        output = subprocess.check_output(""+search('tahoma.exe') +" "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
                         print("Incorrect command: tahoma", output.decode())
                         response = await create_chat_completion(str(output.decode()))
                         assistant_response = response['choices'][0]['message']['content']
