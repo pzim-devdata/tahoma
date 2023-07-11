@@ -7,8 +7,8 @@ REM Ask if the user wants to install venv
 set /p install_venv="Do you want to install venv? (Yes/No): "
 
 REM Check user's response
-if /I "%install_venv%"=="Yes" (
-  python -m pip install virtualenv
+if /I "%install_venv%"=="Yes" || /I "%install_venv%"=="Oui" || /I "%install_venv%"=="O" || /I "%install_venv%"=="Y" (
+python -m pip install virtualenv
 ) else (
   echo "Venv was not installed."
 )
@@ -42,7 +42,7 @@ echo "Be careful to ensure that there are no multiple versions of Tahoma already
 set /p install_tahoma="Do you want to install Tahoma? (Yes/No): "
 
 REM Check user's response
-if /I "%install_tahoma%"=="Yes" (
+if /I "%install_tahoma%"=="Yes" || /I "%install_tahoma%"=="Oui" || /I "%install_tahoma%"=="O" || /I "%install_tahoma%"=="Y" (
   REM Install Tahoma
   python -m pip install -U tahoma
 
@@ -73,22 +73,6 @@ set /p openai_api_key="Enter the OpenAI API key: "
 
 REM Modify the tahoma-gpt.py file with the API key
 powershell -Command "(gc tahoma-gpt.py) -replace 'openai.api_key =.*', 'openai.api_key = ''%openai_api_key%''' | Out-File -encoding ASCII tahoma-gpt.py"
-
-REM Ask if the user wants to create a desktop shortcut for Tahoma-GPT
-set /p shortcut="Do you want to create a desktop shortcut for Tahoma-GPT? (Yes/No): "
-
-if /i "%shortcut%"=="Y" (
-    set SCRIPT="%~dp0tahoma_chatgpt.bat"
-    set SHORTCUT="%userprofile%\Desktop\Tahoma ChatGPT.lnk"
-    set ICON="%~dp0tahoma-gpt.ico"
-    set WORKINGDIR="%~dp0%"
-    echo [InternetShortcut] > %SHORTCUT%
-    echo URL=file:///%SCRIPT% >> %SHORTCUT%
-    echo IconFile=%ICON% >> %SHORTCUT%
-    echo WorkingDirectory=%WORKINGDIR% >> %SHORTCUT%
-) else (
-    echo Raccourci bureau non créé.
-)
 
 REM Install venv
 python -m venv env
