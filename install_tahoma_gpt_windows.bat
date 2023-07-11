@@ -1,5 +1,7 @@
 @echo off
 
+Set-ExecutionPolicy RemoteSigned
+
 REM Function to download a file from URL
 powershell -Command "(New-Object System.Net.WebClient).DownloadFile('%1', '%2')"
 
