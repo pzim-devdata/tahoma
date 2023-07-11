@@ -29,7 +29,7 @@ THIS TAG DOESN'T WORK, DON'T TRUST IT : ![GitHub All Releases](https://img.shiel
 - 100% functional with ChatGPT
 
 
-## If you want to Test and Install tahoma and tahoma-gpt in a virtual environnement go [there](https://github.com/pzim-devdata/tahoma-gpt)
+## If you want to Test and Install tahoma with tahoma-gpt in a virtual environnement go [there](https://github.com/pzim-devdata/tahoma-gpt)
 
 ![Picture tahoma-gpt](https://github.com/pzim-devdata/tahoma/blob/main/picture_tahoma-gpt.png)
 
