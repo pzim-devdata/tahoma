@@ -43,18 +43,18 @@ set /p install_tahoma="Do you want to install Tahoma? (Y/n): "
 
 REM Check user's response
 if /I "%install_tahoma%"=="Y" (
-  REM Install Tahoma
-  python -m pip install -U tahoma
+REM Install Tahoma
+python -m pip install -U tahoma
 
-  REM Configure Tahoma
-  echo.
-  tahoma -c
+REM Configure Tahoma
+echo.
+tahoma -c
 
-  REM Get the list of devices
-  echo.
-  tahoma -g
+REM Get the list of devices
+echo.
+tahoma -g
 
-  timeout /t 6
+timeout /t 6
 )
 
 REM Install venv
