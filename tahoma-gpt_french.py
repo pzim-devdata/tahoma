@@ -122,39 +122,39 @@ def search(filename_to_find):
 
 
 try:
-    names = subprocess.check_output(search('tahoma') + " -lnf", shell=True)
+    names = subprocess.check_output(search('tahoma') + " -ln", shell=True)
     names = names.decode('utf-8')
-    index_exclusion = names.find("Vous devez fournir une partie du NOM comme argument")
+    index_exclusion = names.find("You must provide a part of the NAME as argument")
     if index_exclusion != -1:
         names = names[:index_exclusion]
-        names = "Voici " + names.split("Voici", 1)[-1].strip()
-        start_index = names.index("Voici la liste des équipements installés pour la catégorie RIDEAU")
+        names = "Here " + names.split("Here", 1)[-1].strip()
+        start_index = names.index("Here is the list of the installed devices for the SUNSCREEN category")
         names1 = names[:start_index]
         names2 = names[start_index:]
 except:
-    names = subprocess.check_output("python3 '" + search('tahoma.py') + "' -lnf", shell=True)
-    names = names.decode('utf-8')
-    index_exclusion = names.find("Vous devez fournir une partie du NOM comme argument")
+    names = subprocess.check_output(search('tahoma.exe') + " -ln", shell=True)
+    names = names.decode('latin-1')
+    index_exclusion = names.find("You must provide a part of the NAME as argument")
     if index_exclusion != -1:
         names = names[:index_exclusion]
-        names = "Voici " + names.split("Voici", 1)[-1].strip()
-        start_index = names.index("Voici la liste des équipements installés pour la catégorie RIDEAU")
+        names = "Here " + names.split("Here", 1)[-1].strip()
+        start_index = names.index("Here is the list of the installed devices for the SUNSCREEN category")
         names1 = names[:start_index]
         names2 = names[start_index:]
 
 try:
-    actions = subprocess.check_output(search('tahoma') + " -laf", shell=True)
+    actions = subprocess.check_output(search('tahoma') + " -la", shell=True)
     actions = actions.decode('utf-8')
 except:
-    actions = subprocess.check_output("python3 '" + search('tahoma.py') + "' -laf", shell=True)
-    actions = actions.decode('utf-8')
+    actions = subprocess.check_output(search('tahoma.exe') + " -la", shell=True)
+    actions = actions.decode('latin-1')
 
 try:
-    categories = subprocess.check_output(search('tahoma') + " -lcf", shell=True)
+    categories = subprocess.check_output(search('tahoma') + " -lc", shell=True)
     categories = categories.decode('utf-8')
 except:
-    categories = subprocess.check_output("python3 '" + search('tahoma.py') + "' -lcf", shell=True)
-    categories = categories.decode('utf-8')
+    categories = subprocess.check_output(search('tahoma.exe') + " -lc", shell=True)
+    categories = categories.decode('latin-1')
 
 #Générer une reference domicile pour l'assistant
 try:
@@ -539,7 +539,7 @@ def main(model):
                             else:
                                 await erreur_action()
                         except:
-                            output = subprocess.run("python3 '"+search('tahoma.py') +"' "+ command.lower().replace('command: tahoma ', '') +"", shell=True, capture_output=True)
+                            output = subprocess.run(""+search('tahoma.exe') +" "+ command.lower().replace('command: tahoma ', '') +"", shell=True, capture_output=True)
 #                            print("Code de retour:", output.returncode)
                             if "version" in str(output.stdout.decode()) or "exist" in str(output.stdout.decode()):
                                 await erreur_action()
