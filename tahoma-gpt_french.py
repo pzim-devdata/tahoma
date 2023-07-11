@@ -100,9 +100,9 @@ args = sys.argv
 def search(filename_to_find):
     # Répertoire d'exécution du script
     try:
-        script_directory = os.path.dirname(os.path.realpath(__file__))
+        script_directory = os.path.dirname(os.path.abspath(__file__))
     except:
-        script_directory = os.path.dirname(os.path.realpath(__name__))
+        script_directory = os.path.dirname(os.path.abspath(__name__))
     # Fonction récursive pour rechercher le fichier dans les répertoires
     def search_directory_for_file(directory, filename):
         for root, dirs, files in os.walk(directory):
