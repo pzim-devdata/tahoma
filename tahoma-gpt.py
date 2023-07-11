@@ -106,7 +106,7 @@ except:
     if index_exclusion != -1:
         names = names[:index_exclusion]
         names = "Here " + names.split("Here", 1)[-1].strip()
-        start_index = names.index("Voici la liste des équipements installés pour la catégorie RIDEAU")
+        start_index = names.index("Here is the list of the installed devices for the SUNSCREEN category")
         names1 = names[:start_index]
         names2 = names[start_index:]
 
@@ -114,15 +114,15 @@ try:
     actions = subprocess.check_output(search('tahoma') + " -la", shell=True)
     actions = actions.decode('utf-8')
 except:
-    actions = subprocess.check_output("python3 '" + search('tahoma.py') + "' -la", shell=True)
-    actions = actions.decode('utf-8')
+    actions = subprocess.check_output(search('tahoma.exe') + " -la", shell=True)
+    actions = actions.decode('latin-1')
 
 try:
     categories = subprocess.check_output(search('tahoma') + " -lc", shell=True)
     categories = categories.decode('utf-8')
 except:
-    categories = subprocess.check_output("python3 '" + search('tahoma.py') + "' -lc", shell=True)
-    categories = categories.decode('utf-8')
+    categories = subprocess.check_output(search('tahoma.exe') + " -lc", shell=True)
+    categories = categories.decode('latin-1')
 
 def main(model):
     async def create_chat_completion(prompt):
@@ -313,7 +313,7 @@ def main(model):
                             response = await create_chat_completion(str(output.decode()))
                             assistant_response = response['choices'][0]['message']['content']
                         except:
-                            output = subprocess.check_output("python3 "+search('tahoma.py') +" "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
+                            output = subprocess.check_output(""+search('tahoma.exe') +" "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
                             print("Incorrect command: tahoma", output.decode())
                             response = await create_chat_completion(str(output.decode()))
                             assistant_response = response['choices'][0]['message']['content']
