@@ -4,10 +4,10 @@ REM Function to download a file from URL
 powershell -Command "(New-Object System.Net.WebClient).DownloadFile('%1', '%2')"
 
 REM Ask if the user wants to install venv
-set /p install_venv="Do you want to install venv? (Yes/No): "
+set /p install_venv="Do you want to install venv? (Y/n): "
 
 REM Check user's response
-if /I "%install_venv%"=="Yes" || /I "%install_venv%"=="Oui" || /I "%install_venv%"=="O" || /I "%install_venv%"=="Y" (
+if /I "%install_venv%"=="Y" (
 python -m pip install virtualenv
 ) else (
   echo "Venv was not installed."
@@ -39,10 +39,10 @@ call env\Scripts\activate.bat
 REM Ask if the user wants to install Tahoma
 echo.
 echo "Be careful to ensure that there are no multiple versions of Tahoma already installed on your computer."
-set /p install_tahoma="Do you want to install Tahoma? (Yes/No): "
+set /p install_tahoma="Do you want to install Tahoma? (Y/n): "
 
 REM Check user's response
-if /I "%install_tahoma%"=="Yes" || /I "%install_tahoma%"=="Oui" || /I "%install_tahoma%"=="O" || /I "%install_tahoma%"=="Y" (
+if /I /I "%install_tahoma%"=="Y" (
   REM Install Tahoma
   python -m pip install -U tahoma
 
