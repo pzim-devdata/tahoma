@@ -42,7 +42,7 @@ echo "Be careful to ensure that there are no multiple versions of Tahoma already
 set /p install_tahoma="Do you want to install Tahoma? (Y/n): "
 
 REM Check user's response
-if /I /I "%install_tahoma%"=="Y" (
+if /I "%install_tahoma%"=="Y" (
   REM Install Tahoma
   python -m pip install -U tahoma
 
