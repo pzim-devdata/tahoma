@@ -101,7 +101,7 @@ try:
         names2 = names[start_index:]
 except:
     names = subprocess.check_output(search('tahoma.exe') + " -ln", shell=True)
-    names = names.decode('utf-8')
+    names = str(names).decode('utf-8')
     index_exclusion = names.find("You must provide a part of the NAME as argument")
     if index_exclusion != -1:
         names = names[:index_exclusion]
