@@ -49,7 +49,7 @@ langage="french"
 
 version='tahoma_gpt : version '+version+"_"+langage
 
-openai.api_key = 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+openai.api_key = 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
 #engine or model ?
 engine_or_model = 'model'
@@ -123,38 +123,38 @@ def search(filename_to_find):
 
 
 try:
-    names = subprocess.check_output(search('tahoma') + " -ln", shell=True)
+    names = subprocess.check_output(search('tahoma') + " -lnf", shell=True)
     names = names.decode('utf-8')
-    index_exclusion = names.find("You must provide a part of the NAME as argument")
+    index_exclusion = names.find("Vous devez fournir une partie du NOM comme argument")
     if index_exclusion != -1:
         names = names[:index_exclusion]
-        names = "Here " + names.split("Here", 1)[-1].strip()
-        start_index = names.index("Here is the list of the installed devices for the SUNSCREEN category")
+        names = "Voici " + names.split("Voici", 1)[-1].strip()
+        start_index = names.index("Voici la liste des équipements installés pour la catégorie RIDEAU")
         names1 = names[:start_index]
         names2 = names[start_index:]
 except:
-    names = subprocess.check_output(search('tahoma.exe') + " -ln", shell=True)
+    names = subprocess.check_output(search('tahoma.exe') + " -lnf", shell=True)
     names = names.decode('latin-1')
-    index_exclusion = names.find("You must provide a part of the NAME as argument")
+    index_exclusion = names.find("Vous devez fournir une partie du NOM comme argument")
     if index_exclusion != -1:
         names = names[:index_exclusion]
-        names = "Here " + names.split("Here", 1)[-1].strip()
-        start_index = names.index("Here is the list of the installed devices for the SUNSCREEN category")
+        names = "Voici " + names.split("Voici", 1)[-1].strip()
+        start_index = names.index("Voici la liste des équipements installés pour la catégorie RIDEAU")
         names1 = names[:start_index]
         names2 = names[start_index:]
 
 try:
-    actions = subprocess.check_output(search('tahoma') + " -la", shell=True)
+    actions = subprocess.check_output(search('tahoma') + " -laf", shell=True)
     actions = actions.decode('utf-8')
 except:
-    actions = subprocess.check_output(search('tahoma.exe') + " -la", shell=True)
+    actions = subprocess.check_output(search('tahoma.exe') + " -laf", shell=True)
     actions = actions.decode('latin-1')
 
 try:
-    categories = subprocess.check_output(search('tahoma') + " -lc", shell=True)
+    categories = subprocess.check_output(search('tahoma') + " -lcf", shell=True)
     categories = categories.decode('utf-8')
 except:
-    categories = subprocess.check_output(search('tahoma.exe') + " -lc", shell=True)
+    categories = subprocess.check_output(search('tahoma.exe') + " -lcf", shell=True)
     categories = categories.decode('latin-1')
 
 #Générer une reference domicile pour l'assistant
@@ -518,7 +518,7 @@ def main(model):
                         async def erreur_action():
                             print("Commande incorrecte : ", command)
                             print("")
-                            user_input="La commande que tu as exécutée: "+command +" est incorrecte. \nVoici le message d'erreur : "+output.stdout.decode()+"\nRectifie ta commande selon les instructions de la function command"
+                            user_input="La commande que tu as exécutée: "+command +" est incorrecte. \nVoici le message d'erreur : "+output.stdout+"\nRectifie ta commande selon les instructions de la function command"
 #                            conversations.append({"role": "user", "content": user_input})
                             response = await create_chat_completion(user_input)
                             assistant_response = response['choices'][0]['message']['content']
@@ -540,19 +540,19 @@ def main(model):
                             else:
                                 await erreur_action()
                         except:
-                            output = subprocess.run(""+search('tahoma.exe') +" "+ command.lower().replace('command: tahoma ', '') +"", shell=True, capture_output=True)
+                            output = subprocess.run(""+search('tahoma.exe') +" "+ command.lower().replace('command: tahoma ', '') +"", shell=True, encoding='ISO-8859-1', capture_output=True)
 #                            print("Code de retour:", output.returncode)
-                            if "version" in str(output.stdout.decode()) or "exist" in str(output.stdout.decode()):
+                            if "version" in str(output.stdout) or "exist" in str(output.stdout):
                                 await erreur_action()
                             elif output.returncode == 0:
                                 print("\nExécution de la commande :", command.replace('command: ',''))
-                                print("Résultat de la commande :", output.stdout.decode())
+                                print("Résultat de la commande :", output.stdout)
 #                                conversations.append({"role": "assistant", "content": "La commande : '"+command+"' a fonctionné." })
 ##                                conversations.append({"role": "user", "content": "-Question user: '" + user_input + "' -Réponse assistant: 'La commande : '"+command+"' a fonctionné.'"})
                                 messages=instructions+conversations
                             else:
                                 await erreur_action()
-                            print(conversations)
+                            #print(conversations)
                     except Exception as e:
                         print(e)
                         user_input="La commande que tu as exécutée: "+command +" retourne l'erreur suivante :\n"+str(e)
