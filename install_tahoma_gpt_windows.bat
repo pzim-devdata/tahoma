@@ -27,6 +27,8 @@ call :download_file "https://github.com/pzim-devdata/tahoma/raw/main/requirement
 call :download_file "https://github.com/pzim-devdata/tahoma/raw/main/tahoma-gpt.py" "tahoma-gpt.py"
 call :download_file "https://github.com/pzim-devdata/tahoma/raw/main/tahoma_chatgpt.bat" "tahoma_chatgpt.bat"
 call :download_file "https://raw.githubusercontent.com/pzim-devdata/tahoma/main/tahoma-gpt.png" "tahoma-chatgpt.png"
+call :download_file "https://raw.githubusercontent.com/pzim-devdata/tahoma/main/tahoma-gpt.ico" "tahoma-gpt.ico"
+
 
 REM Install venv
 python -m venv env
