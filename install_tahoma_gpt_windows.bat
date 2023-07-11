@@ -73,24 +73,19 @@ REM Modify the tahoma-gpt.py file with the API key
 powershell -Command "(gc tahoma-gpt.py) -replace 'openai.api_key =.*', 'openai.api_key = ''%openai_api_key%''' | Out-File -encoding ASCII tahoma-gpt.py"
 
 REM Ask if the user wants to create a desktop shortcut for Tahoma-GPT
-set /p response="Do you want to create a desktop shortcut for Tahoma-GPT? (Yes/No): "
-set response=%response:~0,1%
+set /p shortcut="Do you want to create a desktop shortcut for Tahoma-GPT? (Yes/No): "
 
-if /I "%response%"=="Y" (
-  REM Get the desktop directory path
-  for /f "skip=2 tokens=2,*" %%A in ('reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v Desktop') do set "desktop_dir=%%B"
-
-  if defined desktop_dir (
-    echo [Desktop Entry]> "%desktop_dir%\tahoma-gpt.desktop"
-    echo Name=Tahoma-GPT>> "%desktop_dir%\tahoma-gpt.desktop"
-    echo Comment=Shortcut to run Tahoma-GPT>> "%desktop_dir%\tahoma-gpt.desktop"
-    echo Icon="%CD%\tahoma-chatgpt.png">> "%desktop_dir%\tahoma-gpt.desktop"
-    echo Exec="%CD%\tahoma_chatgpt.bat">> "%desktop_dir%\tahoma-gpt.desktop"
-
-    echo The desktop shortcut for Tahoma-GPT has been created successfully.
-  ) else (
-    echo Could not find the Desktop directory, unable to install the shortcut.
-  )
+if /i "%shortcut%"=="Y" (
+    set SCRIPT="%~dp0tahoma_chatgpt.bat"
+    set SHORTCUT="%userprofile%\Desktop\Tahoma ChatGPT.lnk"
+    set ICON="%~dp0tahoma-gpt.ico"
+    set WORKINGDIR="%~dp0%"
+    echo [InternetShortcut] > %SHORTCUT%
+    echo URL=file:///%SCRIPT% >> %SHORTCUT%
+    echo IconFile=%ICON% >> %SHORTCUT%
+    echo WorkingDirectory=%WORKINGDIR% >> %SHORTCUT%
+) else (
+    echo Raccourci bureau non créé.
 )
 
 REM Install venv
