@@ -55,6 +55,12 @@ if /I "%install_tahoma%"=="Yes" (
   timeout /t 6
 )
 
+REM Install venv
+python -m venv env
+
+REM Activate the virtual environment
+call env\Scripts\activate.bat
+
 REM Install dependencies
 python -m pip install -r requirements_tahoma-gpt.txt
 
@@ -86,6 +92,12 @@ if /I "%response%"=="Y" (
     echo Could not find the Desktop directory, unable to install the shortcut.
   )
 )
+
+REM Install venv
+python -m venv env
+
+REM Activate the virtual environment
+call env\Scripts\activate.bat
 
 REM Execute the tahoma-gpt.py script
 python tahoma-gpt.py
