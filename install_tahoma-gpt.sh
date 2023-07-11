@@ -4,7 +4,7 @@
 download_file() {
   local url=$1
   local filename=$2
-  wget -O "$filename" "$url"
+  wget -O '$filename' '$url'
 }
 
 # Ask if the user wants to install venv
