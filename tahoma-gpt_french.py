@@ -44,7 +44,7 @@ except:pass
 import sys
 from hashlib import sha256
 
-version="0.0.1"
+version="V0.0.1"
 langage="french"
 
 version='tahoma_gpt : version '+version+"_"+langage
