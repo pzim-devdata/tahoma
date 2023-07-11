@@ -20,7 +20,5 @@ shift
 goto loop
 :run
 
-echo %phrase%
-
 rem Lancement du script tahoma-gpt.py avec l'instruction Tahoma
 python tahoma-gpt.py %phrase%
