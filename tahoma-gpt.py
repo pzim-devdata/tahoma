@@ -83,7 +83,8 @@ def search(filename_to_find):
         folder_path = os.path.dirname(file_path)
         #print("Le fichier", filename_to_find, "a été trouvé dans le dossier :", folder_path)
     else:
-        print("Le fichier", filename_to_find, "n'a pas été trouvé dans les répertoires.")    
+        pass
+        #print("Le fichier", filename_to_find, "n'a pas été trouvé dans les répertoires.")    
     return file_path
 
 #folder_path=search('tahoma.py')
