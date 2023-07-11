@@ -33,25 +33,42 @@ THIS TAG DOESN'T WORK, DON'T TRUST IT : ![GitHub All Releases](https://img.shiel
 
 If you want to install Tahoma and Tahoma-GPT using a simple script on Linux, follow these steps:
 
-1. Open your terminal and navigate to the directory where you want to download the script `install_tahoma-gpt.sh`.
+1. Open your terminal or Powershell and navigate to the directory where you want to download the script `install_tahoma-gpt.sh` for Linux and `install_tahoma_gpt_windows.bat` for Windows.
 
-   For example:
+   For example for Linux:
    - `mkdir $HOME/tahoma-gpt`
    - `cd $HOME/tahoma-gpt`
 
+   For exemple for Windows:
+   - `New-Item -ItemType Directory -Path "C:\tahoma-gpt"`
+   - `Set-Location -Path "C:\tahoma-gpt"`
+ 
 3. Download the script `install_tahoma-gpt.sh` using the following command:
+
+For Linux :
 
    - `wget -O "install_tahoma-gpt.sh" "https://github.com/pzim-devdata/tahoma/raw/main/install_tahoma-gpt.sh"`
 
-5. Make the installation script executable by running the following command:
+   For Windows :
+
+   - `Invoke-WebRequest -Uri "https://github.com/pzim-devdata/tahoma/raw/main/install_tahoma_gpt_windows.bat" -OutFile "install_tahoma_gpt_windows.bat"`
+
+
+5. Make the installation script executable (Linux only) by running the following command:
 
    - `chmod +x install_tahoma-gpt.sh`
     
 6. Execute the installation script in the terminal using the following command:
 
+For Linux :
+
    - `bash -c './install_tahoma-gpt.sh'`
 
-7. You can now start tahoma-gpt.py in vitual env:
+For Windows :
+
+   - `& "install_tahoma_gpt_windows.bat"`
+
+7. You can now start tahoma-gpt.py in vitual env (exemple for Linux):
 
    - `cd $HOME/tahoma-gpt` (or go to the installed folder with the terminal)
    - `python3 -m venv env`
