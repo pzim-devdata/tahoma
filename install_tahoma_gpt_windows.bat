@@ -15,8 +15,8 @@ if /I "%install_venv%"=="Yes" (
 
 REM Ask for the installation directory path
 echo.
-set /p install_dir="Enter the installation directory path (Or press Enter to install tahoma and tahoma-gtp in %USERPROFILE%\tahoma-gpt): "
-if "%install_dir%"=="" set "install_dir=%USERPROFILE%\tahoma-gpt"
+set /p install_dir="Enter the installation directory path (Or press Enter to install in C:\tahoma-gpt): "
+if "%install_dir%"=="" set "install_dir=C:\tahoma-gpt"
 
 REM Create the installation directory and navigate into it
 mkdir "%install_dir%"
