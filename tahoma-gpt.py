@@ -91,7 +91,10 @@ def search(filename_to_find):
 
 
 try:
-    names = subprocess.check_output(search('tahoma') + " -ln", shell=True)
+    try:
+        names = subprocess.check_output("'"+search('tahoma') + "' -ln", shell=True)
+    except:
+        names = subprocess.check_output("'"+search('tahoma.py') + "' -ln", shell=True)
     names = names.decode('utf-8')
     index_exclusion = names.find("You must provide a part of the NAME as argument")
     if index_exclusion != -1:
@@ -101,7 +104,7 @@ try:
         names1 = names[:start_index]
         names2 = names[start_index:]
 except:
-    names = subprocess.check_output(search('tahoma.exe') + " -ln", shell=True)
+    names = subprocess.check_output("'"+search('tahoma.exe') + "' -ln", shell=True)
     names = names.decode('latin-1')
     index_exclusion = names.find("You must provide a part of the NAME as argument")
     if index_exclusion != -1:
@@ -112,17 +115,23 @@ except:
         names2 = names[start_index:]
 
 try:
-    actions = subprocess.check_output(search('tahoma') + " -la", shell=True)
+    try:
+        actions = subprocess.check_output("'"+search('tahoma') + "' -la", shell=True)
+    except:
+        actions = subprocess.check_output("'"+search('tahoma.py') + "' -la", shell=True)
     actions = actions.decode('utf-8')
 except:
-    actions = subprocess.check_output(search('tahoma.exe') + " -la", shell=True)
+    actions = subprocess.check_output("'"+search('tahoma.exe') + "' -la", shell=True)
     actions = actions.decode('latin-1')
 
 try:
-    categories = subprocess.check_output(search('tahoma') + " -lc", shell=True)
+    try:
+        categories = subprocess.check_output("'"+search('tahoma') + "' -lc", shell=True)
+    except:
+        categories = subprocess.check_output("'"+search('tahoma.py') + "' -lc", shell=True)
     categories = categories.decode('utf-8')
 except:
-    categories = subprocess.check_output(search('tahoma.exe') + " -lc", shell=True)
+    categories = subprocess.check_output("'"+search('tahoma.exe') + "' -lc", shell=True)
     categories = categories.decode('latin-1')
 
 def main(model):
@@ -199,14 +208,17 @@ def main(model):
                 print("\nExecuting command:", command.replace('command: ',''))
                 try:
                     try:
-                        output = subprocess.check_output(""+search('tahoma') +" "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
+                        try:
+                            output = subprocess.check_output("'"+search('tahoma') +"' "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
+                        except:
+                            output = subprocess.check_output("'"+search('tahoma.py') +"' "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
                         #print(response['choices'][0]['message']['content'])
                         print("Command result:", output.decode())
                         response = await create_chat_completion(str(output.decode()))
                         assistant_response = response['choices'][0]['message']['content']
                     except:
-                        output = subprocess.check_output(""+search('tahoma.exe') +" "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
-                        print("Incorrect command: tahoma", output.decode())
+                        output = subprocess.check_output("'"+search('tahoma.exe') +"' "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
+                        print("Command result:", output.decode())
                         response = await create_chat_completion(str(output.decode()))
                         assistant_response = response['choices'][0]['message']['content']
                 except Exception as e:
@@ -308,14 +320,17 @@ def main(model):
                     print("\nExecuting command:", command.replace('command: ',''))
                     try:
                         try:
-                            output = subprocess.check_output(""+search('tahoma') +" "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
+                            try:
+                                output = subprocess.check_output("'"+search('tahoma') +"' "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
+                            except:
+                                output = subprocess.check_output("'"+search('tahoma.py') +"' "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
                             #print(response['choices'][0]['message']['content'])
                             print("Command result:", output.decode())
                             response = await create_chat_completion(str(output.decode()))
                             assistant_response = response['choices'][0]['message']['content']
                         except:
-                            output = subprocess.check_output(""+search('tahoma.exe') +" "+ command.lower().replace('command: tahoma ', '') +"", encoding='ISO-8859-1', shell=True)
-                            print("Incorrect command: tahoma", output)
+                            output = subprocess.check_output("'"+search('tahoma.exe') +"' "+ command.lower().replace('command: tahoma ', '') +"", encoding='ISO-8859-1', shell=True)
+                            print("Command result:", output.decode())
                             response = await create_chat_completion(str(output))
                             assistant_response = response['choices'][0]['message']['content']
                     except Exception as e:
