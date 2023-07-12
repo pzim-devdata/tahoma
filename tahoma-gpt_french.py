@@ -103,27 +103,34 @@ def search(filename_to_find):
         script_directory = os.path.dirname(os.path.abspath(__file__))
     except:
         script_directory = os.path.dirname(os.path.abspath(__name__))
+    
     # Fonction récursive pour rechercher le fichier dans les répertoires
     def search_directory_for_file(directory, filename):
         for root, dirs, files in os.walk(directory):
             if filename in files:
                 file_path = os.path.join(root, filename)
                 return file_path
-        return None  
-    file_path = search_directory_for_file(script_directory, filename_to_find)
-    if file_path:
-        folder_path = os.path.dirname(file_path)
-        #print("Le fichier", filename_to_find, "a été trouvé dans le dossier :", folder_path)
-    else:
-        pass
-        #print("Le fichier", filename_to_find, "n'a pas été trouvé dans les répertoires.")    
-    return file_path
+        return None
+    current_directory = script_directory
+    while True:
+        file_path = search_directory_for_file(current_directory, filename_to_find)
+        if file_path:
+            folder_path = os.path.dirname(file_path)
+            #print("Le fichier", filename_to_find, "a été trouvé dans le dossier :", folder_path)
+            return file_path
+        parent_directory = os.path.dirname(current_directory)
+        # Vérifier si le dossier parent est le même que le dossier actuel pour éviter une boucle infinie
+        if parent_directory == current_directory:
+            break
+        current_directory = parent_directory
+    #print("Le fichier", filename_to_find, "n'a pas été trouvé dans les répertoires.")
+    return None
 
 #folder_path=search('tahoma.py')
 
 
 try:
-    names = subprocess.check_output(search('tahoma') + " -lnf", shell=True)
+    names = subprocess.check_output("'"+search('tahoma') + "' -lnf", shell=True)
     names = names.decode('utf-8')
     index_exclusion = names.find("Vous devez fournir une partie du NOM comme argument")
     if index_exclusion != -1:
@@ -133,7 +140,7 @@ try:
         names1 = names[:start_index]
         names2 = names[start_index:]
 except:
-    names = subprocess.check_output(search('tahoma.exe') + " -lnf", shell=True)
+    names = subprocess.check_output("'"+search('tahoma.exe') + "' -lnf", shell=True)
     names = names.decode('latin-1')
     index_exclusion = names.find("Vous devez fournir une partie du NOM comme argument")
     if index_exclusion != -1:
@@ -144,17 +151,17 @@ except:
         names2 = names[start_index:]
 
 try:
-    actions = subprocess.check_output(search('tahoma') + " -laf", shell=True)
+    actions = subprocess.check_output("'"+search('tahoma') + "' -laf", shell=True)
     actions = actions.decode('utf-8')
 except:
-    actions = subprocess.check_output(search('tahoma.exe') + " -laf", shell=True)
+    actions = subprocess.check_output("'"+search('tahoma.exe') + "' -laf", shell=True)
     actions = actions.decode('latin-1')
 
 try:
-    categories = subprocess.check_output(search('tahoma') + " -lcf", shell=True)
+    categories = subprocess.check_output("'"+search('tahoma') + "' -lcf", shell=True)
     categories = categories.decode('utf-8')
 except:
-    categories = subprocess.check_output(search('tahoma.exe') + " -lcf", shell=True)
+    categories = subprocess.check_output("'"+search('tahoma.exe') + "' -lcf", shell=True)
     categories = categories.decode('latin-1')
 
 #Générer une reference domicile pour l'assistant
@@ -315,13 +322,13 @@ def main(model):
                 print("\nExécution de la commande :", command.replace('command: ',''))
                 try:
                     try:
-                        output = subprocess.check_output(""+search('tahoma') +" "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
+                        output = subprocess.check_output("'"+search('tahoma') +"' "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
                         #print(response['choices'][0]['message']['content'])
                         print("Résultat de la commande :", output.decode())
                         response = await create_chat_completion(str(output.decode()))
                         assistant_response = response['choices'][0]['message']['content']
                     except:
-                        output = subprocess.check_output("python3 "+search('tahoma.py') +" "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
+                        output = subprocess.check_output("'"+search('tahoma.exe') +"' "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
                         print("Commande incorrecte : tahoma ", output.decode())
                         response = await create_chat_completion(str(output.decode()))
                         assistant_response = response['choices'][0]['message']['content']
@@ -527,7 +534,7 @@ def main(model):
                             messages=instructions+conversations
                             #print("\n\033[1mAssistant:\033[0m ", assistant_response)
                         try:
-                            output = subprocess.run(""+search('tahoma') +" "+ command.lower().replace('command: tahoma ', '') +"", shell=True, capture_output=True)
+                            output = subprocess.run("'"+search('tahoma') +"' "+ command.lower().replace('command: tahoma ', '') +"", shell=True, capture_output=True)
 #                            print("Code de retour:", output.returncode)
                             if "version" in output.stdout.decode() or "exist" in output.stdout.decode() or "exact" in output.stdout.decode():
                                 await erreur_action() 
@@ -540,7 +547,7 @@ def main(model):
                             else:
                                 await erreur_action()
                         except:
-                            output = subprocess.run(""+search('tahoma.exe') +" "+ command.lower().replace('command: tahoma ', '') +"", shell=True, encoding='ISO-8859-1', capture_output=True)
+                            output = subprocess.run("'"+search('tahoma.exe') +"' "+ command.lower().replace('command: tahoma ', '') +"", shell=True, encoding='ISO-8859-1', capture_output=True)
 #                            print("Code de retour:", output.returncode)
                             if "version" in str(output.stdout) or "exist" in str(output.stdout):
                                 await erreur_action()
