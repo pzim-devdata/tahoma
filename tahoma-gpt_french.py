@@ -130,7 +130,10 @@ def search(filename_to_find):
 
 
 try:
-    names = subprocess.check_output("'"+search('tahoma') + "' -lnf", shell=True)
+    try:
+        names = subprocess.check_output("'"+search('tahoma') + "' -lnf", shell=True)
+    except:
+        names = subprocess.check_output("'"+search('tahoma.py') + "' -lnf", shell=True)
     names = names.decode('utf-8')
     index_exclusion = names.find("Vous devez fournir une partie du NOM comme argument")
     if index_exclusion != -1:
@@ -151,14 +154,20 @@ except:
         names2 = names[start_index:]
 
 try:
-    actions = subprocess.check_output("'"+search('tahoma') + "' -laf", shell=True)
+    try:
+        actions = subprocess.check_output("'"+search('tahoma') + "' -laf", shell=True)
+    except:
+        actions = subprocess.check_output("'"+search('tahoma.py') + "' -laf", shell=True)
     actions = actions.decode('utf-8')
 except:
     actions = subprocess.check_output("'"+search('tahoma.exe') + "' -laf", shell=True)
     actions = actions.decode('latin-1')
 
 try:
-    categories = subprocess.check_output("'"+search('tahoma') + "' -lcf", shell=True)
+    try:
+        categories = subprocess.check_output("'"+search('tahoma') + "' -lcf", shell=True)
+    except:
+        categories = subprocess.check_output("'"+search('tahoma.py') + "' -lcf", shell=True)
     categories = categories.decode('utf-8')
 except:
     categories = subprocess.check_output("'"+search('tahoma.exe') + "' -lcf", shell=True)
@@ -322,7 +331,10 @@ def main(model):
                 print("\nExécution de la commande :", command.replace('command: ',''))
                 try:
                     try:
-                        output = subprocess.check_output("'"+search('tahoma') +"' "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
+                        try:
+                            output = subprocess.check_output("'"+search('tahoma') +"' "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
+                        except:
+                            output = subprocess.check_output("'"+search('tahoma.py') +"' "+ command.lower().replace('command: tahoma ', '') +"", shell=True)
                         #print(response['choices'][0]['message']['content'])
                         print("Résultat de la commande :", output.decode())
                         response = await create_chat_completion(str(output.decode()))
@@ -534,7 +546,10 @@ def main(model):
                             messages=instructions+conversations
                             #print("\n\033[1mAssistant:\033[0m ", assistant_response)
                         try:
-                            output = subprocess.run("'"+search('tahoma') +"' "+ command.lower().replace('command: tahoma ', '') +"", shell=True, capture_output=True)
+                            try:
+                                output = subprocess.run("'"+search('tahoma') +"' "+ command.lower().replace('command: tahoma ', '') +"", shell=True, capture_output=True)
+                            except:
+                                output = subprocess.run("'"+search('tahoma.py') +"' "+ command.lower().replace('command: tahoma ', '') +"", shell=True, capture_output=True)
 #                            print("Code de retour:", output.returncode)
                             if "version" in output.stdout.decode() or "exist" in output.stdout.decode() or "exact" in output.stdout.decode():
                                 await erreur_action() 
