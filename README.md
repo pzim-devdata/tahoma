@@ -207,7 +207,11 @@ Then execute tahoma just like this : `tahoma arm alarm garden open shutter kitch
 
 # Add ChatGPT functionalities : 
 
-If you want to use tahoma with chatGPT follow this steps :
+- The best way to install tahoma-gpt with tahoma is to use [Pypi](https://pypi.org/project/tahoma-gpt/)
+
+- If you want to use tahoma-gpt in a virtual environement follow this [link](https://github.com/pzim-devdata/tahoma-gpt) or use [pipx](https://pypi.org/project/tahoma-gpt/)
+
+- If you want to use tahoma with chatGPT from this repo, follow this steps :
 
 
 1. install tahoma by following the instructions provided in the first steps
