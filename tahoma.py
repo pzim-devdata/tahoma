@@ -79,8 +79,8 @@ def main():
 
     list_categories = ['shutter','spotalarm','plug','alarm','heater','sunscreen','scene','sensor']
     list_categories_french = ['volet','spotalarme','prise','alarme','chauffage','rideau','scenario','capteur']
-    list_actions = ['[open,close,stop,my,NUMBER]','[on,off]','[on,off]','[arm,disarm,partial,arm_night,arm_away]','[comfort,comfort-1,comfort-2,eco,off]','[open,close,stop,my,NUMBER]','[on,activate,launch,execute]','[get,get_state,get_position,get_lumens,get_temperature]']
-    list_actions_french = ['[ouvrir,fermer,stop,my,NOMBRE]','[allumer,eteindre]','[allumer,eteindre]','[activer,desactiver,partiel,activer_nuit,activer_parti]','[confort,confort-1,confort-2,eco,eteindre]','[ouvrir,fermer,stop,my,NOMBRE]','[lancer,activer,executer]','[obtenir,etat,position,luminosite,temperature]']
+    list_actions = ['[open,close,stop,my,NUMBER]','[on,off]','[on,off]','[arm,disarm,partial,arm_night,arm_away]','[comfort,comfort-1,comfort-2,eco,frostprotection,off]','[open,close,stop,my,NUMBER]','[on,activate,launch,execute]','[get,get_state,get_position,get_lumens,get_temperature]']
+    list_actions_french = ['[ouvrir,fermer,stop,my,NOMBRE]','[allumer,eteindre]','[allumer,eteindre]','[activer,desactiver,partiel,activer_nuit,activer_parti]','[confort,confort-1,confort-2,eco,horsgel,eteindre]','[ouvrir,fermer,stop,my,NOMBRE]','[lancer,activer,executer]','[obtenir,etat,position,luminosite,temperature]']
 
     try :
         f = open(notification_consent, 'r')
