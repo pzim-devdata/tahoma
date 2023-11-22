@@ -132,9 +132,10 @@ async def main() -> None:
                                 print("States for "+device.label+" added to : "+ list_of_tahoma_states)
                     if str(get_state[i].name) != 'io:TargetHeatingLevelState' :
                         if str(get_state[i].name) != 'core:OnOffState':
-                            if str(get_state[i].value) == 'eco' or str(get_state[i].value) =='comfort' or str(get_state[i].value) =='frostprotection' or str(get_state[i].value) =='off':
-                                f11.write(device.label+","+device.id+","+device.widget+",get_state["+str(i)+"].value,['eco','comfort','frostprotection','off'],"+str(get_state[i].value)+"\n")
-                                print("States for "+device.label+" added to : "+ list_of_tahoma_states)
+                            if device.widget != 'TSKAlarmController':
+                                if str(get_state[i].value) == 'eco' or str(get_state[i].value) =='comfort' or str(get_state[i].value) =='frostprotection' or str(get_state[i].value) =='off':
+                                    f11.write(device.label+","+device.id+","+device.widget+",get_state["+str(i)+"].value,['eco','comfort','frostprotection','off'],"+str(get_state[i].value)+"\n")
+                                    print("States for "+device.label+" added to : "+ list_of_tahoma_states)
                     if 'TemperatureSensor' == device.widget :
                         try:
                             if str(get_state[i].name) == 'core:TemperatureState':
@@ -196,5 +197,4 @@ except NameError as e:
     print(e)
     print("\nYou didn't specified any USERNAME or PASSWORD.\nExecute tahoma --config or provide a temporary USERNAME and PASSWORD by executing tahoma -u <USERNAME> -p <PASSWORD> command")
     exit(1)
-
 
