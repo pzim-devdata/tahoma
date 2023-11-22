@@ -45,6 +45,15 @@ def check_last_release (show='y'):
 
 check_last_release ('n')
 
+def countdown(duration):
+    for i in range(duration-1, 0, -1):
+        sys.stdout.write("\033[2K\r")  # Efface toute la ligne
+        sys.stdout.write(str(i) + "\r")  
+        sys.stdout.flush()
+        time.sleep(1)
+#    print("Sucess!")
+#    sys.stdout.write("\rFin!\n")
+
 def main():
     version ='tahoma - portable Version '+ str(version_number)+' - by @pzim-devdata'
 
@@ -432,7 +441,9 @@ def main():
                 print( "\n'"+action+"'"+" is not a valide action.\n")
                 print("Please provide one of this argument as action : [open close stop my]")
             str1 = " "
-            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+#            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name))
+            print("Sucess!")
 
         ##########################SUNSCREEN
         
@@ -482,7 +493,9 @@ def main():
                 print( "\n'"+action+"'"+" is not a valide action.\n")
                 print("Please provide one of this argument as action : [open close stop my]")
             str1 = " "
-            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+#            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name))
+            print("Sucess!")
 
         ##########################SPOTALARMS AND PLUGS
 
@@ -533,7 +546,9 @@ def main():
                 print( "\n'"+action+"'"+" is not a valide action.\n")
                 print("Please provide one of this argument as action : [on off]")
             str1 = " "
-            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+#            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name))
+            print("Sucess!")
 
         ##########################ALARMS
 
@@ -580,7 +595,9 @@ def main():
                 print( "\n'"+action+"'"+" is not a valide action.\n")
                 print("Please provide one of this argument as action : [arm disarm partial arm_night arm_away]")
             str1 = " "
-            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+#            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name))
+            print("Sucess!")
 
         ##########################HEATERS
 
@@ -615,6 +632,8 @@ def main():
 
             if remove_accent(action).lower() == "comfort" or remove_accent(action).lower() == "confort" :
                 fonction = Command(OverkizCommand.SET_HEATING_LEVEL,['comfort'])
+            elif remove_accent(action).lower() == 'frostprotection' or remove_accent(action).lower() == "horsgel" :
+                fonction = Command(OverkizCommand.SET_HEATING_LEVEL,['frostprotection'])
             elif remove_accent(action).lower() == 'comfort-1' or remove_accent(action).lower() == "confort-1" :
                 fonction = Command(OverkizCommand.SET_HEATING_LEVEL,['comfort-1'])
             elif remove_accent(action).lower() == 'comfort-2' or remove_accent(action).lower() == "confort-2" :
@@ -628,7 +647,9 @@ def main():
                 print("Please provide one of this argument as action : [comfort comfort-1 comfort-2 eco off]")
                 exit()
             str1 = " "
-            print("Output action : "+remove_accent(action).lower()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+#            print("Output action : "+remove_accent(action).lower()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+            print("Output action : "+remove_accent(action).lower()+" "+remove_accent(category)+" "+str1.join(good_name))
+            print("Sucess!")
 
         ##########################SCENES
 
@@ -667,7 +688,9 @@ def main():
             #exec_id = await client.execute_scenario(device_url)
 
             str1 = " "
-            print("Output action : "+remove_accent(action).lower()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+#            print("Output action : "+remove_accent(action).lower()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+            print("Output action : "+remove_accent(action).lower()+" "+remove_accent(category)+" "+str1.join(good_name))
+            print("Sucess!")
 
         ##########################SENSORS_STATES
 
@@ -739,7 +762,8 @@ def main():
                     for device_url in url :
                         if str(device_url).isnumeric() == True :
                             print("Waiting for "+str(device_url)+" second(s).")
-                            time.sleep(int(device_url))
+                            countdown(int(device_url))
+#                            time.sleep(int(device_url))
                         else :
                             if remove_accent(category) == 'scene' or remove_accent(category) == 'scenario':
                                 try :
@@ -752,7 +776,7 @@ def main():
                                     async with OverkizClient(USERNAME, PASSWORD, SUPPORTED_SERVERS[serverchoice]) as client:
                                         get_state = await client.get_state(device_url)
                                         state_function=str(command_state[j]).replace("['","").replace("']","")
-                                        print('The '+str(good_name[j])+' is '+str(eval(state_function)))
+                                        print(str(good_name[j])+':'+str(eval(state_function)))
                                 except :pass
                             elif remove_accent(action).upper() == 'CANCEL' or remove_accent(action).upper() == 'ANNULER':
                                 try:
@@ -763,7 +787,8 @@ def main():
                                             execution_id=str(execution.id)
                                         try:
                                             await client.cancel_command(str(execution_id))
-                                            print("The command with execution ID  : "+execution_id+" has been successfully cancelled.")
+#                                            print("The command with execution ID  : "+execution_id+" has been successfully cancelled.")
+                                            print("The last command: '"+execution.action_group['actions'][0]['commands'][0]['name']+"' has been successfully cancelled.")
                                         except: pass
                                 except : pass
                             else :
