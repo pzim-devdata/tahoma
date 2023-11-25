@@ -16,6 +16,7 @@ from pyoverkiz.client import OverkizClient
 from pyoverkiz.enums import OverkizCommand
 from pyoverkiz.models import Command
 from pyoverkiz.models import Scenario
+import base64
 
 async def main() -> None:
 
@@ -33,6 +34,7 @@ async def main() -> None:
     list_of_tahoma_states = os.path.dirname(os.path.abspath(__file__))+'/temp/states.txt'
 
     server_choosen =  os.path.dirname(os.path.abspath(__file__))+'/temp/server_choosen.txt'
+    test_file = os.path.dirname(os.path.abspath(__file__))+'/test/test.txt'
 
     try :
         f = open(server_choosen, 'r')
@@ -60,13 +62,21 @@ async def main() -> None:
     args = parser.parse_args()
 
     try :
-        f = open(passwd_file, 'r')
+        f = open(test_file, 'r')
+        test = f.read()
+        f.close()
+    except FileNotFoundError:
+        test = "Hipk,@nP3%c@U2ZpC"
+
+    try :
+        f = open(passwd_file, 'rb')
         content = f.read()
         f.close()
-        if len(content.splitlines()[0]) > 0 :
-            USERNAME = content.splitlines()[0]
-        if len(content.splitlines()[1]) > 0 :
-            PASSWORD = content.splitlines()[1]
+        content_str = base64.b64decode(content).decode('utf-8')
+        if len(content_str.split(':')[0]) > 0 :
+            USERNAME = content_str.split(':')[0]
+        if len(content_str.split(':')[1]) > 0 :
+            PASSWORD = content_str.split(':')[1].replace(test, "")
     except: pass
 
     for arg in sys.argv:
@@ -104,6 +114,9 @@ async def main() -> None:
                     f6.write(device.label+","+device.id+","+device.widget+"\n")
                     print( "Device "+device.label+" controled by tahoma. Added to : "+list_of_tahoma_spotalarms)
                 elif "StatelessOnOff" in device.widget :
+                    f7.write(device.label+","+device.id+","+device.widget+"\n")
+                    print( "Device "+device.label+" controled by tahoma. Added to : "+list_of_tahoma_plugs)
+                elif "StatefulOnOff" in device.widget :
                     f7.write(device.label+","+device.id+","+device.widget+"\n")
                     print( "Device "+device.label+" controled by tahoma. Added to : "+list_of_tahoma_plugs)
                 elif "PositionableScreen" in device.widget or "PositionableHorizontalAwning" in device.widget:
