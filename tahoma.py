@@ -36,12 +36,16 @@ def check_last_release (show='y'):
         response = requests.get(url_releases, headers=headers)
         releases = response.json()
         last_release = releases[0]['tag_name']
+        info_release = releases[0]["body"]
         if str(last_release.lower()) == str(version_number).lower():
             if show == 'y' :
                 print(" You are using the last version of Tahoma : " + str(last_release.lower()))
         else :
             print(" Last version of Tahoma is : " + str(last_release.lower()) + " and you are using the version : " + str(version_number).lower())
-            print(" Pypi version : sudo python3 -m pip install -U tahoma or pipx upgrade tahoma")
+            print(" Here is an explanation of this update:")
+            print( info_release)
+            print( "")
+            print(" Pypi version : python3 -m pip install -U tahoma or pipx upgrade tahoma")
             print(" Github version : https://github.com/pzim-devdata/tahoma/releases/latest/download/tahoma.zip")
     except : pass
 
