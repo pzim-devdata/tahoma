@@ -282,7 +282,7 @@ def main():
             USERNAME = input()
             print( "\nPlease provide somfy-connect's password for tahoma-pzim : \nIt will be stored here : \n"+passwd_file+"\nYou can leave it empty, but you will need to connect with the --password argument each time")
             PASSWORD = getpass()
-            print( "Do you want to store them in "+passwd_file+" ? \nIf Not, the file will be erased\n(Y/n)")
+            print( "\nDo you want to store them in "+passwd_file+" ? \nIf Not, the file will be erased\n(Y/n)")
             CONSENT = input()
             if CONSENT.lower() == 'y'or CONSENT.lower() == 'yes':
                 os.remove(passwd_file)
