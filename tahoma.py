@@ -15,6 +15,7 @@ import os
 import re
 from getpass import getpass
 import time
+import datetime
 from pyoverkiz.const import SUPPORTED_SERVERS
 from pyoverkiz.client import OverkizClient
 from pyoverkiz.enums import OverkizCommand
@@ -22,6 +23,7 @@ from pyoverkiz.models import Command
 from pyoverkiz.models import Scenario
 import __version__
 import requests
+import base64
 
 version_number=str(__version__.__version__)
 get_devices_url="import get_devices_url"
@@ -77,6 +79,19 @@ def main():
 
     server_choosen =  os.path.dirname(os.path.abspath(__file__))+'/temp/server_choosen.txt'
 
+    test_file = os.path.dirname(os.path.abspath(__file__))+'/test/test.txt'
+
+    logs_consent = os.path.dirname(os.path.abspath(__file__))+'/temp/consent_logs.txt'
+    log_place = os.path.dirname(os.path.abspath(__file__))+'/temp/last_commands_send.log'
+    #delete log_place if size > 1000 octets
+    try:
+        size_log = os.path.getsize(log_place)
+        if size_log > 1000:
+            os.remove(log_place)
+            print(f"The old log file : {log_place} has been removed because of it size > 1000 octets\nA new file will be created.\n")
+    except FileNotFoundError:
+        pass
+
     list_categories = ['shutter','spotalarm','plug','alarm','heater','sunscreen','scene','sensor']
     list_categories_french = ['volet','spotalarme','prise','alarme','chauffage','rideau','scenario','capteur']
     list_actions = ['[open,close,stop,my,NUMBER]','[on,off]','[on,off]','[arm,disarm,partial,arm_night,arm_away]','[comfort,comfort-1,comfort-2,eco,frostprotection,off]','[open,close,stop,my,NUMBER]','[on,activate,launch,execute]','[get,get_state,get_position,get_lumens,get_temperature]']
@@ -90,11 +105,25 @@ def main():
         notification = 'n'
 
     try :
+        f = open(test_file, 'r')
+        test = f.read()
+        f.close()
+    except FileNotFoundError:
+        test = "Hipk,@nP3%c@U2ZpC"
+
+    try :
         f = open(server_choosen, 'r')
         serverchoice = f.read()
         f.close()
     except FileNotFoundError:
         serverchoice = "somfy_europe"
+
+    try :
+        f = open(logs_consent, 'r')
+        logs = f.read()
+        f.close()
+    except FileNotFoundError:
+        logs = 'N'
 
     def info():
         print( "" )
@@ -216,6 +245,18 @@ def main():
                 try :
                     os.remove(notification_consent)
                 except : pass
+            print("\nDo you want to create a log file ? (Y/n)")
+            notification = input()
+            if notification.lower() == 'y'or notification.lower() == 'yes':
+                f = open(logs_consent, 'w')
+                f.write('Y')
+                print("Logs file will be created there :\n"+log_place)
+                f.close()
+            else :
+                print("No file will be created for keeping logs")
+                try :
+                    os.remove(logs_consent)
+                except : pass
             print("Paste which server you want to use : somfy_europe , somfy_america or somfy_oceania :")
             serverchoice = input()
             if serverchoice == "somfy_europe" or serverchoice == "somfy_america" or serverchoice == "somfy_oceania" :
@@ -230,14 +271,16 @@ def main():
                 f.write(serverchoice)
                 f.close() 
             print( "Please provide somfy-connect's username for tahoma-pzim (mail address) : \nIt will be stored here : \n"+passwd_file+"\nIf you don't want to store it localy, you can leave it empty, but you will need to connect with the --username argument each time")
+            print("Username:")
             USERNAME = input()
-            print( "Please provide somfy-connect's password for tahoma-pzim : \nIt will be stored here : \n"+passwd_file+"\nYou can leave it empty, but you will need to connect with the --password argument each time")
+            print( "\nPlease provide somfy-connect's password for tahoma-pzim : \nIt will be stored here : \n"+passwd_file+"\nYou can leave it empty, but you will need to connect with the --password argument each time")
             PASSWORD = getpass()
-            print( "Do you want to store them in "+passwd_file+" ? (Y/n)\nIf Not, the file will be erased")
+            print( "Do you want to store them in "+passwd_file+" ? \nIf Not, the file will be erased\n(Y/n)")
             CONSENT = input()
             if CONSENT.lower() == 'y'or CONSENT.lower() == 'yes':
-                f = open(passwd_file, 'w')
-                f.write(USERNAME+"\n"+PASSWORD)
+                os.remove(passwd_file)
+                f = open(passwd_file, 'ab')
+                f.write(base64.b64encode(str(USERNAME+":"+PASSWORD+test).encode('utf-8')))
                 f.close()
                 print( "stored in "+passwd_file )
             else :
@@ -252,13 +295,13 @@ def main():
 
     for arg in sys.argv :
         if arg == '-h' or arg == '--help' :
-            print("tahoma -h, --help : "+version+"\n\nUsage:\n tahoma ACTION CATEGORY NAME \n\n You must provide at least three arguments\n For instance : tahoma open shutter kitchen or tahoma ouvrir volet cuisine\n\n You can close a shutter or a sunscreen to a specific level (IO protocols only)\n For instance : tahoma 25 shutter kitchen. It will open the shutter to 75% or close it to 25%\n\n You can also provide, as many as you wish, orders on the same line\n Tahoma will execute all orders one by one in the same process ;-)\n For instance : tahoma open shutter kitchen arm alarm garden on plug room wait train garestation\n\nHelp options :\n -h,   --help                      Show this help\n -hf,  --help-french               Show this help in french\n -i,   --info                      Show more info\n\nPlugin options :\n -v,   --version                   Show the version of the plugin\n -c,   --configure                 To configure the plugin and store login and password in a text file which is located here : "+passwd_file+" Use with sudo !\n -u,   --username                  If you don't want to store the login, you can provide the mail-address with this option\n -p,   --password                  If you don't want to store the password, you can provide it with this option\n -g,   --getlist                   Download the list of devices and store them here : "+list_of_tahoma_devices+" Use with sudo !\n -l,   --list                      Show the complet list of devices installed\n -la,  --list-actions              Show the list of possible ACTIONS by CATEGORIES\n -lc,  --list-categories           Show all supported CATEGORIES of devices\n -lnf, --list-names                Show all installed devices by there NAMES\n\nCommand options :\n wait for <seconds>\n sleep for <seconds>               Tahoma will wait for <seconds> seconds to execute next action\n cancel last action                Tahoma will cancel the immediate preceding command (without affecting the 'wait for' command). This is useful for stopping an RTS device\n")
+            print("tahoma -h, --help : "+version+"\n\nUsage:\n tahoma ACTION CATEGORY NAME \n\n You must provide at least three arguments\n For instance : tahoma open shutter kitchen or tahoma ouvrir volet cuisine\n\n You can close a shutter or a sunscreen to a specific level (IO protocols only)\n For instance : tahoma 25 shutter kitchen. It will open the shutter to 75% or close it to 25%\n\n You can also provide, as many as you wish, orders on the same line\n Tahoma will execute all orders one by one in the same process ;-)\n For instance : tahoma open shutter kitchen arm alarm garden on plug room wait train garestation\n\nHelp options :\n -h,   --help                      Show this help\n -hf,  --help-french               Show this help in french\n -i,   --info                      Show more info\n\nPlugin options :\n -v,   --version                   Show the version of the plugin\n -c,   --configure                 To configure the plugin and store login and password in a text file which is located here : "+passwd_file+"\n -u,   --username                  If you don't want to store the login, you can provide the mail-address with this option\n -p,   --password                  If you don't want to store the password, you can provide it with this option\n -g,   --getlist                   Download the list of devices and store them here : "+list_of_tahoma_devices+"\n -l,   --list                      Show the complet list of devices installed\n -la,  --list-actions              Show the list of possible ACTIONS by CATEGORIES\n -lc,  --list-categories           Show all supported CATEGORIES of devices\n -lnf, --list-names                Show all installed devices by there NAMES\n\nCommand options :\n wait for <seconds>\n sleep for <seconds>               Tahoma will wait for <seconds> seconds to execute next action\n cancel last action                Tahoma will cancel the immediate preceding command (without affecting the 'wait for' command). This is useful for stopping an RTS device\n")
             check_last_release ()
             exit()
 
     for arg in sys.argv :
         if arg == '-hf' or arg == '--help-french' :
-            print("tahoma -h --help : "+version+"\n\nUsage:\n tahoma ACTION CATEGORIE NOM \n\n Vous devez fournir au moins trois arguments\n Par exemple : tahoma ouvrir volet cuisine ou tahoma open shutter kitchen\n\n Vous pouvez fermer des rideaux ou des volets à un niveau precis (Seulement pour les équipements utilisant le protocole IO)\n Par exemple : tahoma 25 volet cuisine. Les volets vont s'ouvrir de 75% ou se fermer de 25%\n\n Vous pouvez aussi spécifier autant de commandes que vous le souhaitez sur la même ligne :\n Tahoma va executer chaque commande l'une aprés l'autre durant le même processus\n Par exemple : tahoma ouvrir volet cuisine confort chauffage salon\n\nOptions de l’aide :\n -h, --help                        Affiche les options de l’aide en anglais\n\nOptions de l’application :\n -v, --version                     Affiche la version de l’application\n -i, --info                        Afficher plus d'infos sur tahoma\n -c, --configure                   Renseigner l'identifiant et le mot de passe dans un fichier texte pour ne pas devoir les renseigner à chaque fois. Le fichier texte se situe dans : "+passwd_file+" Utiliser sudo !\n -u, --username                    Renseigner le nom d'utilisateur\n -p, --password                    Renseigner le mot de passe de Somfy-connect\n -g, --getlist                     Télécharge la liste des équipements et la stocke dans "+list_of_tahoma_devices+" Utiliser sudo !\n -l, --list                        Affiche la liste téléchargée des équipements\n -laf, --list-actions-french       Affiche la liste des ACTIONS possibles en français par CATEGORIES\n -lcf, --list-categories-french    Affiche toutes les CATEGORIES d'équipements pris en charge en français\n -lnf, --list-names-french         Affiche les NOMS des équipements installés par categories en français\n\nOptions de commande :\n attendre pendant <secondes>       Tahoma attendra <secondes> secondes avant d'éxécuter la commande suivante\n annuler precedente commande       Tahoma annulera la commande précédente immédiate (sans affecter la commande 'attendre pendant'). Ceci est utile pour arrêter un périphérique RTS.")
+            print("tahoma -h --help : "+version+"\n\nUsage:\n tahoma ACTION CATEGORIE NOM \n\n Vous devez fournir au moins trois arguments\n Par exemple : tahoma ouvrir volet cuisine ou tahoma open shutter kitchen\n\n Vous pouvez fermer des rideaux ou des volets à un niveau precis (Seulement pour les équipements utilisant le protocole IO)\n Par exemple : tahoma 25 volet cuisine. Les volets vont s'ouvrir de 75% ou se fermer de 25%\n\n Vous pouvez aussi spécifier autant de commandes que vous le souhaitez sur la même ligne :\n Tahoma va executer chaque commande l'une aprés l'autre durant le même processus\n Par exemple : tahoma ouvrir volet cuisine confort chauffage salon\n\nOptions de l’aide :\n -h, --help                        Affiche les options de l’aide en anglais\n\nOptions de l’application :\n -v, --version                     Affiche la version de l’application\n -i, --info                        Afficher plus d'infos sur tahoma\n -c, --configure                   Renseigner l'identifiant et le mot de passe dans un fichier texte pour ne pas devoir les renseigner à chaque fois. Le fichier texte se situe dans : "+passwd_file+"\n -u, --username                    Renseigner le nom d'utilisateur\n -p, --password                    Renseigner le mot de passe de Somfy-connect\n -g, --getlist                     Télécharge la liste des équipements et la stocke dans "+list_of_tahoma_devices+"\n -l, --list                        Affiche la liste téléchargée des équipements\n -laf, --list-actions-french       Affiche la liste des ACTIONS possibles en français par CATEGORIES\n -lcf, --list-categories-french    Affiche toutes les CATEGORIES d'équipements pris en charge en français\n -lnf, --list-names-french         Affiche les NOMS des équipements installés par categories en français\n\nOptions de commande :\n attendre pendant <secondes>       Tahoma attendra <secondes> secondes avant d'éxécuter la commande suivante\n annuler precedente commande       Tahoma annulera la commande précédente immédiate (sans affecter la commande 'attendre pendant'). Ceci est utile pour arrêter un périphérique RTS.")
             check_last_release ()
             exit()
 
@@ -336,15 +379,15 @@ def main():
         except:pass
         info()
         exit()
-
     try :
-        f = open(passwd_file, 'r')
+        f = open(passwd_file, 'rb')
         content = f.read()
         f.close()
-        if len(content.splitlines()[0]) > 0 :
-            USERNAME = content.splitlines()[0]
-        if len(content.splitlines()[1]) > 0 :
-            PASSWORD = content.splitlines()[1]
+        content_str = base64.b64decode(content).decode('utf-8')
+        if len(content_str.split(':')[0]) > 0 :
+            USERNAME = content_str.split(':')[0]
+        if len(content_str.split(':')[1]) > 0 :
+            PASSWORD = content_str.split(':')[1].replace(test, "")
     except: pass
 
     parser = argparse.ArgumentParser()
@@ -442,8 +485,16 @@ def main():
                 print("Please provide one of this argument as action : [open close stop my]")
             str1 = " "
 #            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
-            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name))
-            print("Sucess!")
+            message = "Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+"\n"+"Success!"
+            if logs == 'Y':
+                try:
+                    with open(log_place, "a") as f:
+                        f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
+                        f.close()
+                except: 
+                    print('Could not access the log file. Permission denied')
+                    print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
+            print(message)
 
         ##########################SUNSCREEN
         
@@ -494,8 +545,16 @@ def main():
                 print("Please provide one of this argument as action : [open close stop my]")
             str1 = " "
 #            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
-            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name))
-            print("Sucess!")
+            message = "Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+"\n"+"Success!"
+            if logs == 'Y':
+                try:
+                    with open(log_place, "a") as f:
+                        f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
+                        f.close()
+                except: 
+                    print('Could not access the log file. Permission denied')
+                    print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
+            print(message)
 
         ##########################SPOTALARMS AND PLUGS
 
@@ -547,8 +606,16 @@ def main():
                 print("Please provide one of this argument as action : [on off]")
             str1 = " "
 #            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
-            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name))
-            print("Sucess!")
+            message = "Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+"\n"+"Success!"
+            if logs == 'Y':
+                try:
+                    with open(log_place, "a") as f:
+                        f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
+                        f.close()
+                except: 
+                    print('Could not access the log file. Permission denied')
+                    print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
+            print(message)
 
         ##########################ALARMS
 
@@ -596,8 +663,16 @@ def main():
                 print("Please provide one of this argument as action : [arm disarm partial arm_night arm_away]")
             str1 = " "
 #            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
-            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name))
-            print("Sucess!")
+            message = "Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+"\n"+"Success!"
+            if logs == 'Y':
+                try:
+                    with open(log_place, "a") as f:
+                        f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
+                        f.close()
+                except: 
+                    print('Could not access the log file. Permission denied')
+                    print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
+            print(message)
 
         ##########################HEATERS
 
@@ -648,8 +723,16 @@ def main():
                 exit()
             str1 = " "
 #            print("Output action : "+remove_accent(action).lower()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
-            print("Output action : "+remove_accent(action).lower()+" "+remove_accent(category)+" "+str1.join(good_name))
-            print("Sucess!")
+            message = "Output action : "+remove_accent(action).lower()+" "+remove_accent(category)+" "+str1.join(good_name)+"\n"+"Success!"
+            if logs == 'Y':
+                try:
+                    with open(log_place, "a") as f:
+                        f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
+                        f.close()
+                except: 
+                    print('Could not access the log file. Permission denied')
+                    print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
+            print(message)
 
         ##########################SCENES
 
@@ -689,8 +772,16 @@ def main():
 
             str1 = " "
 #            print("Output action : "+remove_accent(action).lower()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
-            print("Output action : "+remove_accent(action).lower()+" "+remove_accent(category)+" "+str1.join(good_name))
-            print("Sucess!")
+            message = "Output action : "+remove_accent(action).lower()+" "+remove_accent(category)+" "+str1.join(good_name)+"\n"+"Success!"
+            if logs == 'Y':
+                try:
+                    with open(log_place, "a") as f:
+                        f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
+                        f.close()
+                except: 
+                    print('Could not access the log file. Permission denied')
+                    print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
+            print(message)
 
         ##########################SENSORS_STATES
 
@@ -761,7 +852,16 @@ def main():
                     j=0
                     for device_url in url :
                         if str(device_url).isnumeric() == True :
-                            print("Waiting for "+str(device_url)+" second(s).")
+                            message="Waiting for "+str(device_url)+" second(s)."
+                            if logs == 'Y':
+                                try:
+                                    with open(log_place, "a") as f:
+                                        f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
+                                        f.close()
+                                except: 
+                                    print('Could not access the log file. Permission denied')
+                                    print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
+                            print(message)
                             countdown(int(device_url))
 #                            time.sleep(int(device_url))
                         else :
@@ -776,7 +876,16 @@ def main():
                                     async with OverkizClient(USERNAME, PASSWORD, SUPPORTED_SERVERS[serverchoice]) as client:
                                         get_state = await client.get_state(device_url)
                                         state_function=str(command_state[j]).replace("['","").replace("']","")
-                                        print(str(good_name[j])+':'+str(eval(state_function)))
+                                        message=str(good_name[j])+':'+str(eval(state_function))
+                                        if logs == 'Y':
+                                            try:
+                                                with open(log_place, "a") as f:
+                                                    f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
+                                                    f.close()
+                                            except: 
+                                                print('Could not access the log file. Permission denied')
+                                                print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
+                                        print(message)
                                 except :pass
                             elif remove_accent(action).upper() == 'CANCEL' or remove_accent(action).upper() == 'ANNULER':
                                 try:
@@ -787,8 +896,16 @@ def main():
                                             execution_id=str(execution.id)
                                         try:
                                             await client.cancel_command(str(execution_id))
-#                                            print("The command with execution ID  : "+execution_id+" has been successfully cancelled.")
-                                            print("The last command: '"+execution.action_group['actions'][0]['commands'][0]['name']+"' has been successfully cancelled.")
+                                            message="The last command: '"+execution.action_group['actions'][0]['commands'][0]['name']+"' has been successfully cancelled."
+                                            if logs == 'Y':
+                                                try:
+                                                    with open(log_place, "a") as f:
+                                                        f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
+                                                        f.close()
+                                                except: 
+                                                    print('Could not access the log file. Permission denied')
+                                                    print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
+                                            print(message)
                                         except: pass
                                 except : pass
                             else :
