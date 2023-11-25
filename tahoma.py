@@ -24,6 +24,7 @@ from pyoverkiz.models import Scenario
 import __version__
 import requests
 import base64
+from hashlib import sha256
 
 version_number=str(__version__.__version__)
 get_devices_url="import get_devices_url"
@@ -78,12 +79,13 @@ def main():
     list_of_tahoma_scenes = os.path.dirname(os.path.abspath(__file__))+'/temp/scenarios.txt'
     list_of_tahoma_sensors = os.path.dirname(os.path.abspath(__file__))+'/temp/sensors.txt'
     list_of_tahoma_states = os.path.dirname(os.path.abspath(__file__))+'/temp/states.txt'
+    list_of_tahoma_lights = os.path.dirname(os.path.abspath(__file__))+'/temp/lights.txt'
 
     notification_consent = os.path.dirname(os.path.abspath(__file__))+'/temp/consent_notification.txt'
 
     server_choosen =  os.path.dirname(os.path.abspath(__file__))+'/temp/server_choosen.txt'
 
-    test_file = os.path.dirname(os.path.abspath(__file__))+'/test/test.txt'
+    init_file = os.path.dirname(os.path.abspath(__file__))+'/__init__.py'
 
     logs_consent = os.path.dirname(os.path.abspath(__file__))+'/temp/consent_logs.txt'
     log_place = os.path.dirname(os.path.abspath(__file__))+'/temp/last_commands_send.log'
@@ -96,10 +98,10 @@ def main():
     except FileNotFoundError:
         pass
 
-    list_categories = ['shutter','spotalarm','plug','alarm','heater','sunscreen','scene','sensor']
-    list_categories_french = ['volet','spotalarme','prise','alarme','chauffage','rideau','scenario','capteur']
-    list_actions = ['[open,close,stop,my,NUMBER]','[on,off]','[on,off]','[arm,disarm,partial,arm_night,arm_away]','[comfort,comfort-1,comfort-2,eco,frostprotection,off]','[open,close,stop,my,NUMBER]','[on,activate,launch,execute]','[get,get_state,get_position,get_lumens,get_temperature]']
-    list_actions_french = ['[ouvrir,fermer,stop,my,NOMBRE]','[allumer,eteindre]','[allumer,eteindre]','[activer,desactiver,partiel,activer_nuit,activer_parti]','[confort,confort-1,confort-2,eco,horsgel,eteindre]','[ouvrir,fermer,stop,my,NOMBRE]','[lancer,activer,executer]','[obtenir,etat,position,luminosite,temperature]']
+    list_categories = ['shutter','spotalarm','plug','light','alarm','heater','sunscreen','scene','sensor']
+    list_categories_french = ['volet','spotalarme','prise','lumiere','alarme','chauffage','rideau','scenario','capteur']
+    list_actions = ['[open,close,stop,my,NUMBER]','[on,off]','[on,off]','[on,off]','[arm,disarm,partial,arm_night,arm_away]','[comfort,comfort-1,comfort-2,eco,frostprotection,off]','[open,close,stop,my,NUMBER]','[on,activate,launch,execute]','[get,get_state,get_position,get_lumens,get_temperature]']
+    list_actions_french = ['[ouvrir,fermer,stop,my,NOMBRE]','[allumer,eteindre]','[allumer,eteindre]','[allumer,eteindre]','[activer,desactiver,partiel,activer_nuit,activer_parti]','[confort,confort-1,confort-2,eco,horsgel,eteindre]','[ouvrir,fermer,stop,my,NOMBRE]','[lancer,activer,executer]','[obtenir,etat,position,luminosite,temperature]']
 
     try :
         f = open(notification_consent, 'r')
@@ -107,13 +109,14 @@ def main():
         f.close()
     except FileNotFoundError:
         notification = 'n'
-
-    try :
-        f = open(test_file, 'r')
-        test = f.read()
+    
+    try:
+        f = open(init_file, 'r')
+        init = f.read()
         f.close()
-    except FileNotFoundError:
-        test = "Hipk,@nP3%c@U2ZpC"
+        init_str=sha256(b"init").hexdigest()
+    except:
+        init_str="None"
 
     try :
         f = open(server_choosen, 'r')
@@ -284,7 +287,7 @@ def main():
             if CONSENT.lower() == 'y'or CONSENT.lower() == 'yes':
                 os.remove(passwd_file)
                 f = open(passwd_file, 'ab')
-                f.write(base64.b64encode(str(USERNAME+":"+PASSWORD+test).encode('utf-8')))
+                f.write(base64.b64encode(str(USERNAME+":"+PASSWORD+init_str).encode('utf-8')))
                 f.close()
                 print( "stored in "+passwd_file )
             else :
@@ -391,7 +394,7 @@ def main():
         if len(content_str.split(':')[0]) > 0 :
             USERNAME = content_str.split(':')[0]
         if len(content_str.split(':')[1]) > 0 :
-            PASSWORD = content_str.split(':')[1].replace(test, "")
+            PASSWORD = content_str.split(':')[1].replace(init_str, "")
     except: pass
 
     parser = argparse.ArgumentParser()
@@ -560,11 +563,12 @@ def main():
                     print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
             print(message)
 
-        ##########################SPOTALARMS AND PLUGS
+        ##########################SPOTALARMS PLUGS AND LIGHTS
 
-        elif remove_accent(category) == 'spotalarm' or remove_accent(category) == 'plug' or remove_accent(category) == 'spotalarme' or remove_accent(category) == 'prise':
+        elif remove_accent(category) == 'spotalarm' or remove_accent(category) == 'plug' or remove_accent(category) == 'spotalarme' or remove_accent(category) == 'prise' or remove_accent(category) == 'light' or remove_accent(category) == 'lumiere':
             content2 = ''
             content3 = ''
+            content4 = ''
             try :
                 f = open(list_of_tahoma_plugs, 'r')
                 content2 = f.read()
@@ -575,7 +579,12 @@ def main():
                 content3 = f.read()
                 f.close()
             except FileNotFoundError: pass
-            content=content2+content3
+            try :
+                f = open(list_of_tahoma_lights, 'r')
+                content4 = f.read()
+                f.close()
+            except FileNotFoundError: pass
+            content=content2+content3+content4
             try:
                 master_list = content.split("\n")
                 master_list.remove('')
