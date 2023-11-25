@@ -17,6 +17,7 @@ from pyoverkiz.enums import OverkizCommand
 from pyoverkiz.models import Command
 from pyoverkiz.models import Scenario
 import base64
+from hashlib import sha256
 
 async def main() -> None:
 
@@ -32,9 +33,10 @@ async def main() -> None:
     list_of_tahoma_scenes = os.path.dirname(os.path.abspath(__file__))+'/temp/scenarios.txt'
     list_of_tahoma_sensors = os.path.dirname(os.path.abspath(__file__))+'/temp/sensors.txt'
     list_of_tahoma_states = os.path.dirname(os.path.abspath(__file__))+'/temp/states.txt'
+    list_of_tahoma_lights = os.path.dirname(os.path.abspath(__file__))+'/temp/lights.txt'
 
     server_choosen =  os.path.dirname(os.path.abspath(__file__))+'/temp/server_choosen.txt'
-    test_file = os.path.dirname(os.path.abspath(__file__))+'/test/test.txt'
+    init_file = os.path.dirname(os.path.abspath(__file__))+'/__init__.py'
 
     try :
         f = open(server_choosen, 'r')
@@ -53,6 +55,7 @@ async def main() -> None:
     f9 = open(list_of_tahoma_scenes, 'w')
     f10 = open(list_of_tahoma_sensors, 'w')
     f11 = open(list_of_tahoma_states, 'w')
+    f12 = open(list_of_tahoma_lights, 'w')
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-u", "--username")
@@ -61,12 +64,13 @@ async def main() -> None:
     parser.add_argument("--getlist", action='store_true') #store_true for not asking argument
     args = parser.parse_args()
 
-    try :
-        f = open(test_file, 'r')
-        test = f.read()
+    try:
+        f = open(init_file, 'r')
+        init = f.read()
         f.close()
-    except FileNotFoundError:
-        test = "Hipk,@nP3%c@U2ZpC"
+        init_str=sha256(b"init").hexdigest()
+    except:
+        init_str="None"
 
     try :
         f = open(passwd_file, 'rb')
@@ -76,7 +80,7 @@ async def main() -> None:
         if len(content_str.split(':')[0]) > 0 :
             USERNAME = content_str.split(':')[0]
         if len(content_str.split(':')[1]) > 0 :
-            PASSWORD = content_str.split(':')[1].replace(test, "")
+            PASSWORD = content_str.split(':')[1].replace(init_str, "")
     except: pass
 
     for arg in sys.argv:
@@ -85,7 +89,6 @@ async def main() -> None:
         if args.username:
             USERNAME = (f'{args.username}')
 
-    
     async with OverkizClient(USERNAME, PASSWORD, SUPPORTED_SERVERS[serverchoice]) as client:
         try:
             await client.login()
@@ -125,6 +128,9 @@ async def main() -> None:
                 elif "Sensor" in device.widget:
                     f10.write(device.label+","+device.id+","+device.widget+"\n")
                     print( "Device "+device.label+" controled by tahoma. Added to : "+list_of_tahoma_sensors)
+                elif "Light" in device.widget:
+                    f12.write(device.label+","+device.id+","+device.widget+"\n")
+                    print( "Device "+device.label+" controled by tahoma. Added to : "+list_of_tahoma_lights)
                 else :
                     print( "Device '"+device.label+"' NOT controlled by tahoma yet")
                 get_state = await client.get_state( device.id )
@@ -199,6 +205,7 @@ async def main() -> None:
     f9.close()
     f10.close()
     f11.close()
+    f12.close()
 
     print( "\nIf you want to add a device you have found in this list but which is not controlled by tahoma yet, please provide info about this device from this file at \nhttps://github.com/pzim-devdata/tahoma/issues and I will update the plugin ;-). \nSonos products can't be had, use 'soco-cli' instead")
     print( "\nThe list of devices has been succesfully imported to the file : "+list_of_tahoma_devices+"\n" )
