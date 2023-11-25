@@ -156,6 +156,8 @@ Here are some example commands :
 - tahoma on plug office
 - tahoma open shutter ["room 6"]
 - tahoma arm alarm garden
+- tahoma on light ["kitchen light"]
+- tahoma off spotalarm spot
 - tahoma comfort heater dining
 - tahoma get sensor ['heater dining room']
 - tahoma launch scene morning
