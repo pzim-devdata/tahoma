@@ -40,7 +40,9 @@ import time
 try:
     from inputimeout import inputimeout, TimeoutOccurred
 except:pass
+from hashlib import sha256
 import sys
+
 
 
 openai.api_key = 'sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
