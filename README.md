@@ -157,6 +157,7 @@ Here are some example commands :
 - tahoma get sensor ["Front door"] 
 - tahoma on plug office
 - tahoma open shutter ["room 6"]
+- tahoma toggle plug kitchen (For IO devices only)
 - tahoma arm alarm garden
 - tahoma on light ["kitchen light"]
 - tahoma off spotalarm spot
