@@ -31,26 +31,49 @@ get_devices_url="import get_devices_url"
 
 url_releases = 'https://api.github.com/repos/pzim-devdata/tahoma/releases'
 
-def check_last_release (show='y'):
-    try:
-        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
-        response = requests.get(url_releases, headers=headers)
-        releases = response.json()
-        last_release = releases[0]['tag_name']
-        info_release = releases[0]["body"]
-        if str(last_release.lower()) == str(version_number).lower():
-            if show == 'y' :
-                print(" You are using the last version of Tahoma : " + str(last_release.lower()))
-        else :
-            print(" Last version of Tahoma is : " + str(last_release.lower()) + " and you are using the version : " + str(version_number).lower())
-            print(" Here is an explanation of this update:")
-            print( info_release)
-            print( "")
-            print(" Pypi version : python3 -m pip install -U tahoma or pipx upgrade tahoma")
-            print(" Github version : https://github.com/pzim-devdata/tahoma/releases/latest/download/tahoma.zip")
-    except : pass
+last_update = os.path.dirname(os.path.abspath(__file__))+'/temp/last_update.txt'
+show_available_update = os.path.dirname(os.path.abspath(__file__))+'/temp/show_available_update.txt'
 
-check_last_release ('n')
+
+def check_last_release(show='y',show_forced='y'):
+    try :
+        f = open(show_available_update, 'r')
+        show_available_update_str = f.read()
+        f.close()
+    except FileNotFoundError:
+        show_available_update_str = 'y'
+    if show_available_update_str == 'y' or show_forced == 'y':
+        try:
+            with open(last_update, "r") as f:
+                last_update_str = datetime.datetime.strptime(f.read(), "%Y-%m-%d")
+                f.close()
+        except FileNotFoundError:
+            last_update_str = datetime.datetime(2000, 1, 1)
+        today = datetime.datetime.now().date()
+        if last_update_str.date() < today or show_forced == 'y':
+            try:
+                headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+                response = requests.get(url_releases, headers=headers)
+                releases = response.json()
+                last_release = releases[0]['tag_name']
+                info_release = releases[0]["body"]
+                if str(last_release.lower()) == str(version_number).lower():
+                    if show == 'y' :
+                        print("    You are using the last version of Tahoma : " + str(last_release.lower()))
+                else :
+                    print(" Last version of Tahoma is : " + str(last_release.lower()) + " and you are using the version : " + str(version_number).lower())
+                    print(" Here is an explanation of this update:")
+                    print( info_release)
+                    print( "")
+                    print(" Pypi version : python3 -m pip install -U tahoma or pipx upgrade tahoma")
+                    print(" Github version : https://github.com/pzim-devdata/tahoma/releases/latest/download/tahoma.zip")
+                    print(" If you like tahoma, please give me a star on Github: https://github.com/pzim-devdata/tahoma. Thanks!")
+            except : pass
+        with open(last_update, "w") as f:
+            f.write(today.strftime("%Y-%m-%d"))
+            f.close()
+
+check_last_release('n','n')
 
 def countdown(duration):
     for i in range(duration-1, 0, -1):
@@ -100,8 +123,8 @@ def main():
 
     list_categories = ['shutter','spotalarm','plug','light','alarm','heater','sunscreen','scene','sensor']
     list_categories_french = ['volet','spotalarme','prise','lumiere','alarme','chauffage','rideau','scenario','capteur']
-    list_actions = ['[open,close,stop,my,NUMBER]','[on,off]','[on,off]','[on,off]','[arm,disarm,partial,arm_night,arm_away]','[comfort,comfort-1,comfort-2,eco,frostprotection,off]','[open,close,stop,my,NUMBER]','[on,activate,launch,execute]','[get,get_state,get_position,get_lumens,get_temperature]']
-    list_actions_french = ['[ouvrir,fermer,stop,my,NOMBRE]','[allumer,eteindre]','[allumer,eteindre]','[allumer,eteindre]','[activer,desactiver,partiel,activer_nuit,activer_parti]','[confort,confort-1,confort-2,eco,horsgel,eteindre]','[ouvrir,fermer,stop,my,NOMBRE]','[lancer,activer,executer]','[obtenir,etat,position,luminosite,temperature]']
+    list_actions = ['[open,close,stop,my,NUMBER]','[on,off,toggle]','[on,off,toggle]','[on,off,toggle]','[arm,disarm,partial,arm_night,arm_away]','[comfort,comfort-1,comfort-2,eco,frostprotection,off]','[open,close,stop,my,NUMBER]','[on,activate,launch,execute]','[get,get_state,get_position,get_lumens,get_temperature]']
+    list_actions_french = ['[ouvrir,fermer,stop,my,NOMBRE]','[allumer,eteindre,basculer]','[allumer,eteindre,basculer]','[allumer,eteindre,basculer]','[activer,desactiver,partiel,activer_nuit,activer_parti]','[confort,confort-1,confort-2,eco,horsgel,eteindre]','[ouvrir,fermer,stop,my,NOMBRE]','[lancer,activer,executer]','[obtenir,etat,position,luminosite,temperature]']
 
     try :
         f = open(notification_consent, 'r')
@@ -137,45 +160,51 @@ def main():
         print( "      ***************************************************************      " )
         print( "      Tahoma version : "+version+"     " )
         print( "      ***************************************************************        " )
-        print( "              sudo python3 -m pip install tahoma -U" )
+                print( "                   python3 -m pip install tahoma -U" )
         print( "                   https://pypi.org/project/tahoma/" )
         print( "                 https://github.com/pzim-devdata/tahoma" )
         print( "                          contact@pzim.fr" )
         print( "" )
         print( " USAGE : tahoma [ACTION] [CATEGORY] [NAME]" )
-        print( "")
+        print( " You must provide at least 3 arguments" )
+        print( " For example :  tahoma open shutter kitchen")
+        print( "" )
         print( " - List of possible ACTIONS : \n "+str(list_actions) )
         print( " - Liste des ACTIONS possibles : \n "+str(list_actions_french) )
         print( "" )
         print( " - List of possible CATEGORIES : \n "+str(list_categories) )
         print( " - Liste des CATEGORIES possibles : \n "+str(list_categories_french) )
         print( "" )
-        print( ' - List of available NAMES : tahoma --list-names \n - Liste des NOMS possibles : tahoma --list-names-french \n You must provide a part of the name you have assigned to the device in the Tahoma App. \n It must be a single and unique word, not taken by another device of the same category !\n For instance if you have two devices called <Alarm 1> and <Alarm 2> you will need to choose <2> as device [NAME] for <Alarm 2> and not <Alarm>).\n You can also use the full NAME with [""].\n For instance ["Alarm 2"]\n See tahoma --list or tahoma --help for info.')
+        print( ' - List of available NAMES : tahoma --list-names \n - Liste des NOMS possibles : tahoma --list-names-french \n   You must provide a part of the name you have assigned to the device in the Tahoma App. \n   The <NAME> must be a single and unique word, not taken by another device of the same category !\n   For example if you have two devices called <Alarm 1> and <Alarm 2> you will need to choose <2> as device <NAME> for <Alarm 2> and not <Alarm>).\n   You can also use the full NAME with <[""]>.\n   For example ["Alarm 2"]')
         print( "" )
-        print( " You must provide at least 3 arguments" )
-        print( " For instance :  tahoma open shutter kitchen")
         print( "\n You can close a shutter or a sunscreen to a specific level (IO protocols only)")
-        print( " For instance : tahoma 25 shutter kitchen. It will open the shutter to 75% or close it to 25%" )
+        print( " For example : tahoma 25 shutter kitchen. It will open the shutter to 75% or close it to 25%" )
         print( "" )
         print( " You can also provide, as many as you wish, orders on the same line." ) 
         print( " Tahoma will execute all orders one by one in the same process ;-)" )
-        print( " For instance : tahoma open shutter kitchen arm alarm garden on plug room wait train garestation " )
+        print( " For example : tahoma open shutter kitchen arm alarm garden on plug room wait train garestation " )
         print( "" )
-        print( " You can add a wait function with 'wait for' or 'sleep for'")
+        print( " There is a wait function: 'wait for <SECOND(S)>' or 'sleep for <SECONDE(S)>'")
         print( " Tahoma will wait the time in seconds you have specified")
-        print( " For instance : tahoma open shutter kitchen wait for 20 on plug room")
+        print( " For example : tahoma open shutter kitchen wait for 20 on plug room")
+        print( "" )
+        print( " You can also wait for a specific time with 'wait for <HOUR:MINUTE>' (24-hour format)")
+        print( " For example : tahoma wait for 13:32 open shutten kitchen")
         print( "" )
         print( " The STOP action for shutters and sunscreens doesn't work with RTS protocols. " ) 
         print( " Instead you can cancel the immediate preceding command (without affecting a 'wait for <SECONDS>' command)." )
         print( " To do this you can use the command 'cancel last action' just after a command that opens or closes an RTS device." )
-        print( " For instance : 'tahoma open shutter kitchen wait for 2 cancel last action' : It will stop the kitchen shutter after 2 seconds" )
+        print( " For example : 'tahoma open shutter kitchen wait for 2 cancel last action' : It will stop the kitchen shutter after 2 seconds" )
         print( "" )
-        print( " FIRST you must configure login and password : sudo tahoma -c " )
+        print( " ********************************************************************" )
+        print( " FIRST you must configure login and password : 'tahoma -c' " )
         print( " It will be stored there : \n "+passwd_file )
         print( "" )
-        print( " THEN you must download the list of all yours devices : sudo tahoma -g " )
+        print( " THEN you must download the list of all yours devices : 'tahoma -g' " )
         print( " It will be stored there : \n "+list_of_tahoma_devices )
-        print( "" )
+        print( " ********************************************************************" )
+        print( "")
+        print( " ********************************************************************" )
         print( "                     To get help : tahoma -h " )
         print( "")
         print( "                   To show this sceen : tahoma -i" )
@@ -183,7 +212,7 @@ def main():
         print( "      Il existe une aide en français : tahoma --help-french " )
         print( " ********************************************************************        " )
         print( "" )
-        check_last_release ()
+        check_last_release()
         print( "" )
         print( "    Open your terminal in full screen mode to have a better view \n" )
     #    try :
@@ -194,7 +223,7 @@ def main():
     #       print( "       Open your terminal in full screen to have a better view ")
         exit()
 
-    str_info = "You must provide at least three arguments\n\nFor instance : tahoma  open shutter kitchen \n\nRun <b>tahoma --help</b> for help"
+    str_info = "You must provide at least three arguments\n\nFor example : tahoma  open shutter kitchen \n\nRun <b>tahoma --help</b> for help"
 
     ##########################ARGUMENTS
 
@@ -241,74 +270,98 @@ def main():
 
     for arg in sys.argv :
         if arg == '-c' or arg == '--configure' or arg == '--config' :
-            print("Do you want to show desktop notifications ? (Only for Linux users) (Y/n)")
+            print("Do you want to show desktop notifications? (Only for Linux users) (Y/n)")
             notification = input()
             if notification.lower() == 'y'or notification.lower() == 'yes':
+                print("You will get desktop notification")
+                time.sleep(2)
                 f = open(notification_consent, 'w')
                 f.write('Yes')
                 f.close()
             else :
                 print("Consent file for notifications removed. You will not get any desktop notification")
+                time.sleep(2)
                 try :
                     os.remove(notification_consent)
                 except : pass
-            print("\nDo you want to create a log file ? (Y/n)")
+            print("\nWould you like to create a log file to store the last executed commands? (Y/n)")
             notification = input()
             if notification.lower() == 'y'or notification.lower() == 'yes':
                 f = open(logs_consent, 'w')
                 f.write('Y')
                 print("Logs file will be created there :\n"+log_place)
+                time.sleep(2)
                 f.close()
             else :
                 print("No file will be created for keeping logs")
+                time.sleep(2)
                 try :
                     os.remove(logs_consent)
                 except : pass
-            print("Paste which server you want to use : somfy_europe , somfy_america or somfy_oceania :")
+            print("\nPaste which server you want to use : somfy_europe , somfy_america or somfy_oceania :")
             serverchoice = input()
             if serverchoice == "somfy_europe" or serverchoice == "somfy_america" or serverchoice == "somfy_oceania" :
                 print( "You have selected "+serverchoice )
+                time.sleep(2)
                 f = open(server_choosen, 'w')
                 f.write(serverchoice)
                 f.close()
             else :
-                print( "The server you provided in incorrect ! 'somfy_europe' will be used instead\n" )
+                print( "The server you provided in incorrect ! 'somfy_europe' will be used instead" )
+                time.sleep(2)
                 serverchoice = "somfy_europe"
                 f = open(server_choosen, 'w')
                 f.write(serverchoice)
                 f.close() 
-            print( "Please provide somfy-connect's username for tahoma-pzim (mail address) : \nIt will be stored here : \n"+passwd_file+"\nIf you don't want to store it localy, you can leave it empty, but you will need to connect with the --username argument each time")
+            print( "\nPlease provide somfy-connect's username for tahoma-pzim (mail address) : \nIt will be stored here : \n"+passwd_file+"\nIf you don't want to store it localy, you can leave it empty, but you will need to connect with the --username argument each time")
             print("Username:")
             USERNAME = input()
             print( "\nPlease provide somfy-connect's password for tahoma-pzim : \nIt will be stored here : \n"+passwd_file+"\nYou can leave it empty, but you will need to connect with the --password argument each time")
             PASSWORD = getpass()
-            print( "\nDo you want to store them in "+passwd_file+" ? \nIf Not, the file will be erased\n(Y/n)")
+            print( "\nDo you want to store your login in "+passwd_file+"? \nIf Not, the file will be erased:\n(Y/n)")
             CONSENT = input()
             if CONSENT.lower() == 'y'or CONSENT.lower() == 'yes':
                 os.remove(passwd_file)
                 f = open(passwd_file, 'ab')
                 f.write(base64.b64encode(str(USERNAME+":"+PASSWORD+init_str).encode('utf-8')))
                 f.close()
-                print( "stored in "+passwd_file )
+                print( "Your logins are stored in "+passwd_file )
+                time.sleep(2)
             else :
                 try :
                     os.remove(passwd_file)
                     print( "The file "+passwd_file+" has been removed" )
                     print( "To connect to tahoma provide the logins info in this way : tahoma --username <mail address> --password <password>" )
                     print( passwd_file+" is removed" )
+                    time.sleep(3)
                 except : 
                     print("The file was already removed")
+            print("\nDo you want to check every day if an update is available? (Y/n)")
+            show_available_update_str = input()
+            if show_available_update_str.lower() == 'y'or show_available_update_str.lower() == 'yes':
+                print( "You will be notified when a new update of tahoma is available.")
+                time.sleep(2)
+                f = open(show_available_update, 'w')
+                f.write('y')
+                f.close()
+            else :
+                print( "You will not be notified when a new update of tahoma is available." )
+                time.sleep(2)
+                serverchoice = "somfy_europe"
+                f = open(show_available_update, 'w')
+                f.write('n')
+                f.close() 
             exit()
 
     for arg in sys.argv :
         if arg == '-h' or arg == '--help' :
-            print("tahoma -h, --help : "+version+"\n\nUsage:\n tahoma ACTION CATEGORY NAME \n\n You must provide at least three arguments\n For instance : tahoma open shutter kitchen or tahoma ouvrir volet cuisine\n\n You can close a shutter or a sunscreen to a specific level (IO protocols only)\n For instance : tahoma 25 shutter kitchen. It will open the shutter to 75% or close it to 25%\n\n You can also provide, as many as you wish, orders on the same line\n Tahoma will execute all orders one by one in the same process ;-)\n For instance : tahoma open shutter kitchen arm alarm garden on plug room wait train garestation\n\nHelp options :\n -h,   --help                      Show this help\n -hf,  --help-french               Show this help in french\n -i,   --info                      Show more info\n\nPlugin options :\n -v,   --version                   Show the version of the plugin\n -c,   --configure                 To configure the plugin and store login and password in a text file which is located here : "+passwd_file+"\n -u,   --username                  If you don't want to store the login, you can provide the mail-address with this option\n -p,   --password                  If you don't want to store the password, you can provide it with this option\n -g,   --getlist                   Download the list of devices and store them here : "+list_of_tahoma_devices+"\n -l,   --list                      Show the complet list of devices installed\n -la,  --list-actions              Show the list of possible ACTIONS by CATEGORIES\n -lc,  --list-categories           Show all supported CATEGORIES of devices\n -lnf, --list-names                Show all installed devices by there NAMES\n\nCommand options :\n wait for <seconds>\n sleep for <seconds>               Tahoma will wait for <seconds> seconds to execute next action\n cancel last action                Tahoma will cancel the immediate preceding command (without affecting the 'wait for' command). This is useful for stopping an RTS device\n")
+            print("tahoma -h, --help : "+version+"\n\nUsage:\n tahoma <ACTION> <CATEGORY> <NAME> \n\n You must provide at least three arguments\n For example : tahoma open shutter kitchen or tahoma ouvrir volet cuisine\n\n You can close a shutter or a sunscreen to a specific level (IO protocols only)\n For example : tahoma 25 shutter kitchen. It will open the shutter to 75% or close it to 25%\n\n You can also provide, as many as you wish, orders on the same line\n Tahoma will execute all orders one by one in the same process ;-)\n For example : tahoma open shutter kitchen arm alarm garden on plug room wait train garestation\n\nHelp options :\n -h,   --help                      Show this help\n -hf,  --help-french               Show this help in french\n -i,   --info                      Show more info\n\nPlugin options :\n -v,   --version                   Show the version of the plugin\n -c,   --configure                 To configure the plugin and store login and password in a text file which is located here : "+passwd_file+"\n -u,   --username                  If you don't want to store the login, you can provide the mail-address with this option\n -p,   --password                  If you don't want to store the password, you can provide it with this option\n -g,   --getlist                   Download the list of devices and store them here : "+list_of_tahoma_devices+"\n -l,   --list                      Show the complet list of devices installed\n -la,  --list-actions              Show the list of possible ACTIONS by CATEGORIES\n -lc,  --list-categories           Show all supported CATEGORIES of devices\n -lnf, --list-names                Show all installed devices by there NAMES\n\nOther commands:\n wait for <seconds>\n sleep for <seconds>               Tahoma will wait for <seconds> seconds to execute next action\n wait for <HOUR:MINUTE>            Tahoma will wait for a specific hour (24h-format)\n cancel last action                Tahoma will cancel the immediate preceding command (without affecting the 'wait for' command). This is useful for stopping an RTS device\n")
             check_last_release ()
             exit()
 
     for arg in sys.argv :
         if arg == '-hf' or arg == '--help-french' :
-            print("tahoma -h --help : "+version+"\n\nUsage:\n tahoma ACTION CATEGORIE NOM \n\n Vous devez fournir au moins trois arguments\n Par exemple : tahoma ouvrir volet cuisine ou tahoma open shutter kitchen\n\n Vous pouvez fermer des rideaux ou des volets à un niveau precis (Seulement pour les équipements utilisant le protocole IO)\n Par exemple : tahoma 25 volet cuisine. Les volets vont s'ouvrir de 75% ou se fermer de 25%\n\n Vous pouvez aussi spécifier autant de commandes que vous le souhaitez sur la même ligne :\n Tahoma va executer chaque commande l'une aprés l'autre durant le même processus\n Par exemple : tahoma ouvrir volet cuisine confort chauffage salon\n\nOptions de l’aide :\n -h, --help                        Affiche les options de l’aide en anglais\n\nOptions de l’application :\n -v, --version                     Affiche la version de l’application\n -i, --info                        Afficher plus d'infos sur tahoma\n -c, --configure                   Renseigner l'identifiant et le mot de passe dans un fichier texte pour ne pas devoir les renseigner à chaque fois. Le fichier texte se situe dans : "+passwd_file+"\n -u, --username                    Renseigner le nom d'utilisateur\n -p, --password                    Renseigner le mot de passe de Somfy-connect\n -g, --getlist                     Télécharge la liste des équipements et la stocke dans "+list_of_tahoma_devices+"\n -l, --list                        Affiche la liste téléchargée des équipements\n -laf, --list-actions-french       Affiche la liste des ACTIONS possibles en français par CATEGORIES\n -lcf, --list-categories-french    Affiche toutes les CATEGORIES d'équipements pris en charge en français\n -lnf, --list-names-french         Affiche les NOMS des équipements installés par categories en français\n\nOptions de commande :\n attendre pendant <secondes>       Tahoma attendra <secondes> secondes avant d'éxécuter la commande suivante\n annuler precedente commande       Tahoma annulera la commande précédente immédiate (sans affecter la commande 'attendre pendant'). Ceci est utile pour arrêter un périphérique RTS.")
+            print("tahoma -h --help : "+version+"\n\nUsage:\n tahoma <ACTION> <CATEGORIE> <NOM> \n\n Vous devez fournir au moins trois arguments\n Par exemple : tahoma ouvrir volet cuisine ou tahoma open shutter kitchen\n\n Vous pouvez fermer des rideaux ou des volets à un niveau precis (Seulement pour les équipements utilisant le protocole IO)\n Par exemple : tahoma 25 volet cuisine. Les volets vont s'ouvrir de 75% ou se fermer de 25%\n\n Vous pouvez aussi spécifier autant de commandes que vous le souhaitez sur la même ligne :\n Tahoma va executer chaque commande l'une aprés l'autre durant le même processus\n Par exemple : tahoma ouvrir volet cuisine confort chauffage salon\n\nOptions de l’aide :\n -h, --help                        Affiche les options de l’aide en anglais\n\nOptions de l’application :\n -v, --version                     Affiche la version de l’application\n -i, --info                        Afficher plus d'infos sur tahoma\n -c, --configure                   Renseigner l'identifiant et le mot de passe dans un fichier texte pour ne pas devoir les renseigner à chaque fois. Le fichier texte se situe dans : "+passwd_file+"\n -u, --username                    Renseigner le nom d'utilisateur\n -p, --password                    Renseigner le mot de passe de Somfy-connect\n -g, --getlist                     Télécharge la liste des équipements et la stocke dans "+list_of_tahoma_devices+"\n -l, --list                        Affiche la liste téléchargée des équipements\n -laf, --list-actions-french       Affiche la liste des ACTIONS possibles en français par CATEGORIES\n -lcf, --list-categories-french    Affiche toutes les CATEGORIES d'équipements pris en charge en français\n -lnf, --list-names-french         Affiche les NOMS des équipements installés par categories en français\n\nAutres commandes :\n attendre pendant <SECONDES>       Tahoma attendra <SECONDES> secondes avant d'éxécuter la commande suivante\n attendre heure <HEURE:MINUTE>     Tahoma attendra l'heure exacte  <HEURE:MINUTE> en format 24h avant d’exécuter la commande suivante\n annuler precedente commande       Tahoma annulera la commande précédente immédiate (sans affecter la commande 'attendre pendant'). Ceci est utile pour arrêter un périphérique RTS.")
             check_last_release ()
             exit()
 
@@ -339,7 +392,7 @@ def main():
                     print("\nHere is the list of the installed devices for the "+category.upper()+" category :\n"+str(bad_name))
                 except Exception as e:
                     print("\nCan't obtain any device from the "+category.upper()+" category\nDid you downloaded the list of Tahoma's devices ?\nIf not, execute tahoma --getlist \nFor more info execute tahoma -h")
-            print( '\nYou must provide a part of the NAME as argument \nt must be a single and unique word, not taken by another device of the same category !\n For instance if you have two devices called <Alarm 1> and <Alarm 2> you will need to choose <2> as device [NAME] for <Alarm 2> and not <Alarm>).\n You can also use the full NAME with [""].\n For instance ["Alarm 2"]\n See tahoma --list or tahoma --help for info.')
+            print( '\nYou must provide a part of the NAME as argument \n The name must be a single and unique word, not taken by another device of the same category !\n For example if you have two devices called <Alarm 1> and <Alarm 2> you will need to choose <2> as device [NAME] for <Alarm 2> and not <Alarm>).\n You can also use the full NAME with [""].\n For example ["Alarm 2"]\n See tahoma --list or tahoma --help for info.')
             exit()
 
     for arg in sys.argv :
@@ -473,35 +526,44 @@ def main():
             if len(url) > 1 :
                 print("There is more than one match. The NAME you gave is not exact. Choose a UNIQUE part of word from this results as NAME argument or use [''] with the full name : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
                 exit()
-
+            success = 1
             if remove_accent(action).upper() == "OPEN" or remove_accent(action).upper() == "OUVRIR" :
                 fonction = Command(OverkizCommand.OPEN)
+                success = 0
             elif remove_accent(action).upper() == 'CLOSE' or remove_accent(action).upper() == "FERMER" :
                 fonction = Command(OverkizCommand.CLOSE)
+                success = 0
             elif remove_accent(action).upper() == 'STOP' :
                 print("Please note that the 'stop' ACTION is only compatible with IO protocols and will not work with RTS devices. If you are using an RTS device, please use the command 'tahoma CANCEL LAST ACTION' instead.")
                 fonction = Command(OverkizCommand.STOP)
+                success = 0
             elif remove_accent(action).upper() == 'MY' :
                 fonction = Command(OverkizCommand.MY)
+                success = 0
             elif str(action).isnumeric() == True :
-                fonction = Command(OverkizCommand.SET_CLOSURE, [int(action)])
-                print('Will close to '+str(action)+' %')
-                print("Be careful! This function is only available for IO protocols. It doesn't work with RTS devices...")
+                if 0 <= int(action) <= 100 :
+                    fonction = Command(OverkizCommand.SET_CLOSURE, [int(action)])
+                    success = 0
+                    print('Will close to '+str(action)+' %')
+                    print("Be careful! This function is only available for IO protocols. It doesn't work with RTS devices...")
+                else :
+                    print("Your ACTION must be between 0 and 100. You have entered: "+str(action))
             else :
                 print( "\n'"+action+"'"+" is not a valide action.\n")
-                print("Please provide one of this argument as action : [open close stop my]")
+                print("Please provide one of this argument as action : [open close stop my NUMBER]")
             str1 = " "
-#            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
-            message = "Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+"\n"+"Success!"
-            if logs == 'Y':
-                try:
-                    with open(log_place, "a") as f:
-                        f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
-                        f.close()
-                except: 
-                    print('Could not access the log file. Permission denied')
-                    print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
-            print(message)
+            if success == 0:
+#                print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+                message = "Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+"\n"+"Success!"
+                if logs == 'Y':
+                    try:
+                        with open(log_place, "a") as f:
+                            f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
+                            f.close()
+                    except: 
+                        print('Could not access the log file. Permission denied')
+                        print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
+                print(message)
 
         ##########################SUNSCREEN
         
@@ -533,58 +595,68 @@ def main():
             if len(url) > 1 :
                 print("There is more than one match. The NAME you gave is not exact. Choose a UNIQUE part of word from this results as NAME argument or use [''] with the full name : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
                 exit()
-
+            success = 1
             if remove_accent(action).upper() == "OPEN" or remove_accent(action).upper() == "OUVRIR" :
                 fonction = Command(OverkizCommand.OPEN)
+                success = 0
             elif remove_accent(action).upper() == 'CLOSE' or remove_accent(action).upper() == "FERMER" :
                 fonction = Command(OverkizCommand.CLOSE)
+                success = 0
             elif remove_accent(action).upper() == 'STOP' :
                 print("Please note that the 'stop' function is only compatible with IO protocols and will not work with RTS devices. If you are using an RTS device, please use the command 'tahoma CANCEL LAST ACTION' instead.")
                 fonction = Command(OverkizCommand.STOP)
+                success = 0
             elif remove_accent(action).upper() == 'MY' :
                 fonction = Command(OverkizCommand.MY)
+                success = 0
             elif str(action).isnumeric() == True :
-                fonction = Command(OverkizCommand.SET_CLOSURE, [int(action)])
-                print('Will close to '+str(action)+' %')
-                print("Be careful! This function is only available for IO protocols. It doesn't work with RTS devices...")
+                if 0 <= int(action) <= 100 :
+                    fonction = Command(OverkizCommand.SET_CLOSURE, [int(action)])
+                    success = 0
+                    print('Will close to '+str(action)+' %')
+                    print("Be careful! This function is only available for IO protocols. It doesn't work with RTS devices...")
+                else :
+                    print("Your ACTION must be between 0 and 100. You have entered: "+str(action))
             else :
                 print( "\n'"+action+"'"+" is not a valide action.\n")
                 print("Please provide one of this argument as action : [open close stop my]")
             str1 = " "
-#            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
-            message = "Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+"\n"+"Success!"
-            if logs == 'Y':
-                try:
-                    with open(log_place, "a") as f:
-                        f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
-                        f.close()
-                except: 
-                    print('Could not access the log file. Permission denied')
-                    print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
-            print(message)
+            if success == 0:
+#                print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+                message = "Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+"\n"+"Success!"
+                if logs == 'Y':
+                    try:
+                        with open(log_place, "a") as f:
+                            f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
+                            f.close()
+                    except: 
+                        print('Could not access the log file. Permission denied')
+                        print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
+                print(message)
 
         ##########################SPOTALARMS PLUGS AND LIGHTS
 
         elif remove_accent(category) == 'spotalarm' or remove_accent(category) == 'plug' or remove_accent(category) == 'spotalarme' or remove_accent(category) == 'prise' or remove_accent(category) == 'light' or remove_accent(category) == 'lumiere':
-            content2 = ''
-            content3 = ''
-            content4 = ''
-            try :
-                f = open(list_of_tahoma_plugs, 'r')
-                content2 = f.read()
-                f.close()
-            except FileNotFoundError: pass
-            try :
-                f = open(list_of_tahoma_spotalarms, 'r')
-                content3 = f.read()
-                f.close()
-            except FileNotFoundError: pass
-            try :
-                f = open(list_of_tahoma_lights, 'r')
-                content4 = f.read()
-                f.close()
-            except FileNotFoundError: pass
-            content=content2+content3+content4
+            content = ''
+            str1 = ''
+            if remove_accent(category) == 'plug' or remove_accent(category) == 'prise':
+                try :
+                    f = open(list_of_tahoma_plugs, 'r')
+                    content = f.read()
+                    f.close()
+                except FileNotFoundError: pass
+            if remove_accent(category) == 'spotalarm' or remove_accent(category) == 'spotalarme':
+                try :
+                    f = open(list_of_tahoma_spotalarms, 'r')
+                    content = f.read()
+                    f.close()
+                except FileNotFoundError: pass
+            if remove_accent(category) == 'light' or remove_accent(category) == 'lumiere':
+                try :
+                    f = open(list_of_tahoma_lights, 'r')
+                    content = f.read()
+                    f.close()
+                except FileNotFoundError: pass
             try:
                 master_list = content.split("\n")
                 master_list.remove('')
@@ -610,25 +682,49 @@ def main():
                 print("There is more than one match. The NAME you gave is not exact. Choose a UNIQUE part of word from this results as NAME argument or use [''] with the full name : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
                 exit()
 
+            success = 1
             if remove_accent(action).upper() == "ON" or remove_accent(action).upper() == "ALLUMER" :
                 fonction = Command(OverkizCommand.ON)
+                success = 0
             elif remove_accent(action).upper() == 'OFF' or remove_accent(action).upper() == "ETEINDRE" :
                 fonction = Command(OverkizCommand.OFF)
+                success = 0
+            elif remove_accent(action).upper() == 'TOGGLE' or remove_accent(action).upper() == "BASCULER" :
+                f = open(list_of_tahoma_states, 'r')
+                content = f.read()
+                f.close()
+                if str1.join(good_name).upper()+"," in content.upper():
+                    async def state() -> None:
+                        async with OverkizClient(USERNAME, PASSWORD, SUPPORTED_SERVERS[serverchoice]) as client:
+                            await client.login()
+                            get_state = await client.get_state(str(url[0]))
+#                            print(str(get_state).upper())
+                            if "'OFF'" in str(get_state).upper():
+                                fonction = Command(OverkizCommand.ON)
+                                return fonction
+                            else:
+                                fonction = Command(OverkizCommand.OFF)
+                                return fonction
+                    overkiz_fonction = asyncio.run(state())
+                    fonction = overkiz_fonction
+                    success = 0
+                else :
+                    print("The device: "+str1.join(good_name)+" can't perform a toggle command. Perhaps because it's a RTS device.")
             else :
                 print( "\n'"+action+"'"+" is not a valide action.\n")
-                print("Please provide one of this argument as action : [on off]")
-            str1 = " "
-#            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
-            message = "Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+"\n"+"Success!"
-            if logs == 'Y':
-                try:
-                    with open(log_place, "a") as f:
-                        f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
-                        f.close()
-                except: 
-                    print('Could not access the log file. Permission denied')
-                    print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
-            print(message)
+                print("Please provide one of this argument as action : [on off toggle]")
+            if success == 0:
+    #            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+                message = "Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+"\n"+"Success!"
+                if logs == 'Y':
+                    try:
+                        with open(log_place, "a") as f:
+                            f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
+                            f.close()
+                    except: 
+                        print('Could not access the log file. Permission denied')
+                        print("If you don’t want to see this message ag                        ain, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
+                print(message)
 
         ##########################ALARMS
 
@@ -660,32 +756,38 @@ def main():
             if len(url) > 1 :
                 print("There is more than one match. The NAME you gave is not exact. Choose a UNIQUE part of word from this results as NAME argument or use [''] with the full name : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
                 exit()
-
+            success = 1
             if remove_accent(action).upper() == "ARM" or remove_accent(action).upper() == "ACTIVER" or remove_accent(action).upper() == "ON":
                 fonction = Command(OverkizCommand.ARM)
+                success = 0
             elif remove_accent(action).upper() == 'DISARM' or remove_accent(action).upper() == "DESACTIVER" or remove_accent(action).upper() == "OFF" :
                 fonction = Command(OverkizCommand.DISARM)
+                success = 0
             elif remove_accent(action).upper() == 'PARTIAL' or remove_accent(action).upper() == "PARTIEL" :
                 fonction = Command(OverkizCommand.PARTIAL)
+                success = 0
             elif remove_accent(action).upper() == 'ARM_NIGHT' or remove_accent(action).upper() == "ACTIVER_NUIT" :
                 fonction = Command(OverkizCommand.ARM_NIGHT)
+                success = 0
             elif remove_accent(action).upper() == 'ARM_AWAY' or remove_accent(action).upper() == "ACTIVER_PARTI" :
                 fonction = Command(OverkizCommand.ARM_AWAY)
+                success = 0
             else :
                 print( "\n'"+action+"'"+" is not a valide action.\n")
                 print("Please provide one of this argument as action : [arm disarm partial arm_night arm_away]")
             str1 = " "
-#            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
-            message = "Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+"\n"+"Success!"
-            if logs == 'Y':
-                try:
-                    with open(log_place, "a") as f:
-                        f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
-                        f.close()
-                except: 
-                    print('Could not access the log file. Permission denied')
-                    print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
-            print(message)
+            if success == 0:
+    #            print("Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+                message = "Output action : "+remove_accent(action).upper()+" "+remove_accent(category)+" "+str1.join(good_name)+"\n"+"Success!"
+                if logs == 'Y':
+                    try:
+                        with open(log_place, "a") as f:
+                            f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
+                            f.close()
+                    except: 
+                        print('Could not access the log file. Permission denied')
+                        print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
+                print(message)
 
         ##########################HEATERS
 
@@ -717,35 +819,42 @@ def main():
             if len(url) > 1 :
                 print("There is more than one match. The NAME you gave is not exact. Choose a UNIQUE part of word from this results as NAME argument or use [''] with the full name : "+str(too_many_urls)+"\nSee tahoma --list-names for help.")
                 exit()
-
+            success = 1
             if remove_accent(action).lower() == "comfort" or remove_accent(action).lower() == "confort" :
                 fonction = Command(OverkizCommand.SET_HEATING_LEVEL,['comfort'])
+                success = 0
             elif remove_accent(action).lower() == 'frostprotection' or remove_accent(action).lower() == "horsgel" :
                 fonction = Command(OverkizCommand.SET_HEATING_LEVEL,['frostprotection'])
+                success = 0
             elif remove_accent(action).lower() == 'comfort-1' or remove_accent(action).lower() == "confort-1" :
                 fonction = Command(OverkizCommand.SET_HEATING_LEVEL,['comfort-1'])
+                success = 0
             elif remove_accent(action).lower() == 'comfort-2' or remove_accent(action).lower() == "confort-2" :
                 fonction = Command(OverkizCommand.SET_HEATING_LEVEL,['comfort-2'])
+                success = 0
             elif remove_accent(action).lower() == 'eco' :
                 fonction = Command(OverkizCommand.SET_HEATING_LEVEL,['eco'])
+                success = 0
             elif remove_accent(action).lower() == 'off' or remove_accent(action).lower() == "eteindre" :
                 fonction = Command(OverkizCommand.SET_HEATING_LEVEL,['off'])
+                success = 0
             else :
                 print( "\n'"+action+"'"+" is not a valide action.\n")
                 print("Please provide one of this argument as action : [comfort comfort-1 comfort-2 eco off]")
                 exit()
             str1 = " "
-#            print("Output action : "+remove_accent(action).lower()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
-            message = "Output action : "+remove_accent(action).lower()+" "+remove_accent(category)+" "+str1.join(good_name)+"\n"+"Success!"
-            if logs == 'Y':
-                try:
-                    with open(log_place, "a") as f:
-                        f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
-                        f.close()
-                except: 
-                    print('Could not access the log file. Permission denied')
-                    print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
-            print(message)
+            if success == 0:
+    #            print("Output action : "+remove_accent(action).lower()+" "+remove_accent(category)+" "+str1.join(good_name)+ " \nwith url : "+str1.join(url))
+                message = "Output action : "+remove_accent(action).lower()+" "+remove_accent(category)+" "+str1.join(good_name)+"\n"+"Success!"
+                if logs == 'Y':
+                    try:
+                        with open(log_place, "a") as f:
+                            f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
+                            f.close()
+                    except: 
+                        print('Could not access the log file. Permission denied')
+                        print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
+                print(message)
 
         ##########################SCENES
 
@@ -844,7 +953,7 @@ def main():
         ##########################WAIT FUNCTION
 
         elif remove_accent(action) == 'wait' or remove_accent(action) == 'sleep' or remove_accent(action) == 'attendre':
-            url.append(int(name))
+            url.append(int(name.replace(":","")))
 
         ##########################CANCEL LAST ACTION FUNCTION
 
@@ -865,18 +974,35 @@ def main():
                     j=0
                     for device_url in url :
                         if str(device_url).isnumeric() == True :
-                            message="Waiting for "+str(device_url)+" second(s)."
-                            if logs == 'Y':
-                                try:
-                                    with open(log_place, "a") as f:
-                                        f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
-                                        f.close()
-                                except: 
-                                    print('Could not access the log file. Permission denied')
-                                    print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
-                            print(message)
-                            countdown(int(device_url))
-#                            time.sleep(int(device_url))
+                            if ":" not in str(name):
+                                message="Waiting for "+str(device_url)+" second(s)."
+                                if logs == 'Y':
+                                    try:
+                                        with open(log_place, "a") as f:
+                                            f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
+                                            f.close()
+                                    except: 
+                                        print('Could not access the log file. Permission denied')
+                                        print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
+                                print(message)
+                                countdown(int(device_url))
+    #                            time.sleep(int(device_url))
+                            else:
+                                message="Waiting for "+str(datetime.datetime.strptime(str(name), "%H:%M").strftime("%H:%M")+" (24-hour format)")
+                                if logs == 'Y':
+                                    try:
+                                        with open(log_place, "a") as f:
+                                            f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}\n")
+                                            f.close()
+                                    except: 
+                                        print('Could not access the log file. Permission denied')
+                                        print("If you don’t want to see this message again, reconfigure Tahoma to not create a log file (tahoma --configure) \nor install Tahoma in an accessible folder.")
+                                print(message)
+                                while True:
+                                    hour = datetime.datetime.now().strftime("%H:%M")
+                                    if hour == datetime.datetime.strptime(str(name), "%H:%M").strftime("%H:%M"):
+                                        break
+                                    time.sleep(1)
                         else :
                             if remove_accent(category) == 'scene' or remove_accent(category) == 'scenario':
                                 try :
@@ -887,6 +1013,7 @@ def main():
                             elif remove_accent(category) == 'sensor' or remove_accent(category) == 'capteur':
                                 try:
                                     async with OverkizClient(USERNAME, PASSWORD, SUPPORTED_SERVERS[serverchoice]) as client:
+                                        await client.login()
                                         get_state = await client.get_state(device_url)
                                         state_function=str(command_state[j]).replace("['","").replace("']","")
                                         message=str(good_name[j])+':'+str(eval(state_function))
