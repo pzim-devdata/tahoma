@@ -38,6 +38,61 @@ async def main() -> None:
     server_choosen =  os.path.dirname(os.path.abspath(__file__))+'/temp/server_choosen.txt'
     init_file = os.path.dirname(os.path.abspath(__file__))+'/__init__.py'
 
+#    consent_statistics = os.path.dirname(os.path.abspath(__file__))+'/temp/consent_statistics.txt'
+
+#    print("Would you like to share anonymous statistics when you use this functionality?")
+#    print("It will help the developer to improve your experience. ")
+#    print("Only the sentence ‘New installation of the tahoma PyPI version’ will be sent, no other information.")
+#    print("No personal information will be send. (Y/n):")
+#    send_statistics = input()
+#    if send_statistics.lower() == 'y'or send_statistics.lower() == 'yes':
+#        print( "You consent to share anonymous statistics. Thanks!\n")
+#        time.sleep(2)
+#        f = open(consent_statistics, 'w')
+#        f.write("Y")
+#        f.close()
+#    else :
+#        print( "You don't consent to share anonymous statistics.\n" )
+#        time.sleep(2)
+#        f = open(consent_statistics, 'w')
+#        f.write("N")
+#        f.close() 
+
+#    try :
+#        f = open(consent_statistics, 'r')
+#        send_statistics = f.read()
+#        f.close()
+#    except :
+#        send_statistics = "N"
+
+    send_statistics = 'Y'
+    if send_statistics == 'Y':
+        try:
+            import configparser
+            import newrelic.agent
+            license_key="eu01xxa5bf9b857655fdc4fa8e6eba17FFFFNRAL"
+            config_file_newrelic = os.path.dirname(os.path.abspath(__file__))+'/temp/newrelic.ini'
+            def send_statistics(license_key=license_key,config_file_newrelic=config_file_newrelic):
+                config = configparser.ConfigParser()
+                config["newrelic"] = {
+                    "license_key": license_key,
+                    "app_name": "tahoma_pypi",
+                    "monitor_mode" : "true",
+                    "log_file" : "stdout",
+                    "log_level" : "critical",
+                    "high_security" : "false"
+                }
+                with open(config_file_newrelic, "w") as f:
+                    config.write(f)
+                f.close()
+                newrelic.agent.initialize(config_file_newrelic)
+                application = newrelic.agent.register_application(timeout=10)
+                with newrelic.agent.BackgroundTask(application, name='bar', group='Task'):
+                     newrelic.agent.record_log_event('New installation of the tahoma Github version')
+                newrelic.agent.shutdown_agent(timeout=10)
+            send_statistics()
+        except: pass
+
     try :
         f = open(server_choosen, 'r')
         serverchoice = f.read()
@@ -140,6 +195,9 @@ async def main() -> None:
     #                print(str(get_state[i].value))
                     if "closed" in str(get_state[i].value) or "open" in str(get_state[i].value) :
                         f11.write(device.label+","+device.id+","+device.widget+",get_state["+str(i)+"].value,['closed','open'],"+str(get_state[i].value)+"\n")
+                        print("States for "+device.label+" added to : "+ list_of_tahoma_states)
+                    if "StatefulOnOff" == device.widget or "StatefulOnOffLight" == device.widget :
+                        f11.write(device.label+","+device.id+","+device.widget+",get_state["+str(i)+"].value,['on','off'],"+str(get_state[i].value)+"\n")
                         print("States for "+device.label+" added to : "+ list_of_tahoma_states)
                     if "armed" in str(get_state[i].value) or "disarmed" in str(get_state[i].value) :
                         f11.write(device.label+","+device.id+","+device.widget+",get_state["+str(i)+"].value,['armed','disarmed'],"+str(get_state[i].value)+"\n")
