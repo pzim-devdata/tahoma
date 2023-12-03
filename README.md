@@ -251,25 +251,13 @@ IF YOU WANT TO INSTALL THE PACKAGE USE PyPi (pip version) :
 
 Install tahoma :
 
-- For Linux users :
-
-```python
-sudo python3 -m pip install -U tahoma
-```
-
-!!! It's very important to use the `sudo` command because in this way tahoma will be in PATH
-
-- For Windows users :
 
 ```python
 python3 -m pip install -U tahoma
 ```
-Without the `sudo` command
+
 
 # Configure :
-
-(Do not use `sudo` command for Windows users)
-
 
 
 It's very easy to configure, there are just two commands to execute once for all the first time
@@ -280,13 +268,13 @@ All is explained in tahoma --help and tahoma --info
 1. Specify your Somfy-connect login's info and choose the Somfy server (`sudo` command is required) :
 
 
-- `sudo tahoma --configure` or `sudo tahoma -c`
+- `tahoma --configure` or `tahoma -c`
 
 
 2. Configure the API and get the list of your personal Somfy's devices (`sudo` command is also required) :
 
 
-- `sudo tahoma --getlist` or `sudo tahoma -g`
+- `tahoma --getlist` or `tahoma -g`
 
 
 3. And now, you are ready to use tahoma :
