@@ -160,7 +160,7 @@ def main():
         print( "      ***************************************************************      " )
         print( "      Tahoma version : "+version+"     " )
         print( "      ***************************************************************        " )
-                print( "                   python3 -m pip install tahoma -U" )
+        print( "                   python3 -m pip install tahoma -U" )
         print( "                   https://pypi.org/project/tahoma/" )
         print( "                 https://github.com/pzim-devdata/tahoma" )
         print( "                          contact@pzim.fr" )
