@@ -1146,7 +1146,7 @@ def main():
                                     session = aiohttp.ClientSession(connector=aiohttp.TCPConnector(verify_ssl=value))
                                     great = 0
 #                                    print("verify_ssl="+str(value))
-                                    overkiz_function = 'OverkizClient(username="", password="", token="'+token+'", session=session, verify_ssl='+str(value)+', server=OverkizServer(name="Somfy TaHoma (local)",endpoint="https://gateway-'+gateway_id+'.local:8443/enduser-mobile-web/1/enduserAPI/",manufacturer="Somfy",configuration_url=None,))'
+                                    overkiz_function = 'OverkizClient(username="", password="", token="'+token+'", session=session, server=OverkizServer(name="Somfy TaHoma (local)",endpoint="https://gateway-'+gateway_id+'.local:8443/enduser-mobile-web/1/enduserAPI/",manufacturer="Somfy",configuration_url=None,))'
                                     break
                                 except Exception as e:
                                     print("Error occure with verify_ssl="+str(value)+":\n"+e)
