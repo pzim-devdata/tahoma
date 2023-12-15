@@ -18,6 +18,13 @@ from pyoverkiz.models import Command
 from pyoverkiz.models import Scenario
 import base64
 from hashlib import sha256
+try:
+    import __version__
+    str_newrelic='New installation of the tahoma Github version'
+except:
+    from tahoma import __version__
+    str_newrelic='New installation of the tahoma Pypi version'
+
 
 async def main() -> None:
 
@@ -42,7 +49,7 @@ async def main() -> None:
 
 #    print("Would you like to share anonymous statistics when you use this functionality?")
 #    print("It will help the developer to improve your experience. ")
-#    print("Only the sentence ‘New installation of the tahoma PyPI version’ will be sent, no other information.")
+#    print("Only the sentence ‘New installation of the tahoma’ will be sent, no other information.")
 #    print("No personal information will be send. (Y/n):")
 #    send_statistics = input()
 #    if send_statistics.lower() == 'y'or send_statistics.lower() == 'yes':
@@ -88,7 +95,7 @@ async def main() -> None:
                 newrelic.agent.initialize(config_file_newrelic)
                 application = newrelic.agent.register_application(timeout=10)
                 with newrelic.agent.BackgroundTask(application, name='bar', group='Task'):
-                     newrelic.agent.record_log_event('New installation of the tahoma Github version')
+                     newrelic.agent.record_log_event(str(str_newrelic))
                 newrelic.agent.shutdown_agent(timeout=10)
             send_statistics()
         except: pass
@@ -202,14 +209,12 @@ async def main() -> None:
                     if "armed" in str(get_state[i].value) or "disarmed" in str(get_state[i].value) :
                         f11.write(device.label+","+device.id+","+device.widget+",get_state["+str(i)+"].value,['armed','disarmed'],"+str(get_state[i].value)+"\n")
                         print("States for "+device.label+" added to : "+ list_of_tahoma_states)
-                    if "Heater" not in device.widget :
-                        if 'DomesticHotWaterTank' not in device.widget :
+                    if "Heater" not in device.widget and 'DomesticHotWaterTank' not in device.widget and "StatefulOnOff" not in device.widget and "StatefulOnOffLight" not in device.widget and 'TSKAlarmController' not in device.widget:
                             if str(get_state[i].value) == 'on' or str(get_state[i].value) =='off':
                                 f11.write(device.label+","+device.id+","+device.widget+",get_state["+str(i)+"].value,['on','off'],"+str(get_state[i].value)+"\n")
                                 print("States for "+device.label+" added to : "+ list_of_tahoma_states)
-                    if str(get_state[i].name) != 'io:TargetHeatingLevelState' :
-                        if str(get_state[i].name) != 'core:OnOffState':
-                            if device.widget != 'TSKAlarmController':
+                    if 'io:TargetHeatingLevelState' not in str(get_state[i].name) and 'io:LastTargetHeatingLevelState' not in str(get_state[i].name) and 'core:OnOffState' not in str(get_state[i].name):
+                            if 'TSKAlarmController' not in device.widget and 'DomesticHotWaterTank' not in device.widget:
                                 if str(get_state[i].value) == 'eco' or str(get_state[i].value) =='comfort' or str(get_state[i].value) =='frostprotection' or str(get_state[i].value) =='off':
                                     f11.write(device.label+","+device.id+","+device.widget+",get_state["+str(i)+"].value,['eco','comfort','frostprotection','off'],"+str(get_state[i].value)+"\n")
                                     print("States for "+device.label+" added to : "+ list_of_tahoma_states)
@@ -275,4 +280,3 @@ except NameError as e:
     print(e)
     print("\nYou didn't specified any USERNAME or PASSWORD.\nExecute tahoma --config or provide a temporary USERNAME and PASSWORD by executing tahoma -u <USERNAME> -p <PASSWORD> command")
     exit(1)
-
