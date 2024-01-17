@@ -375,7 +375,6 @@ Somfy Connexoon RTS
 Somfy TaHoma
 Somfy TaHoma Beecon
 Somfy TaHoma Switch
-Thermor Cozytouch
 And more...
 
 Supported devices :
