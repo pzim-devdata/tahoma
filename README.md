@@ -380,7 +380,6 @@ Then execute tahoma just like this : `tahoma arm alarm garden open shutter kitch
 
 For :
 
-
 Somfy Connectivity Kit
 
 Somfy Connexoon IO
@@ -399,19 +398,12 @@ And more...
 
 
 Supported devices :
-
 Alarm
-
 Shutter
-
 Plug
-
 Heater
-
 Sensors
-
 Scenes
-
 and more if you ask me on github : 
 
 [@pzim-devdata GitHub Pages](https://github.com/pzim-devdata/tahoma/issues)
