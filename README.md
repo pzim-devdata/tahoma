@@ -173,10 +173,14 @@ Here are some example commands :
 - tahoma manual heater kitchen wait for 2 19 heater kitchen --server atlantic_cozytouch --username cozytouch_username --password cozytouch_password --remote (For some atlantic_cozytouch heaters, it is possible to use other ACTIONS than comfort, eco, off...with auto, manual, standby, prog, NUMBER. As a Cozytouch hub is not compatible with the local API, you can add the `--remote` argument. In this example tahoma will change the heater's mode to manual and will give the ability to modify the temperature to 19°C using the cloud API)
 
 Special note:
+
 If you want to use the local API for Tahoma hubs only, you will need to activate developer mode (www.somfy.com > My Account > Activate developer mode).
-The local API allows controlling some devices without a cloud connection for Tahoma hubs only
-The local API is only compatible with some devices (shutters, sunscreens, heaters)
-You can configure the local API with the `tahoma -c` command or override the default API set in `tahoma -c` with the `--local` or `--remote` argument
+
+The local API allows controlling some devices without a cloud connection for Tahoma hubs only.
+
+local API is only compatible with some devices (shutters, sunscreens, heaters).
+
+You can configure the local API with the `tahoma -c` command or override the default API set in `tahoma -c` with the `--local` or `--remote` argument.
 
 
 
@@ -378,21 +382,34 @@ For :
 
 
 Somfy Connectivity Kit
+
 Somfy Connexoon IO
+
 Somfy Connexoon RTS
+
 Somfy TaHoma
+
 Somfy TaHoma Beecon
+
 Somfy TaHoma Switch
+
 Thermor Cozytouch
+
 And more...
 
 Supported devices :
 Alarm
+
 Shutter
+
 Plug
+
 Heater
+
 Sensors
+
 Scenes
+
 and more if you ask me on github : 
 
 [@pzim-devdata GitHub Pages](https://github.com/pzim-devdata/tahoma/issues)
