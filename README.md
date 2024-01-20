@@ -397,7 +397,9 @@ Thermor Cozytouch
 
 And more...
 
+
 Supported devices :
+
 Alarm
 
 Shutter
