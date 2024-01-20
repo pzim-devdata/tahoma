@@ -169,6 +169,7 @@ Here are some example commands :
 - tahoma comfort heater dining wait for 3 get sensor ["Heater dining room"]
 - tahoma open shutter kitchen open shutter room6 wait for 2 cancel last action` (It will stop the room6 shutter after 2 seconds)
 - tahoma open shutter kitchen --local (It will override the default API set in `tahoma -c` with the `--local` argument for using the local API (For Tahoma hubs only))
+- tahoma open shutter kitchen --username mail@address.com --password password --remote (You can provide the username and password with arguments to override the logins stored. This is useful if you have more than one Tahoma box)
 - tahoma my shutter kitchen --token 2343d8c7f23dd5f328de --pin 1234-1234-1234 --local (It will use the local API (for Tahoma hubs only) with the pin and token arguments. This is useful if you have more than one Tahoma box)
 - tahoma manual heater kitchen wait for 2 19 heater kitchen --server atlantic_cozytouch --username cozytouch_username --password cozytouch_password --remote (For some atlantic_cozytouch heaters, it is possible to use other ACTIONS than comfort, eco, off...with auto, manual, standby, prog, NUMBER. As a Cozytouch hub is not compatible with the local API, you can add the `--remote` argument. In this example tahoma will change the heater's mode to manual and will give the ability to modify the temperature to 19°C using the cloud API)
 
