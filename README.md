@@ -165,10 +165,18 @@ Here are some example commands :
 - tahoma get sensor ['heater dining room']
 - tahoma launch scene morning
 - tahoma wait for 13:32 open shutten kitchen
-- tahoma arm alarm garden wait for 10 open shutter room6 sleep for 7 confort heater dining off plug office 25 sunscreen kitchen launch scene morning get sensor ['heater dining room']
+- tahoma arm alarm garden wait for 10 open shutter room6 sleep for 7 comfort heater dining off plug office 25 sunscreen kitchen launch scene morning get sensor ['heater dining room']
 - tahoma comfort heater dining wait for 3 get sensor ["Heater dining room"]
 - tahoma open shutter kitchen open shutter room6 wait for 2 cancel last action` (It will stop the room6 shutter after 2 seconds)
+- tahoma open shutter kitchen --local (It will override the default API set in `tahoma -c` with the `--local` argument for using the local API (For Tahoma hubs only))
+- tahoma my shutter kitchen --token 2343d8c7f23dd5f328de --pin 1234-1234-1234 --local (It will use the local API (for Tahoma hubs only) with the pin and token arguments. This is useful if you have more than one Tahoma box)
+- tahoma manual heater kitchen wait for 2 19 heater kitchen --server atlantic_cozytouch --username cozytouch_username --password cozytouch_password --remote (For some atlantic_cozytouch heaters, it is possible to use other ACTIONS than comfort, eco, off...with auto, manual, standby, prog, NUMBER. As a Cozytouch hub is not compatible with the local API, you can add the `--remote` argument. In this example tahoma will change the heater's mode to manual and will give the ability to modify the temperature to 19°C using the cloud API)
 
+Special note:
+If you want to use the local API for Tahoma hubs only, you will need to activate developer mode (www.somfy.com > My Account > Activate developer mode).
+The local API allows controlling some devices without a cloud connection for Tahoma hubs only
+The local API is only compatible with some devices (shutters, sunscreens, heaters)
+You can configure the local API with the `tahoma -c` command or override the default API set in `tahoma -c` with the `--local` or `--remote` argument
 
 
 
@@ -375,6 +383,7 @@ Somfy Connexoon RTS
 Somfy TaHoma
 Somfy TaHoma Beecon
 Somfy TaHoma Switch
+Thermor Cozytouch
 And more...
 
 Supported devices :
