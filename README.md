@@ -147,6 +147,8 @@ For example :
 
 `tahoma open shutter kitchen open shutter room6 cancel last action` : It will only stop the room6 shutter
 
+- There is a `-n` or `--notification` argument for showing a desktop notification (Linux only) to override the default configuration in `tahoma -c`. This is useful if you want to create a shortcut with an execution notification even if in `tahoma -c` notifications are unset. For example : `tahoma open shutter kitchen -n`
+
 # Examples :
 Here are some example commands :
 
@@ -172,6 +174,7 @@ Here are some example commands :
 - tahoma open shutter kitchen --username mail@address.com --password password --remote (You can provide the username and password with arguments to override the logins stored. This is useful if you have more than one Tahoma box)
 - tahoma my shutter kitchen --token 2343d8c7f23dd5f328de --pin 1234-1234-1234 --local (It will use the local API (for Tahoma hubs only) with the pin and token arguments. This is useful if you have more than one Tahoma box)
 - tahoma manual heater kitchen wait for 2 19 heater kitchen --server atlantic_cozytouch --username cozytouch_username --password cozytouch_password --remote (For some atlantic_cozytouch heaters, it is possible to use other ACTIONS than comfort, eco, off...with auto, manual, standby, prog, NUMBER. As a Cozytouch hub is not compatible with the local API, you can add the `--remote` argument. In this example tahoma will change the heater's mode to manual and will give the ability to modify the temperature to 19°C using the cloud API)
+- tahoma open shutter kitchen -n (It will show a desktop notification if the process is successful even if notifications are unset)
 
 Special note:
 
