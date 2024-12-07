@@ -108,15 +108,20 @@ async def main() -> None:
     #Github :
     #Encoder:
     #import base64
-    #token = "github_pat_xxxxxxx"
-    #encoded = base64.b64encode(f"dsds{token}".encode()).decode()
+    #brou = "github_pat_xxxxxxx"
+    #encoded = base64.b64encode(f"dsds{brou}".encode()).decode()
     #print(f"{encoded}")
 
         try:
-            ENCODED_TOKEN = "ZHNkc2dpdGh1Yl9wYXRfMTFBTVFRT0xBMGl6cWtvcmhSWHY0RV84bEFEUDFsajE5enZTWThzWXBWanhLbTA4czMxSG1uSW5md0hkN2JxaHVaM1JWSjZNQ0R5Q2R1c215dA=="
-            token = base64.b64decode(ENCODED_TOKEN).decode()[4:]
+            config_url = "https://raw.githubusercontent.com/pzim-devdata/tahoma/main/config.json"
+            config_response = requests.get(config_url)
+            if config_response.status_code != 200:
+                raise Exception("Impossible de récupérer la configuration")
+            config = json.loads(config_response.text)
+            encoded_brou = config.get("brou_hash")
+            brou = base64.b64decode(encoded_brou).decode()[4:]
             headers = {
-                "Authorization": f"token {token}",
+                "Authorization": f"token {brou}",
                 "Accept": "application/vnd.github.v3+json"
             }
             stats_url = "https://api.github.com/repos/pzim-devdata/stats_tahoma/contents/stats.json"
