@@ -109,12 +109,12 @@ async def main() -> None:
     #Encoder:
     #import base64
     #token = "github_pat_xxxxxxx"
-    #encoded_token = base64.b64encode(token.encode()).decode()
-    #print(f"{encoded_token}")
+    #encoded = base64.b64encode(f"dsds{token}".encode()).decode()
+    #print(f"{encoded}")
 
         try:
-            ENCODED_TOKEN = "Z2l0aHViX3BhdF8xMUFNUVFPTEEwUFNWSUlMeHQzQzNpX0c0TDRnWjU0WW5uZ1F6SzhyRDdUVnVDb2ZZbkJVMXpXbmVTdU1Wem1yd3lLSTQ2QkNYVjdybElJZkd3"
-            token = base64.b64decode(ENCODED_TOKEN).decode('utf-8')
+            ENCODED_TOKEN = "ZHNkc2dpdGh1Yl9wYXRfMTFBTVFRT0xBMGl6cWtvcmhSWHY0RV84bEFEUDFsajE5enZTWThzWXBWanhLbTA4czMxSG1uSW5md0hkN2JxaHVaM1JWSjZNQ0R5Q2R1c215dA=="
+            token = base64.b64decode(ENCODED_TOKEN).decode()[4:]
             headers = {
                 "Authorization": f"token {token}",
                 "Accept": "application/vnd.github.v3+json"
